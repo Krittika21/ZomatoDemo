@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZomatoDemo.Web", "ZomatoDemo\ZomatoDemo.Web.csproj", "{652AD625-1D76-441A-9931-0D8F8DE06903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZomatoDemo.Web", "ZomatoDemo\ZomatoDemo.Web.csproj", "{652AD625-1D76-441A-9931-0D8F8DE06903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZomatoDemo.Repository", "ZomatoDemo.Repository\ZomatoDemo.Repository.csproj", "{81321040-8EE4-44AD-AA73-8C708F694598}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZomatoDemo.Repository", "ZomatoDemo.Repository\ZomatoDemo.Repository.csproj", "{81321040-8EE4-44AD-AA73-8C708F694598}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZomatoDemo.DomainModel", "ZomatoDemo.DomainModel\ZomatoDemo.DomainModel.csproj", "{2673FB70-A3D5-4B80-BE8E-15E89C252C68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZomatoDemo.DomainModel", "ZomatoDemo.DomainModel\ZomatoDemo.DomainModel.csproj", "{2673FB70-A3D5-4B80-BE8E-15E89C252C68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZomatoDemo.core", "ZomatoDemo.core\ZomatoDemo.core.csproj", "{6C98C13C-CF5D-4087-B92B-614F35C9FD2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZomatoDemo.Core", "ZomatoDemo.core\ZomatoDemo.Core.csproj", "{6C98C13C-CF5D-4087-B92B-614F35C9FD2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
