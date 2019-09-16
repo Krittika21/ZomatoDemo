@@ -207,6 +207,29 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "ZomatoDemo.DomainModel/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/ZomatoDemo.DomainModel.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ZomatoDemo.DomainModel.dll": {}
+        }
+      },
+      "ZomatoDemo.Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "ZomatoDemo.DomainModel": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ZomatoDemo.Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ZomatoDemo.Repository.dll": {}
+        }
       }
     }
   },
@@ -673,11 +696,22 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "ZomatoDemo.DomainModel/1.0.0": {
+      "type": "project",
+      "path": "../ZomatoDemo.DomainModel/ZomatoDemo.DomainModel.csproj",
+      "msbuildProject": "../ZomatoDemo.DomainModel/ZomatoDemo.DomainModel.csproj"
+    },
+    "ZomatoDemo.Repository/1.0.0": {
+      "type": "project",
+      "path": "../ZomatoDemo.Repository/ZomatoDemo.Repository.csproj",
+      "msbuildProject": "../ZomatoDemo.Repository/ZomatoDemo.Repository.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Microsoft.NETCore.App >= 2.1.0",
+      "ZomatoDemo.Repository >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -687,9 +721,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.core\\ZomatoDemo.core.csproj",
-      "projectName": "ZomatoDemo.core",
-      "projectPath": "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.core\\ZomatoDemo.core.csproj",
+      "projectUniqueName": "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.core\\ZomatoDemo.Core.csproj",
+      "projectName": "ZomatoDemo.Core",
+      "projectPath": "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.core\\ZomatoDemo.Core.csproj",
       "packagesPath": "C:\\Users\\krittika\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.core\\obj\\",
       "projectStyle": "PackageReference",
@@ -709,7 +743,11 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.Repository\\ZomatoDemo.Repository.csproj": {
+              "projectPath": "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.Repository\\ZomatoDemo.Repository.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

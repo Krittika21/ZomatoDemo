@@ -1,41 +1,57 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ZomatoDemo.DomainModel.Models;
 
 namespace ZomatoDemo.Repository.Restaurants
 {
     public class RestaurantRepository : IRestaurantRepository
     {
-        public IAsyncResult GetRestaurant()
+
+        private DbContext dbContext;
+
+        public RestaurantRepository(DbContext dbContext)
         {
-            throw new NotImplementedException();
-            //return OK();
+            this.dbContext = dbContext;
         }
-        public IAsyncResult PutRestaurant()
+
+        //get
+        public IEnumerable<Restaurant> GetRestaurants()
         {
             throw new NotImplementedException();
-            //return OK();
         }
-        public IAsyncResult PostLocation()
+
+        public IEnumerable<Restaurant> GetUserRestaurants(long userId)
         {
             throw new NotImplementedException();
-            //return OK();
         }
-        public IAsyncResult PostRestaurants()
+
+        //post
+        public object AddLocation(Location location)
         {
             throw new NotImplementedException();
-            //return OK();
         }
-        public IAsyncResult PostOrderDetails()
+        public object AddRestaurant(Restaurant restaurants)
         {
             throw new NotImplementedException();
-            //return OK();
         }
-        public IAsyncResult DeleteRestaurant()
+        public object AddRestaurantToUser(long userId, long restaurantId)
         {
             throw new NotImplementedException();
-            //return OK();
+        }
+
+        //put
+        public Restaurant EditRestaurant(long restaurantId)
+        {
+            throw new NotImplementedException();
+        }
+
+        //delete
+        public bool DeleteRestaurant(long restaurantId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

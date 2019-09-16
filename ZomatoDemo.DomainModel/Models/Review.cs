@@ -10,7 +10,7 @@ namespace ZomatoDemo.DomainModel.Models
         public int LikesCount { get; set; }
         public string ReviewTexts { get; set; }
 
-        public virtual Restaurants Restaurant { get; set; }
-        public virtual Users User { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
+        public virtual User User { get; set; }
     }
 }

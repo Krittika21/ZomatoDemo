@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ZomatoDemo.DomainModel.Models
 {
-    public class Users
+    public class User
     {
         public int ID { get; set; }
         public string Name { get; set; }

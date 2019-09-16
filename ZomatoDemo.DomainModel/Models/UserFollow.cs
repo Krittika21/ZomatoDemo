@@ -8,7 +8,7 @@ namespace ZomatoDemo.DomainModel.Models
     {
         public int ID { get; set; }
 
-        public virtual Users Followee { get; set; }
-        public virtual Users Follower { get; set; }
+        public virtual User Followee { get; set; }
+        public virtual User Follower { get; set; }
     }
 }

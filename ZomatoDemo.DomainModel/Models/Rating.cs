@@ -9,7 +9,7 @@ namespace ZomatoDemo.DomainModel.Models
         public int ID { get; set; }
         public decimal AverageRating { get; set; }
 
-        public virtual Restaurants Restaurant { get; set; }
-        public virtual Users User { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
+        public virtual User User { get; set; }
     }
 }
