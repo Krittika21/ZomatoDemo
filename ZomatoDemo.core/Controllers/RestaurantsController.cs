@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ZomatoDemo.core.Controllers
 {
-    class RestaurantsController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RestaurantsController : ControllerBase
     {
     }
 }

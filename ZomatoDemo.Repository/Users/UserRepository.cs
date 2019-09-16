@@ -8,25 +8,21 @@ namespace ZomatoDemo.Repository.Users
 {
     public class UserRepository: IUserRepository
     {
-        [HttpGet]
         public IAsyncResult GetUser()
         {
             throw new NotImplementedException();
             //return OK();
         }
-        [HttpPost]
         public IAsyncResult PostUser()
         {
             throw new NotImplementedException();
             //return OK();
         }
-        [HttpPut]
         public IAsyncResult PutUser()
         {
             throw new NotImplementedException();
             //return OK();
         }
-        [HttpDelete]
         public IAsyncResult DeleteUser()
         {
             throw new NotImplementedException();
