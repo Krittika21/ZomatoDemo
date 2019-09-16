@@ -7,10 +7,17 @@ namespace ZomatoDemo.Repository.Users
 {
     public interface IUserRepository
     {
-            object AddUser(User user);
-            IEnumerable<User> GetUsers();
-            bool DeleteUser(long userId);
-            User GetUser(long Id);
-            User EditUser(int userId);
+        //get
+        IEnumerable<User> GetAllUsers();
+        User GetUser(long Id);
+
+        //post
+        object AddAllUsers(User user);
+
+        //edit
+        User EditUser(int userId);
+
+        //delete
+        bool DeleteUser(long userId);
     }
 }

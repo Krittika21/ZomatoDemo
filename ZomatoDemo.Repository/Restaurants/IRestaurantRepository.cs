@@ -7,13 +7,19 @@ namespace ZomatoDemo.Repository.Restaurants
 {
     public interface IRestaurantRepository
     {
-        object AddLocation(Location location);
-        object AddRestaurant(Restaurant restaurants);
-        //Restaurant GetRestaurant(long id);
+        //get
+        Location GetRestaurantLocation(long restaurantId);
         IEnumerable<Restaurant> GetRestaurants();
+        IEnumerable<Restaurant> GetUserRestaurants(long userId, long restaurantId);
+
+        //post
+        object AddLocation(Location location);
+        object AddAllRestaurants(Restaurant restaurants);
+
+        //edit
         Restaurant EditRestaurant(long restaurantId);
+
+        //delete
         bool DeleteRestaurant(long restaurantId);
-        IEnumerable<Restaurant> GetUserRestaurants(long userId);
-        object AddRestaurantToUser(long userId, long restaurantId);
     }
 }

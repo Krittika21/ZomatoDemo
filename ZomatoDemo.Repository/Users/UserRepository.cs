@@ -18,7 +18,7 @@ namespace ZomatoDemo.Repository.Users
         }
 
         //get
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<User> GetAllUsers()
         {
             throw new NotImplementedException();
         }
@@ -28,7 +28,7 @@ namespace ZomatoDemo.Repository.Users
         }
 
         //post
-        public object AddUser(User user)
+        public object AddAllUsers(User user)
         {
             throw new NotImplementedException();
         }

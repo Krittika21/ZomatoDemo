@@ -22,7 +22,7 @@ namespace ZomatoDemo.Core.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAllUsers()
         {
-            return Ok(unitOfWork.User.GetUsers());
+            return Ok(unitOfWork.User.GetAllUsers());
         }
 
         [HttpGet]
@@ -31,18 +31,21 @@ namespace ZomatoDemo.Core.Controllers
             return Ok(unitOfWork.User.GetUser(Id));
         }
 
+        //post
         [HttpPost]
         public async Task<ActionResult> PostUsers(User user)
         {
-            return Ok(unitOfWork.User.AddUser(user));
+            return Ok(unitOfWork.User.AddAllUsers(user));
         }
 
+        //put
         [HttpPut]
         public async Task<ActionResult> UpdateUser(int userId)
         {
             return Ok(unitOfWork.User.EditUser(userId));
         }
 
+        //delete
         [HttpDelete]
         public async Task<ActionResult> RemoveUser(long userId)
         {

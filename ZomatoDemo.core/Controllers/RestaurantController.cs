@@ -21,44 +21,46 @@ namespace ZomatoDemo.core.Controllers
         //Get:api/Restaurant
 
         [HttpGet]
+        public async Task<ActionResult> GetRestaurantLocationAsync(long restaurantId)
+        {
+            return Ok(unitOfWork.Restaurant.GetRestaurantLocation(restaurantId));
+        }
+        [HttpGet]
         public async Task<ActionResult> GetAllRestaurantAsync()
         {
             return Ok(unitOfWork.Restaurant.GetRestaurants());
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetUserRestaurant(long userId)
+        public async Task<ActionResult> GetUserRestaurantAsync(long userId, long restaurantId)
         {
-            return Ok(unitOfWork.Restaurant.GetUserRestaurants(userId));
+            return Ok(unitOfWork.Restaurant.GetUserRestaurants(userId, restaurantId));
         }
 
+        //post
+        
         [HttpPost]
-        public async Task<ActionResult> PostLocation(Location location)
+        public async Task<ActionResult> PostLocationAsync(Location location)
         {
             return Ok(unitOfWork.Restaurant.AddLocation(location));
         }
 
-        //post
         [HttpPost]
-        public async Task<ActionResult> PostRestaurant(Restaurant restaurants)
+        public async Task<ActionResult> PostAllRestaurantAsync(Restaurant restaurants)
         {
-            return Ok(unitOfWork.Restaurant.AddRestaurant(restaurants));
+            return Ok(unitOfWork.Restaurant.AddAllRestaurants(restaurants));
         }
 
-        [HttpPost]
-        public async Task<ActionResult> PostRestaurantToUser(long userId, long restaurantId)
-        {
-            return Ok(unitOfWork.Restaurant.AddRestaurantToUser(userId, restaurantId));
-        }
-
+        //put
         [HttpPut]
-        public async Task<ActionResult> UpdateRestaurant(long restaurantId)
+        public async Task<ActionResult> UpdateRestaurantAsync(long restaurantId)
         {
             return Ok(unitOfWork.Restaurant.EditRestaurant(restaurantId));
         }
 
+        //delete
         [HttpDelete]
-        public async Task<ActionResult> RemoveRestaurant(long restaurantId)
+        public async Task<ActionResult> RemoveRestaurantAsync(long restaurantId)
         {
             return Ok(unitOfWork.Restaurant.DeleteRestaurant(restaurantId));
         }
