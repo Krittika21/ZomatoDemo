@@ -34,7 +34,7 @@ namespace ZomatoDemo.Repository.Users
         }
 
         //put
-        public User EditUser(int userId)
+        public User EditUser([FromBody] List<User> user)
         {
             throw new NotImplementedException();
             //return OK();

@@ -58,9 +58,9 @@ namespace ZomatoDemo.core.Controllers
         //put
         [HttpPut]
         [Route("restaurant/{id}")]
-        public async Task<ActionResult> UpdateRestaurantAsync(int restaurantId)
+        public async Task<ActionResult> UpdateRestaurantAsync([FromBody] List<Restaurant> restaurants)
         {
-            return Ok(unitOfWork.Restaurant.EditRestaurant(restaurantId));
+            return Ok(unitOfWork.Restaurant.EditRestaurant(restaurants));
         }
 
         //delete

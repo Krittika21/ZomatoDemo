@@ -44,9 +44,9 @@ namespace ZomatoDemo.Core.Controllers
         //put
         [HttpPut]
         [Route("user/{id}")]
-        public async Task<ActionResult> UpdateUser(int userId)
+        public async Task<ActionResult> UpdateUser([FromBody] List<User> user)
         {
-            return Ok(unitOfWork.User.EditUser(userId));
+            return Ok(unitOfWork.User.EditUser(user));
         }
 
         //delete

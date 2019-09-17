@@ -42,7 +42,7 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //put
-        public Restaurant EditRestaurant(int restaurantId)
+        public Restaurant EditRestaurant([FromBody] List<Restaurant> restaurants)
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using ZomatoDemo.DomainModel.Models;
@@ -17,7 +18,7 @@ namespace ZomatoDemo.Repository.Restaurants
         object AddAllRestaurants(List<Restaurant> restaurants);
 
         //edit
-        Restaurant EditRestaurant(int restaurantId);
+        Restaurant EditRestaurant([FromBody] List<Restaurant> restaurants);
 
         //delete
         bool DeleteRestaurant(int restaurantId);
