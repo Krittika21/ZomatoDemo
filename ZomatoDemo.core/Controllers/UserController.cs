@@ -20,12 +20,14 @@ namespace ZomatoDemo.Core.Controllers
         //Get:api/Restaurant
 
         [HttpGet]
+        [Route("allusers")]
         public async Task<ActionResult> GetAllUsers()
         {
             return Ok(unitOfWork.User.GetAllUsers());
         }
 
         [HttpGet]
+        [Route("user/{id}")]
         public async Task<ActionResult> GetUser(long Id)
         {
             return Ok(unitOfWork.User.GetUser(Id));
@@ -33,6 +35,7 @@ namespace ZomatoDemo.Core.Controllers
 
         //post
         [HttpPost]
+        [Route("allusers")]
         public async Task<ActionResult> PostUsers(User user)
         {
             return Ok(unitOfWork.User.AddAllUsers(user));
@@ -40,6 +43,7 @@ namespace ZomatoDemo.Core.Controllers
 
         //put
         [HttpPut]
+        [Route("user/{id}")]
         public async Task<ActionResult> UpdateUser(int userId)
         {
             return Ok(unitOfWork.User.EditUser(userId));
@@ -47,6 +51,7 @@ namespace ZomatoDemo.Core.Controllers
 
         //delete
         [HttpDelete]
+        [Route("user/{id}")]
         public async Task<ActionResult> RemoveUser(long userId)
         {
             return Ok(unitOfWork.User.DeleteUser(userId));

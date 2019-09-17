@@ -21,32 +21,35 @@ namespace ZomatoDemo.core.Controllers
         //Get:api/Restaurant
 
         [HttpGet]
+        [Route("restaurant/{id}")]
         public async Task<ActionResult> GetRestaurantLocationAsync(long restaurantId)
         {
             return Ok(unitOfWork.Restaurant.GetRestaurantLocation(restaurantId));
         }
         [HttpGet]
+        [Route("allrestaurants")]
         public async Task<ActionResult> GetAllRestaurantAsync()
         {
             return Ok(unitOfWork.Restaurant.GetRestaurants());
         }
 
         [HttpGet]
+        [Route("restaurant/{userId}/{restaurantId}")]
         public async Task<ActionResult> GetUserRestaurantAsync(long userId, long restaurantId)
         {
             return Ok(unitOfWork.Restaurant.GetUserRestaurants(userId, restaurantId));
         }
 
         //post
-        [Route("location")]
         [HttpPost]
+        [Route("location")]
         public async Task<ActionResult> PostLocationAsync(Location location)
         {
             return Ok(unitOfWork.Restaurant.AddLocation(location));
         }
 
-        [Route("restaurant")]
         [HttpPost]
+        [Route("allrestaurants")]
         public async Task<ActionResult> PostAllRestaurantAsync(Restaurant restaurants)
         {
             return Ok(unitOfWork.Restaurant.AddAllRestaurants(restaurants));
@@ -54,6 +57,7 @@ namespace ZomatoDemo.core.Controllers
 
         //put
         [HttpPut]
+        [Route("restaurant/{id}")]
         public async Task<ActionResult> UpdateRestaurantAsync(long restaurantId)
         {
             return Ok(unitOfWork.Restaurant.EditRestaurant(restaurantId));
@@ -61,6 +65,7 @@ namespace ZomatoDemo.core.Controllers
 
         //delete
         [HttpDelete]
+        [Route("restaurant/{id}")]
         public async Task<ActionResult> RemoveRestaurantAsync(long restaurantId)
         {
             return Ok(unitOfWork.Restaurant.DeleteRestaurant(restaurantId));
