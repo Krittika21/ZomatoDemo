@@ -8,18 +8,18 @@ namespace ZomatoDemo.Repository.Restaurants
     public interface IRestaurantRepository
     {
         //get
-        Location GetRestaurantLocation(long restaurantId);
+        Location GetRestaurantLocation(int restaurantId);
         IEnumerable<Restaurant> GetRestaurants();
-        IEnumerable<Restaurant> GetUserRestaurants(long userId, long restaurantId);
+        IEnumerable<Restaurant> GetUserRestaurants(int userId, int restaurantId);
 
         //post
-        object AddLocation(Location location);
-        object AddAllRestaurants(Restaurant restaurants);
+        object AddLocation(List<Location> location);
+        object AddAllRestaurants(List<Restaurant> restaurants);
 
         //edit
-        Restaurant EditRestaurant(long restaurantId);
+        Restaurant EditRestaurant(int restaurantId);
 
         //delete
-        bool DeleteRestaurant(long restaurantId);
+        bool DeleteRestaurant(int restaurantId);
     }
 }

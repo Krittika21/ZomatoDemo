@@ -18,7 +18,7 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //get
-        public Location GetRestaurantLocation(long restaurantId)
+        public Location GetRestaurantLocation(int restaurantId)
         {
             throw new NotImplementedException();
         }
@@ -26,29 +26,29 @@ namespace ZomatoDemo.Repository.Restaurants
         {
             throw new NotImplementedException();
         }
-        public IEnumerable<Restaurant> GetUserRestaurants(long userId, long restaurantId)
+        public IEnumerable<Restaurant> GetUserRestaurants(int userId, int restaurantId)
         {
             throw new NotImplementedException();
         }
 
         //post
-        public object AddLocation(Location location)
+        public object AddLocation(List<Location> location)
         {
             throw new NotImplementedException();
         }
-        public object AddAllRestaurants(Restaurant restaurants)
+        public object AddAllRestaurants(List<Restaurant> restaurants)
         {
             throw new NotImplementedException();
         }
 
         //put
-        public Restaurant EditRestaurant(long restaurantId)
+        public Restaurant EditRestaurant(int restaurantId)
         {
             throw new NotImplementedException();
         }
 
         //delete
-        public bool DeleteRestaurant(long restaurantId)
+        public bool DeleteRestaurant(int restaurantId)
         {
             throw new NotImplementedException();
         }

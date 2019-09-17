@@ -9,15 +9,15 @@ namespace ZomatoDemo.Repository.Users
     {
         //get
         IEnumerable<User> GetAllUsers();
-        User GetUser(long Id);
+        User GetUser(int Id);
 
         //post
-        object AddAllUsers(User user);
+        object AddAllUsers(List<User> user);
 
         //edit
         User EditUser(int userId);
 
         //delete
-        bool DeleteUser(long userId);
+        bool DeleteUser(int userId);
     }
 }

@@ -22,7 +22,7 @@ namespace ZomatoDemo.core.Controllers
 
         [HttpGet]
         [Route("restaurant/{id}")]
-        public async Task<ActionResult> GetRestaurantLocationAsync(long restaurantId)
+        public async Task<ActionResult> GetRestaurantLocationAsync(int restaurantId)
         {
             return Ok(unitOfWork.Restaurant.GetRestaurantLocation(restaurantId));
         }
@@ -35,7 +35,7 @@ namespace ZomatoDemo.core.Controllers
 
         [HttpGet]
         [Route("restaurant/{userId}/{restaurantId}")]
-        public async Task<ActionResult> GetUserRestaurantAsync(long userId, long restaurantId)
+        public async Task<ActionResult> GetUserRestaurantAsync(int userId, int restaurantId)
         {
             return Ok(unitOfWork.Restaurant.GetUserRestaurants(userId, restaurantId));
         }
@@ -43,14 +43,14 @@ namespace ZomatoDemo.core.Controllers
         //post
         [HttpPost]
         [Route("location")]
-        public async Task<ActionResult> PostLocationAsync(Location location)
+        public async Task<ActionResult> PostLocationAsync(List<Location> location)
         {
             return Ok(unitOfWork.Restaurant.AddLocation(location));
         }
 
         [HttpPost]
         [Route("allrestaurants")]
-        public async Task<ActionResult> PostAllRestaurantAsync(Restaurant restaurants)
+        public async Task<ActionResult> PostAllRestaurantAsync(List<Restaurant> restaurants)
         {
             return Ok(unitOfWork.Restaurant.AddAllRestaurants(restaurants));
         }
@@ -58,7 +58,7 @@ namespace ZomatoDemo.core.Controllers
         //put
         [HttpPut]
         [Route("restaurant/{id}")]
-        public async Task<ActionResult> UpdateRestaurantAsync(long restaurantId)
+        public async Task<ActionResult> UpdateRestaurantAsync(int restaurantId)
         {
             return Ok(unitOfWork.Restaurant.EditRestaurant(restaurantId));
         }
@@ -66,7 +66,7 @@ namespace ZomatoDemo.core.Controllers
         //delete
         [HttpDelete]
         [Route("restaurant/{id}")]
-        public async Task<ActionResult> RemoveRestaurantAsync(long restaurantId)
+        public async Task<ActionResult> RemoveRestaurantAsync(int restaurantId)
         {
             return Ok(unitOfWork.Restaurant.DeleteRestaurant(restaurantId));
         }

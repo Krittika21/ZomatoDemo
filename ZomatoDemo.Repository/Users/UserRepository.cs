@@ -22,13 +22,13 @@ namespace ZomatoDemo.Repository.Users
         {
             throw new NotImplementedException();
         }
-        public User GetUser(long Id)
+        public User GetUser(int Id)
         {
             throw new NotImplementedException();
         }
 
         //post
-        public object AddAllUsers(User user)
+        public object AddAllUsers(List<User> user)
         {
             throw new NotImplementedException();
         }
@@ -41,7 +41,7 @@ namespace ZomatoDemo.Repository.Users
         }
 
         //delete
-        public bool DeleteUser(long userId)
+        public bool DeleteUser(int userId)
         {
             throw new NotImplementedException();
         }
