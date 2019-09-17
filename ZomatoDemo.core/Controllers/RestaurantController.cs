@@ -38,13 +38,14 @@ namespace ZomatoDemo.core.Controllers
         }
 
         //post
-        
+        [Route("location")]
         [HttpPost]
         public async Task<ActionResult> PostLocationAsync(Location location)
         {
             return Ok(unitOfWork.Restaurant.AddLocation(location));
         }
 
+        [Route("restaurant")]
         [HttpPost]
         public async Task<ActionResult> PostAllRestaurantAsync(Restaurant restaurants)
         {
