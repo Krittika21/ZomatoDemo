@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.DomainModel.Models;
 
 namespace ZomatoDemo.Repository.Restaurants
@@ -10,11 +12,11 @@ namespace ZomatoDemo.Repository.Restaurants
     public class RestaurantRepository : IRestaurantRepository
     {
 
-        private DbContext dbContext;
+        private DbContext _dbContext;
 
         public RestaurantRepository(DbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
         //get
@@ -32,11 +34,27 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //post
-        public object AddLocation(List<Location> location)
+        public async Task<IEnumerable<LocationAC>> AddLocation(List<LocationAC> locationAC)
         {
+            //Country map;
+            //List<Location> locations = new List<Location>();
+            //foreach (var item in locationAC)
+            //{
+            //    map = await _dbContext.Country.FirstAsync(x => x.ID == item.ID);
+            //    locationAC.Add(new Location
+            //    {
+            //        City = new City
+            //        {
+            //            CityName = item.
+            //        },
+            //    });
+            //}
+            //_dbContext.locations.AddRange(locationAC);
+            //await _dbContext.SaveChangesAsync();
+
             throw new NotImplementedException();
         }
-        public object AddAllRestaurants(List<Restaurant> restaurants)
+        public IEnumerable<Restaurant> AddAllRestaurants(List<Restaurant> restaurants)
         {
             throw new NotImplementedException();
         }

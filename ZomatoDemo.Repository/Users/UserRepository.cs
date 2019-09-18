@@ -10,11 +10,11 @@ namespace ZomatoDemo.Repository.Users
 {
     public class UserRepository: IUserRepository
     {
-        private readonly DbContext dbContext;
+        private readonly DbContext _dbContext;
 
         public UserRepository(DbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
         //get

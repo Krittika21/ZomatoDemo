@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.DomainModel.Models;
 
 namespace ZomatoDemo.Repository.Restaurants
@@ -14,8 +16,8 @@ namespace ZomatoDemo.Repository.Restaurants
         IEnumerable<Restaurant> GetUserRestaurants(int userId, int restaurantId);
 
         //post
-        object AddLocation(List<Location> location);
-        object AddAllRestaurants(List<Restaurant> restaurants);
+        Task<IEnumerable<LocationAC>> AddLocation(List<LocationAC> location);
+        IEnumerable<Restaurant> AddAllRestaurants(List<Restaurant> restaurants);
 
         //edit
         Restaurant EditRestaurant([FromBody] List<Restaurant> restaurants);

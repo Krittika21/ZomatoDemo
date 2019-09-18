@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.DomainModel.Models;
 using static ZomatoDemo.Repository.UnitOfWork.IUnitOfWorkRepository;
 
@@ -43,9 +44,9 @@ namespace ZomatoDemo.core.Controllers
         //post
         [HttpPost]
         [Route("location")]
-        public async Task<ActionResult> PostLocationAsync(List<Location> location)
+        public async Task<ActionResult> PostLocationAsync(List<LocationAC> locationAC)
         {
-            return Ok(unitOfWork.Restaurant.AddLocation(location));
+            return Ok(unitOfWork.Restaurant.AddLocation(locationAC));
         }
 
         [HttpPost]

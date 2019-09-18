@@ -10,10 +10,10 @@ namespace ZomatoDemo.Repository.UnitOfWork
 {
     public class UnitOfWorkRepository : IUnitOfWorkRepository
     {
-        private readonly DbContext dbContext;
+        private readonly DbContext _dbContext;
         public UnitOfWorkRepository(DbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this._dbContext = dbContext;
         }
         private IUserRepository _User;
 
@@ -24,7 +24,7 @@ namespace ZomatoDemo.Repository.UnitOfWork
             {
                 if (_User == null)
                 {
-                    _User = new UserRepository(dbContext);
+                    _User = new UserRepository(_dbContext);
                 }
                 return _User;
             }
@@ -35,7 +35,7 @@ namespace ZomatoDemo.Repository.UnitOfWork
             {
                 if (_Restaurant == null)
                 {
-                    _Restaurant = new RestaurantRepository(dbContext);
+                    _Restaurant = new RestaurantRepository(_dbContext);
                 }
                 return _Restaurant;
             }
@@ -43,13 +43,13 @@ namespace ZomatoDemo.Repository.UnitOfWork
 
         public async Task<int> CompleteAsync()
         {
-            return await dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
         public int Complete()
         {
-            return dbContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
-        public void Dispose() => dbContext.Dispose();
+        public void Dispose() => _dbContext.Dispose();
 
     }
 }
