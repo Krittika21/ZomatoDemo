@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Models;
 
 namespace ZomatoDemo.Repository.Users
@@ -10,17 +11,16 @@ namespace ZomatoDemo.Repository.Users
     public interface IUserRepository
     {
         //get
-        IEnumerable<User> GetAllUsers();
-        User GetUser(int Id);
+        Task<IEnumerable<User>> GetAllUsers();
+        Task<User> GetUser(int Id);
 
         //post
-        //IEnumerable<User> AddAllUsers(List<User> user);
-        object AddAllUsers(List<User> user);
+        Task<IEnumerable<User>> AddAllUsers(List<User> user);
 
         //edit
-        User EditUser([FromBody] List<User> user);
+        Task<User> EditUser([FromBody] List<User> user);
 
         //delete
-        bool DeleteUser(int userId);
+        Task<bool> DeleteUser(int userId);
     }
 }

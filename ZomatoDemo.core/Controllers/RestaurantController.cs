@@ -25,20 +25,20 @@ namespace ZomatoDemo.core.Controllers
         [Route("restaurant/{id}")]
         public async Task<ActionResult> GetRestaurantLocationAsync(int restaurantId)
         {
-            return Ok(unitOfWork.Restaurant.GetRestaurantLocation(restaurantId));
+            return Ok(await unitOfWork.Restaurant.GetRestaurantLocation(restaurantId));
         }
         [HttpGet]
         [Route("allrestaurants")]
         public async Task<ActionResult> GetAllRestaurantAsync()
         {
-            return Ok(unitOfWork.Restaurant.GetRestaurants());
+            return Ok(await unitOfWork.Restaurant.GetRestaurants());
         }
 
         [HttpGet]
         [Route("restaurant/{userId}/{restaurantId}")]
         public async Task<ActionResult> GetUserRestaurantAsync(int userId, int restaurantId)
         {
-            return Ok(unitOfWork.Restaurant.GetUserRestaurants(userId, restaurantId));
+            return Ok(await unitOfWork.Restaurant.GetUserRestaurants(userId, restaurantId));
         }
 
         //post
@@ -46,14 +46,14 @@ namespace ZomatoDemo.core.Controllers
         [Route("location")]
         public async Task<ActionResult> PostLocationAsync(List<LocationAC> locationAC)
         {
-            return Ok(unitOfWork.Restaurant.AddLocation(locationAC));
+            return Ok(await unitOfWork.Restaurant.AddLocation(locationAC));
         }
 
         [HttpPost]
         [Route("allrestaurants")]
         public async Task<ActionResult> PostAllRestaurantAsync(List<Restaurant> restaurants)
         {
-            return Ok(unitOfWork.Restaurant.AddAllRestaurants(restaurants));
+            return Ok(await unitOfWork.Restaurant.AddAllRestaurants(restaurants));
         }
 
         //put
@@ -61,7 +61,7 @@ namespace ZomatoDemo.core.Controllers
         [Route("restaurant/{id}")]
         public async Task<ActionResult> UpdateRestaurantAsync([FromBody] List<Restaurant> restaurants)
         {
-            return Ok(unitOfWork.Restaurant.EditRestaurant(restaurants));
+            return Ok(await unitOfWork.Restaurant.EditRestaurant(restaurants));
         }
 
         //delete
@@ -69,7 +69,7 @@ namespace ZomatoDemo.core.Controllers
         [Route("restaurant/{id}")]
         public async Task<ActionResult> RemoveRestaurantAsync(int restaurantId)
         {
-            return Ok(unitOfWork.Restaurant.DeleteRestaurant(restaurantId));
+            return Ok(await unitOfWork.Restaurant.DeleteRestaurant(restaurantId));
         }
     }
 }

@@ -4333,6 +4333,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
+      },
+      "ZomatoDemo.DomainModel/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/ZomatoDemo.DomainModel.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ZomatoDemo.DomainModel.dll": {}
+        }
       }
     }
   },
@@ -11493,12 +11503,18 @@
         "system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
+    },
+    "ZomatoDemo.DomainModel/1.0.0": {
+      "type": "project",
+      "path": "../ZomatoDemo.DomainModel/ZomatoDemo.DomainModel.csproj",
+      "msbuildProject": "../ZomatoDemo.DomainModel/ZomatoDemo.DomainModel.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Microsoft.AspNetCore.App >= 2.1.1",
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Microsoft.NETCore.App >= 2.1.0",
+      "ZomatoDemo.DomainModel >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -11530,7 +11546,11 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.DomainModel\\ZomatoDemo.DomainModel.csproj": {
+              "projectPath": "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.DomainModel\\ZomatoDemo.DomainModel.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

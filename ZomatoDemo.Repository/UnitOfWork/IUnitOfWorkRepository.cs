@@ -12,7 +12,7 @@ namespace ZomatoDemo.Repository.UnitOfWork
         public interface IUnitOfWork
         {
             IUserRepository User { get; }
-            IRestaurantRepository Restaurant { get; }
+            IRestaurantsRepository Restaurant { get; }
             Task<int> CompleteAsync();
             int Complete();
         }

@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using ZomatoDemo.Repository.Restaurants;
 using ZomatoDemo.Repository.Users;
+using ZomatoDemo.Web.Models;
 
 namespace ZomatoDemo.Repository.UnitOfWork
 {
     public class UnitOfWorkRepository : IUnitOfWorkRepository
     {
-        private readonly DbContext _dbContext;
-        public UnitOfWorkRepository(DbContext dbContext)
+        private readonly ZomatoDbContext _dbContext;
+        public UnitOfWorkRepository(ZomatoDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
         private IUserRepository _User;
 
-        private IRestaurantRepository _Restaurant;
+        private IRestaurantsRepository _Restaurant;
         public IUserRepository User
         {
             get
@@ -29,13 +30,13 @@ namespace ZomatoDemo.Repository.UnitOfWork
                 return _User;
             }
         }
-        public IRestaurantRepository Product
+        public IRestaurantsRepository Product
         {
             get
             {
                 if (_Restaurant == null)
                 {
-                    _Restaurant = new RestaurantRepository(_dbContext);
+                    _Restaurant = new RestaurantsRepository(_dbContext);
                 }
                 return _Restaurant;
             }
@@ -53,4 +54,4 @@ namespace ZomatoDemo.Repository.UnitOfWork
 
     }
 }
-}
+

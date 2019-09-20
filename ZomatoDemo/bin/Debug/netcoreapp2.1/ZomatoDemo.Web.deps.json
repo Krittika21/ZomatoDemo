@@ -25,7 +25,8 @@
       "ZomatoDemo.Web/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.App": "2.1.1",
-          "Microsoft.NETCore.App": "2.1.0"
+          "Microsoft.NETCore.App": "2.1.0",
+          "ZomatoDemo.DomainModel": "1.0.0"
         },
         "runtime": {
           "ZomatoDemo.Web.dll": {}
@@ -203,6 +204,14 @@
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.1.0"
+        }
+      },
+      "ZomatoDemo.DomainModel/1.0.0": {
+        "runtime": {
+          "ZomatoDemo.DomainModel.dll": {}
+        },
+        "compile": {
+          "ZomatoDemo.DomainModel.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3204,6 +3213,11 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "ZomatoDemo.DomainModel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
       "type": "package",

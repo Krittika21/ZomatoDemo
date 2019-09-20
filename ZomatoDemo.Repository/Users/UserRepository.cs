@@ -5,44 +5,49 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Models;
+using ZomatoDemo.Web.Models;
 
 namespace ZomatoDemo.Repository.Users
 {
     public class UserRepository: IUserRepository
     {
-        private readonly DbContext _dbContext;
+        private readonly ZomatoDbContext _dbContext;
 
-        public UserRepository(DbContext dbContext)
+        public UserRepository(ZomatoDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
 
         //get
-        public IEnumerable<User> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsers()
         {
+            await _dbContext.SaveChangesAsync();
             throw new NotImplementedException();
         }
-        public User GetUser(int Id)
+        public async Task<User> GetUser(int Id)
         {
+            await _dbContext.SaveChangesAsync();
             throw new NotImplementedException();
         }
 
         //post
-        public object AddAllUsers(List<User> user)
+        public async Task<IEnumerable<User>> AddAllUsers(List<User> user)
         {
+            await _dbContext.SaveChangesAsync();
             throw new NotImplementedException();
         }
 
         //put
-        public User EditUser([FromBody] List<User> user)
+        public async Task<User> EditUser([FromBody] List<User> user)
         {
+            await _dbContext.SaveChangesAsync();
             throw new NotImplementedException();
-            //return OK();
         }
 
         //delete
-        public bool DeleteUser(int userId)
+        public async Task<bool> DeleteUser(int userId)
         {
+            await _dbContext.SaveChangesAsync();
             throw new NotImplementedException();
         }
     }

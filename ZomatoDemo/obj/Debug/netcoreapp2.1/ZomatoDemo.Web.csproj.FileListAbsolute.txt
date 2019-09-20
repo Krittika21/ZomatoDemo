@@ -12,3 +12,6 @@ C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\Zom
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\ZomatoDemo.Web.RazorTargetAssemblyInfo.cache
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\ZomatoDemo.Web.dll
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\ZomatoDemo.Web.pdb
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.dll
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.pdb
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\ZomatoDemo.Web.csproj.CopyComplete
