@@ -24,20 +24,20 @@ namespace ZomatoDemo.Repository.Restaurants
         public async Task<Location> GetRestaurantLocation(int restaurantId)
         {
             await _dbContext.SaveChangesAsync();
-            return ();
-            //throw new NotImplementedException();
+            //return ();
+            throw new NotImplementedException();
         }
         public async Task<IEnumerable<Restaurant>> GetRestaurants()
         {
             await _dbContext.SaveChangesAsync();
-            return ();
-            //throw new NotImplementedException();
+            //return ();
+            throw new NotImplementedException();
         }
         public async Task<IEnumerable<Restaurant>> GetUserRestaurants(int userId, int restaurantId)
         {
             await _dbContext.SaveChangesAsync();
-            return ();
-            //throw new NotImplementedException();
+            //return ();
+            throw new NotImplementedException();
         }
 
         //post
@@ -116,8 +116,7 @@ namespace ZomatoDemo.Repository.Restaurants
                 }
                 orders.Add(new OrderDetails
                 {
-                    User = user,
-                    Restaurant = restaurants
+                    Restaurant = restaurants.AddRange()
                 });
             }
             //include sum of dishes' cost
@@ -136,8 +135,16 @@ namespace ZomatoDemo.Repository.Restaurants
         //delete
         public async Task<bool> DeleteRestaurant(int restaurantId)
         {
+            var removed = false;
+            Restaurant restaurant = await _dbContext.Restaurant.FindAsync(restaurantId);
+            if (restaurant != null)
+            {
+                removed = true;
+                _dbContext.Restaurant.Remove(restaurant);
+            }
             await _dbContext.SaveChangesAsync();
-            throw new NotImplementedException();
+            return removed;
+            //throw new NotImplementedException();
         }
     }
 }
