@@ -35,10 +35,10 @@ namespace ZomatoDemo.core.Controllers
         }
 
         [HttpGet]
-        [Route("restaurant/{userId}/{restaurantId}")]
-        public async Task<ActionResult> GetUserRestaurantAsync(int userId, int restaurantId)
+        [Route("restaurant/{userId}")]
+        public async Task<ActionResult> GetUserRestaurantAsync(int userId)
         {
-            return Ok(await unitOfWork.Restaurant.GetUserRestaurants(userId, restaurantId));
+            return Ok(await unitOfWork.Restaurant.GetUserRestaurants(userId));
         }
 
         //post
@@ -51,7 +51,7 @@ namespace ZomatoDemo.core.Controllers
 
         [HttpPost]
         [Route("allrestaurants")]
-        public async Task<ActionResult> PostAllRestaurantAsync(List<Restaurant> restaurants)
+        public async Task<ActionResult> PostAllRestaurantAsync(List<RestaurantAC> restaurants)
         {
             return Ok(await unitOfWork.Restaurant.AddAllRestaurants(restaurants));
         }

@@ -13,7 +13,7 @@ namespace ZomatoDemo.Repository.Restaurants
         //get
         Task<Location> GetRestaurantLocation(int restaurantId);
         Task<IEnumerable<Restaurant>> GetRestaurants();
-        Task<IEnumerable<Restaurant>> GetUserRestaurants(int userId, int restaurantId);
+        Task<Restaurant> GetUserRestaurants(int userId);
 
         //post
         Task<IEnumerable<LocationAC>> AddLocation(List<LocationAC> location);

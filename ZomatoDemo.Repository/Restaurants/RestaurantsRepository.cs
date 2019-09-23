@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
@@ -21,23 +22,25 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //get
-        public async Task<Location> GetRestaurantLocation(int restaurantId)
+        public async Task<ICollection<Location>> GetRestaurantLocation(int restaurantId)
         {
-            await _dbContext.SaveChangesAsync();
-            //return ();
-            throw new NotImplementedException();
+            var locate = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).Select(l => l.Location).FirstAsync();
+            return locate;
+            //throw new NotImplementedException();
         }
-        public async Task<IEnumerable<Restaurant>> GetRestaurants()
+        //get restaurants as per location
+        public async Task<ICollection<Restaurant>> GetRestaurants()
         {
-            await _dbContext.SaveChangesAsync();
-            //return ();
-            throw new NotImplementedException();
+            var allRestaurants = await _dbContext.Restaurant.ToListAsync();
+            return allRestaurants;
+            //throw new NotImplementedException();
         }
-        public async Task<IEnumerable<Restaurant>> GetUserRestaurants(int userId, int restaurantId)
+        public async Task<Restaurant> GetUserRestaurants(int userId)
         {
-            await _dbContext.SaveChangesAsync();
-            //return ();
-            throw new NotImplementedException();
+            var items = await _dbContext.Restaurant.Where(r => r.ID == userId).Include(d => d.Dishes).FirstAsync();
+           
+            return items;
+            //throw new NotImplementedException();
         }
 
         //post
@@ -95,30 +98,40 @@ namespace ZomatoDemo.Repository.Restaurants
 
             //throw new NotImplementedException();
         }
-        public async Task<IEnumerable<OrderDetailsAC>> AddOrderDetails(List<OrderDetailsAC> detailsAC)
+        public async Task<OrderDetailsAC> AddOrderDetails(OrderDetailsAC detailsAC)
         {
-            List<Restaurant> restaurants = new List<Restaurant>();
-            List<OrderDetails> orders = new List<OrderDetails>();
-
-            foreach (var item in detailsAC)
+            Restaurant restaurants = await _dbContext.Restaurant.FirstAsync(x => x.ID == detailsAC.RestaurantID);
+            OrderDetails orders = new OrderDetails();
+            List<DishesOrdered> dishes = new List<DishesOrdered>();
+            List<Dishes> orderedDishes = await _dbContext.Dishes.Where(x => detailsAC.DishesName.Contains(x.ID)).ToListAsync();
+            foreach (var item in orderedDishes)
             {
-                foreach (var elements in item.RestaurantID)
-                {
-                    restaurants.Add(await _dbContext.Restaurant.FirstAsync(x => x.ID == elements));
-                }
-                List<User> user = new List<User>();
-                foreach (var elements in item.UserName)
-                {
-                    user.Add(new User
-                    {
-                        Name = elements
-                    });
-                }
-                orders.Add(new OrderDetails
-                {
-                    Restaurant = restaurants.AddRange()
+                dishes.Add(new DishesOrdered {
+                    Dishes = item
                 });
             }
+            //foreach (var item in detailsAC)
+            //{
+            //    foreach (var elements in item.RestaurantID)
+            //    {
+            //        restaurants.Add(await _dbContext.Restaurant.FirstAsync(x => x.ID == elements));
+            //    }
+            //    List<User> user = new List<User>();
+            //    foreach (var elements in item.UserName)
+            //    {
+            //        user.Add(new User
+            //        {
+            //            Name = elements
+            //        });
+            //    }
+            //    foreach (var elements in item.UserID)
+            //    {
+            //        orders.Add(new OrderDetails
+            //        {
+            //            Restaurant = restaurants.Add(await _dbContext.DishesOrdered.FirstAsync(d => d.ID))
+            //        });
+            //    }   
+            //}
             //include sum of dishes' cost
             _dbContext.Restaurant.AddRange(restaurants);
             await _dbContext.SaveChangesAsync();
@@ -126,10 +139,14 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //put
-        public async Task<Restaurant> EditRestaurant([FromBody] List<Restaurant> restaurants)
+        public async Task<RestaurantAC> EditRestaurant(int restaurantId, [FromBody] RestaurantAC restaurantac)
         {
+            var edit = await _dbContext.Restaurant.Where(x => x.ID == restaurantId).Include(Location)
+           
+            _dbContext.Restaurant.UpdateRange(restaurants);
             await _dbContext.SaveChangesAsync();
-            throw new NotImplementedException();
+            return ;
+           // throw new NotImplementedException();
         }
 
         //delete

@@ -6,8 +6,9 @@ namespace ZomatoDemo.DomainModel.Application_Classes
 {
     public class OrderDetailsAC
     {
-        public List<int> RestaurantID { get; set; }
-        public List<string> UserName { get; set; }
-        public List<string> DishesName { get; set; }
+        public int RestaurantID { get; set; }
+        public int UserID { get; set; }
+        public string UserName { get; set; }
+        public List<int> DishesName { get; set; }
     }
 }

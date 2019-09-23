@@ -10,6 +10,5 @@ namespace ZomatoDemo.DomainModel.Models
         public int ItemsCount { get; set; }
 
         public virtual Dishes Dishes { get; set; }
-        public virtual OrderDetails Order { get; set; }
     }
 }
