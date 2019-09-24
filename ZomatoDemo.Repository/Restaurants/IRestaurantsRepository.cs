@@ -11,16 +11,17 @@ namespace ZomatoDemo.Repository.Restaurants
     public interface IRestaurantsRepository
     {
         //get
-        Task<Location> GetRestaurantLocation(int restaurantId);
-        Task<IEnumerable<Restaurant>> GetRestaurants();
+        Task<ICollection<Location>> GetRestaurantLocation(int restaurantId);
+        Task<ICollection<Restaurant>> GetRestaurantsForLocation(int locationID);
+        Task<ICollection<Restaurant>> GetRestaurants();
         Task<Restaurant> GetUserRestaurants(int userId);
 
         //post
-        Task<IEnumerable<LocationAC>> AddLocation(List<LocationAC> location);
+        Task<IEnumerable<LocationAC>> AddLocation([FromBody] List<LocationAC> locationAC);
         Task<IEnumerable<RestaurantAC>> AddAllRestaurants(List<RestaurantAC> restaurants);
 
         //edit
-        Task<Restaurant> EditRestaurant([FromBody] List<Restaurant> restaurants);
+        Task<RestaurantAC> EditRestaurant(int restaurantId, [FromBody] RestaurantAC restaurantac);
 
         //delete
         Task<bool> DeleteRestaurant(int restaurantId);

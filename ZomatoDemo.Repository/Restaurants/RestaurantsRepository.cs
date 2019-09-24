@@ -21,29 +21,39 @@ namespace ZomatoDemo.Repository.Restaurants
             _dbContext = dbContext;
         }
 
-        //get
+        //GET
+        //get locations as per restaurant Id
         public async Task<ICollection<Location>> GetRestaurantLocation(int restaurantId)
         {
             var locate = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).Select(l => l.Location).FirstAsync();
             return locate;
-            //throw new NotImplementedException();
         }
+        
         //get restaurants as per location
+        public async Task<ICollection<Restaurant>> GetRestaurantsForLocation(int locationID)
+        {
+            List<Restaurant> restaurants = new List<Restaurant>();
+            List<Location> locations = new List<Location>();
+            var restaurant = await _dbContext.Location.Where(r => r.ID == locationID).ToListAsync();
+            return ;
+        }
+
+        //get all restaurants
         public async Task<ICollection<Restaurant>> GetRestaurants()
         {
             var allRestaurants = await _dbContext.Restaurant.ToListAsync();
             return allRestaurants;
-            //throw new NotImplementedException();
         }
+
+        //get restaurants as per user Id
         public async Task<Restaurant> GetUserRestaurants(int userId)
         {
             var items = await _dbContext.Restaurant.Where(r => r.ID == userId).Include(d => d.Dishes).FirstAsync();
-           
             return items;
-            //throw new NotImplementedException();
         }
 
-        //post
+        //POST
+        //post all locations
         public async Task<IEnumerable<LocationAC>> AddLocation([FromBody] List<LocationAC> locationAC)
         {
             Country map;
@@ -63,9 +73,9 @@ namespace ZomatoDemo.Repository.Restaurants
             _dbContext.Location.AddRange(locations);
             await _dbContext.SaveChangesAsync();
             return (locationAC);
-
-            //throw new NotImplementedException();
         }
+
+        //post all restaurants
         public async Task<IEnumerable<RestaurantAC>> AddAllRestaurants(List<RestaurantAC> restaurantAC)
         {
             List<Location> locate = new List<Location>();
@@ -95,9 +105,9 @@ namespace ZomatoDemo.Repository.Restaurants
             _dbContext.Restaurant.AddRange(restaurants);
             await _dbContext.SaveChangesAsync();
             return (restaurantAC);
-
-            //throw new NotImplementedException();
         }
+
+        //post users and create order details
         public async Task<OrderDetailsAC> AddOrderDetails(OrderDetailsAC detailsAC)
         {
             Restaurant restaurants = await _dbContext.Restaurant.FirstAsync(x => x.ID == detailsAC.RestaurantID);
@@ -109,6 +119,17 @@ namespace ZomatoDemo.Repository.Restaurants
                 dishes.Add(new DishesOrdered {
                     Dishes = item
                 });
+            }
+            foreach (var item in detailsAC)
+            {
+                List<User> user = new List<User>();
+                foreach (var elements in item.UserName)
+                {
+                    user.Add(new User
+                    {
+                        Name = elements
+                    });
+                }
             }
             //foreach (var item in detailsAC)
             //{
@@ -138,7 +159,7 @@ namespace ZomatoDemo.Repository.Restaurants
             return (detailsAC);
         }
 
-        //put
+        //PUT  
         public async Task<RestaurantAC> EditRestaurant(int restaurantId, [FromBody] RestaurantAC restaurantac)
         {
             var edit = await _dbContext.Restaurant.Where(x => x.ID == restaurantId).Include(Location)
