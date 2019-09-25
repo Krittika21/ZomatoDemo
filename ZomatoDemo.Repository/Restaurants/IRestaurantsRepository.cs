@@ -15,6 +15,7 @@ namespace ZomatoDemo.Repository.Restaurants
         Task<ICollection<Restaurant>> GetRestaurantsForLocation(int locationID);
         Task<ICollection<Restaurant>> GetRestaurants();
         Task<Restaurant> GetUserRestaurants(int userId);
+        Task<DishesOrdered> GetDishes(int restaurantId);
 
         //post
         Task<IEnumerable<LocationAC>> AddLocation([FromBody] List<LocationAC> locationAC);
@@ -25,5 +26,6 @@ namespace ZomatoDemo.Repository.Restaurants
 
         //delete
         Task<bool> DeleteRestaurant(int restaurantId);
+        Task<bool> DeleteDishes(int dishId);
     }
 }

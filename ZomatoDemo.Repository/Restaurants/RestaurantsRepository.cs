@@ -32,10 +32,10 @@ namespace ZomatoDemo.Repository.Restaurants
         //get restaurants as per location
         public async Task<ICollection<Restaurant>> GetRestaurantsForLocation(int locationID)
         {
-            List<Restaurant> restaurants = new List<Restaurant>();
-            List<Location> locations = new List<Location>();
-            var restaurant = await _dbContext.Location.Where(r => r.ID == locationID).ToListAsync();
-            return ;
+             Location locations = await _dbContext.Location.FirstAsync(x => x.ID == locationID);
+            var restaurant = await _dbContext.Restaurant.Where(r => r.Location.Contains(locations)).ToListAsync();
+                //Location.Where(r => r.ID == locationID).ToListAsync();
+            return restaurant;
         }
 
         //get all restaurants
@@ -50,6 +50,13 @@ namespace ZomatoDemo.Repository.Restaurants
         {
             var items = await _dbContext.Restaurant.Where(r => r.ID == userId).Include(d => d.Dishes).FirstAsync();
             return items;
+        }
+
+        //get dishes for cart
+        public async Task<ICollection<Dishes>> GetDishes(int restaurantId)
+        {
+            var dish = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).Select(d => d.Dishes).SingleAsync();
+            return dish;
         }
 
         //POST
@@ -108,69 +115,38 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //post users and create order details
-        public async Task<OrderDetailsAC> AddOrderDetails(OrderDetailsAC detailsAC)
+        public async Task AddOrderDetails(OrderDetailsAC detailsAC)
         {
             Restaurant restaurants = await _dbContext.Restaurant.FirstAsync(x => x.ID == detailsAC.RestaurantID);
             OrderDetails orders = new OrderDetails();
             List<DishesOrdered> dishes = new List<DishesOrdered>();
-            List<Dishes> orderedDishes = await _dbContext.Dishes.Where(x => detailsAC.DishesName.Contains(x.ID)).ToListAsync();
+            List<Dishes> orderedDishes = await _dbContext.Dishes.Where(x => detailsAC.DishesID.Contains(x.ID)).ToListAsync();
             foreach (var item in orderedDishes)
             {
                 dishes.Add(new DishesOrdered {
                     Dishes = item
                 });
             }
-            foreach (var item in detailsAC)
-            {
-                List<User> user = new List<User>();
-                foreach (var elements in item.UserName)
-                {
-                    user.Add(new User
-                    {
-                        Name = elements
-                    });
-                }
-            }
-            //foreach (var item in detailsAC)
-            //{
-            //    foreach (var elements in item.RestaurantID)
-            //    {
-            //        restaurants.Add(await _dbContext.Restaurant.FirstAsync(x => x.ID == elements));
-            //    }
-            //    List<User> user = new List<User>();
-            //    foreach (var elements in item.UserName)
-            //    {
-            //        user.Add(new User
-            //        {
-            //            Name = elements
-            //        });
-            //    }
-            //    foreach (var elements in item.UserID)
-            //    {
-            //        orders.Add(new OrderDetails
-            //        {
-            //            Restaurant = restaurants.Add(await _dbContext.DishesOrdered.FirstAsync(d => d.ID))
-            //        });
-            //    }   
-            //}
-            //include sum of dishes' cost
-            _dbContext.Restaurant.AddRange(restaurants);
+            orders.Restaurant = restaurants;
+            orders.DishesOrdered = dishes;
+            _dbContext.OrderDetails.Add(orders);
             await _dbContext.SaveChangesAsync();
-            return (detailsAC);
+           
         }
 
         //PUT  
-        public async Task<RestaurantAC> EditRestaurant(int restaurantId, [FromBody] RestaurantAC restaurantac)
+        public async Task<OrderDetailsAC> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac)
         {
-            var edit = await _dbContext.Restaurant.Where(x => x.ID == restaurantId).Include(Location)
+            var edit = await _dbContext.OrderDetails.Where(x => x.ID == orderId).Include(d => d.DishesOrdered).FirstAsync();
            
-            _dbContext.Restaurant.UpdateRange(restaurants);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.Restaurant.Update(edit);
+            await _dbContext.SaveChangesAsync(); 
             return ;
            // throw new NotImplementedException();
         }
 
-        //delete
+        //DELETE
+        //delete all restaurants
         public async Task<bool> DeleteRestaurant(int restaurantId)
         {
             var removed = false;
@@ -183,6 +159,19 @@ namespace ZomatoDemo.Repository.Restaurants
             await _dbContext.SaveChangesAsync();
             return removed;
             //throw new NotImplementedException();
+        }
+        //delete dishes from the cart
+        public async Task<bool> DeleteDishes(int dishId)
+        {
+            var removed = false;
+            DishesOrdered dishesOrdered = await _dbContext.DishesOrdered.FindAsync(dishId);
+            if (dishesOrdered != null)
+            {
+                removed = true;
+                _dbContext.DishesOrdered.Remove(dishesOrdered);
+            }
+            await _dbContext.SaveChangesAsync();
+            return removed;
         }
     }
 }
