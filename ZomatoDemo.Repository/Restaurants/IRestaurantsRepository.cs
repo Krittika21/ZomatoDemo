@@ -15,17 +15,17 @@ namespace ZomatoDemo.Repository.Restaurants
         Task<ICollection<Restaurant>> GetRestaurantsForLocation(int locationID);
         Task<ICollection<Restaurant>> GetRestaurants();
         Task<Restaurant> GetUserRestaurants(int userId);
-        Task<DishesOrdered> GetDishes(int restaurantId);
+        Task<ICollection<Dishes>> GetDishes(int restaurantId);
 
         //post
         Task<IEnumerable<LocationAC>> AddLocation([FromBody] List<LocationAC> locationAC);
         Task<IEnumerable<RestaurantAC>> AddAllRestaurants(List<RestaurantAC> restaurants);
+        Task AddOrderDetails(OrderDetailsAC detailsAC);
 
         //edit
-        Task<RestaurantAC> EditRestaurant(int restaurantId, [FromBody] RestaurantAC restaurantac);
+        Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac);
 
         //delete
         Task<bool> DeleteRestaurant(int restaurantId);
-        Task<bool> DeleteDishes(int dishId);
     }
 }

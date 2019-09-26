@@ -17,6 +17,10 @@
         }
       },
       "ZomatoDemo.DomainModel/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "2.1.1.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.1.0"
+        },
         "runtime": {
           "ZomatoDemo.DomainModel.dll": {}
         }
@@ -32,6 +36,22 @@
       "Microsoft.EntityFrameworkCore/2.1.1.0": {
         "runtime": {
           "Microsoft.EntityFrameworkCore.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Relational.Reference/2.1.1.0": {
+        "runtime": {
+          "Microsoft.EntityFrameworkCore.Relational.dll": {
+            "assemblyVersion": "2.1.1.0",
+            "fileVersion": "2.1.1.18157"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.SqlServer.Reference/2.1.1.0": {
+        "runtime": {
+          "Microsoft.EntityFrameworkCore.SqlServer.dll": {
             "assemblyVersion": "2.1.1.0",
             "fileVersion": "2.1.1.18157"
           }
@@ -56,6 +76,16 @@
       "sha512": ""
     },
     "Microsoft.EntityFrameworkCore/2.1.1.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.EntityFrameworkCore.Relational.Reference/2.1.1.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.EntityFrameworkCore.SqlServer.Reference/2.1.1.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

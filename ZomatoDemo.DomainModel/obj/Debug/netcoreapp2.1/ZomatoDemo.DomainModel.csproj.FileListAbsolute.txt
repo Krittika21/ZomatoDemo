@@ -14,3 +14,5 @@ C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netco
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\Microsoft.EntityFrameworkCore.Relational.xml
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\Microsoft.EntityFrameworkCore.SqlServer.xml
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml

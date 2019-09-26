@@ -41,6 +41,13 @@ namespace ZomatoDemo.core.Controllers
             return Ok(await unitOfWork.Restaurant.GetUserRestaurants(userId));
         }
 
+        [HttpGet]
+        [Route("restaurant/{restaurantId}")]
+        public async Task<ActionResult> GetDishes(int restaurantId)
+        {
+            return Ok(await unitOfWork.Restaurant.GetDishes(restaurantId));
+        }
+
         //post
         [HttpPost]
         [Route("location")]
@@ -56,12 +63,20 @@ namespace ZomatoDemo.core.Controllers
             return Ok(await unitOfWork.Restaurant.AddAllRestaurants(restaurants));
         }
 
+        [HttpPost]
+        [Route("orderdetails")]
+        public async Task<ActionResult> AddOrderDetails(OrderDetailsAC orderDetails)
+        {
+            await unitOfWork.Restaurant.AddOrderDetails(orderDetails);
+            return Ok();
+        }
         //put
         [HttpPut]
         [Route("restaurant/{id}")]
-        public async Task<ActionResult> UpdateRestaurantAsync([FromBody] List<Restaurant> restaurants)
+        public async Task<ActionResult> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac)
         {
-            return Ok(await unitOfWork.Restaurant.EditRestaurant(restaurants));
+            await unitOfWork.Restaurant.EditCart(orderId, orderDetailsac);
+            return Ok();
         }
 
         //delete
