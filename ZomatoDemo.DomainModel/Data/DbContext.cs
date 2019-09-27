@@ -1,13 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ZomatoDemo.DomainModel.Models;
 
 namespace ZomatoDemo.Web.Models
 {
-    public class ZomatoDbContext : DbContext
+    public class ZomatoDbContext : IdentityDbContext
     {
         public ZomatoDbContext (DbContextOptions<ZomatoDbContext> options) : base(options)
         {

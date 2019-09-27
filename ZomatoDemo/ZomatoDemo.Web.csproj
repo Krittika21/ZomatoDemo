@@ -11,10 +11,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ZomatoDemo.core\ZomatoDemo.Core.csproj" />
     <ProjectReference Include="..\ZomatoDemo.DomainModel\ZomatoDemo.DomainModel.csproj" />
+    <ProjectReference Include="..\ZomatoDemo.Repository\ZomatoDemo.Repository.csproj" />
   </ItemGroup>
 
 </Project>

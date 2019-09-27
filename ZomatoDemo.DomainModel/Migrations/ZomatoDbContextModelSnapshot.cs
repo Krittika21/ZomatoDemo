@@ -72,13 +72,13 @@ namespace ZomatoDemo.DomainModel.Migrations
 
                     b.Property<int>("ItemsCount");
 
-                    b.Property<int?>("OrderID");
+                    b.Property<int?>("OrderDetailsID");
 
                     b.HasKey("ID");
 
                     b.HasIndex("DishesID");
 
-                    b.HasIndex("OrderID");
+                    b.HasIndex("OrderDetailsID");
 
                     b.ToTable("DishesOrdered");
                 });
@@ -250,9 +250,9 @@ namespace ZomatoDemo.DomainModel.Migrations
                         .WithMany()
                         .HasForeignKey("DishesID");
 
-                    b.HasOne("ZomatoDemo.DomainModel.Models.OrderDetails", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderID");
+                    b.HasOne("ZomatoDemo.DomainModel.Models.OrderDetails")
+                        .WithMany("DishesOrdered")
+                        .HasForeignKey("OrderDetailsID");
                 });
 
             modelBuilder.Entity("ZomatoDemo.DomainModel.Models.Likes", b =>

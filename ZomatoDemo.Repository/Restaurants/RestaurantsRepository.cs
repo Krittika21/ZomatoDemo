@@ -32,9 +32,8 @@ namespace ZomatoDemo.Repository.Restaurants
         //get restaurants as per location : user
         public async Task<ICollection<Restaurant>> GetRestaurantsForLocation(int locationID)
         {
-             Location locations = await _dbContext.Location.FirstAsync(x => x.ID == locationID);
+            Location locations = await _dbContext.Location.FirstAsync(x => x.ID == locationID);
             var restaurant = await _dbContext.Restaurant.Where(r => r.Location.Contains(locations)).ToListAsync();
-                //Location.Where(r => r.ID == locationID).ToListAsync();
             return restaurant;
         }
 
@@ -138,7 +137,7 @@ namespace ZomatoDemo.Repository.Restaurants
         public async Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac)
         {
             var removed = false;
-            var edit = await _dbContext.OrderDetails.Where(x => x.ID == orderId).Include(d => d.DishesOrdered).FirstAsync(); //orderDetailsac.DishesID.Single()
+            var edit = await _dbContext.OrderDetails.Where(x => x.ID == orderId).Include(d => d.DishesOrdered).FirstAsync(); 
             if (edit.DishesOrdered != null)
             {
                 removed = true;
