@@ -39,6 +39,7 @@ namespace ZomatoDemo
             options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext")));
 
             services.AddIdentity<IdentityUser, IdentityRole>();
+//                .AddEntityFrameworkStores<ZomatoDbContext>;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,8 +58,10 @@ namespace ZomatoDemo
             {
                 await context.Response.WriteAsync("Hello World!");
             });
+
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

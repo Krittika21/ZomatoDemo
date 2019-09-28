@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Models;
 using static ZomatoDemo.Repository.UnitOfWork.IUnitOfWorkRepository;
+
 
 namespace ZomatoDemo.Core.Controllers
 {
@@ -18,7 +17,7 @@ namespace ZomatoDemo.Core.Controllers
             this.unitOfWork = unitOfWork;
         }
         //Get:api/Restaurant
-
+       
         [HttpGet]
         [Route("allusers")]
         public async Task<ActionResult> GetAllUsers()
