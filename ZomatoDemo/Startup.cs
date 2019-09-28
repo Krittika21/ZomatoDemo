@@ -54,10 +54,10 @@ namespace ZomatoDemo
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -67,7 +67,7 @@ namespace ZomatoDemo
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Restaurant}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=LogInView}");
             });
         }
     }

@@ -5,7 +5,11 @@ using System.Text;
 
 namespace ZomatoDemo.Core.Controllers
 {
-    class AccountController : Controller
+    public class AccountController : Controller
     {
+        public IActionResult LogInView()
+        {
+            return View();
+        }
     }
 }
