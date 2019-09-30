@@ -19,6 +19,172 @@ namespace ZomatoDemo.DomainModel.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType");
+
+                    b.Property<string>("ClaimValue");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("ProviderKey");
+
+                    b.Property<string>("ProviderDisplayName");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("LoginProvider");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
             modelBuilder.Entity("ZomatoDemo.DomainModel.Models.City", b =>
                 {
                     b.Property<int>("ID")
@@ -91,13 +257,13 @@ namespace ZomatoDemo.DomainModel.Migrations
 
                     b.Property<int?>("ReviewsID");
 
-                    b.Property<int?>("UsersID");
+                    b.Property<string>("UsersId");
 
                     b.HasKey("ID");
 
                     b.HasIndex("ReviewsID");
 
-                    b.HasIndex("UsersID");
+                    b.HasIndex("UsersId");
 
                     b.ToTable("Likes");
                 });
@@ -137,13 +303,13 @@ namespace ZomatoDemo.DomainModel.Migrations
 
                     b.Property<int?>("RestaurantID");
 
-                    b.Property<int?>("UserID");
+                    b.Property<string>("UserId");
 
                     b.HasKey("ID");
 
                     b.HasIndex("RestaurantID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -158,13 +324,13 @@ namespace ZomatoDemo.DomainModel.Migrations
 
                     b.Property<int?>("RestaurantID");
 
-                    b.Property<int?>("UserID");
+                    b.Property<string>("UserId");
 
                     b.HasKey("ID");
 
                     b.HasIndex("RestaurantID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Rating");
                 });
@@ -194,28 +360,15 @@ namespace ZomatoDemo.DomainModel.Migrations
 
                     b.Property<string>("ReviewTexts");
 
-                    b.Property<int?>("UserID");
+                    b.Property<string>("UserId");
 
                     b.HasKey("ID");
 
                     b.HasIndex("RestaurantID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Review");
-                });
-
-            modelBuilder.Entity("ZomatoDemo.DomainModel.Models.User", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("ZomatoDemo.DomainModel.Models.UserFollow", b =>
@@ -224,17 +377,75 @@ namespace ZomatoDemo.DomainModel.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("FolloweeID");
+                    b.Property<string>("FolloweeId");
 
-                    b.Property<int?>("FollowerID");
+                    b.Property<string>("FollowerId");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("FolloweeID");
+                    b.HasIndex("FolloweeId");
 
-                    b.HasIndex("FollowerID");
+                    b.HasIndex("FollowerId");
 
                     b.ToTable("UserFollow");
+                });
+
+            modelBuilder.Entity("ZomatoDemo.DomainModel.Application_Classes.UserAC", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("DateOfBirth");
+
+                    b.Property<string>("FullName");
+
+                    b.ToTable("UserAC");
+
+                    b.HasDiscriminator().HasValue("UserAC");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ZomatoDemo.DomainModel.Models.Dishes", b =>
@@ -261,9 +472,9 @@ namespace ZomatoDemo.DomainModel.Migrations
                         .WithMany()
                         .HasForeignKey("ReviewsID");
 
-                    b.HasOne("ZomatoDemo.DomainModel.Models.User", "Users")
+                    b.HasOne("ZomatoDemo.DomainModel.Application_Classes.UserAC", "Users")
                         .WithMany()
-                        .HasForeignKey("UsersID");
+                        .HasForeignKey("UsersId");
                 });
 
             modelBuilder.Entity("ZomatoDemo.DomainModel.Models.Location", b =>
@@ -287,9 +498,9 @@ namespace ZomatoDemo.DomainModel.Migrations
                         .WithMany()
                         .HasForeignKey("RestaurantID");
 
-                    b.HasOne("ZomatoDemo.DomainModel.Models.User", "User")
+                    b.HasOne("ZomatoDemo.DomainModel.Application_Classes.UserAC", "User")
                         .WithMany()
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ZomatoDemo.DomainModel.Models.Rating", b =>
@@ -298,9 +509,9 @@ namespace ZomatoDemo.DomainModel.Migrations
                         .WithMany()
                         .HasForeignKey("RestaurantID");
 
-                    b.HasOne("ZomatoDemo.DomainModel.Models.User", "User")
+                    b.HasOne("ZomatoDemo.DomainModel.Application_Classes.UserAC", "User")
                         .WithMany()
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ZomatoDemo.DomainModel.Models.Review", b =>
@@ -309,20 +520,20 @@ namespace ZomatoDemo.DomainModel.Migrations
                         .WithMany()
                         .HasForeignKey("RestaurantID");
 
-                    b.HasOne("ZomatoDemo.DomainModel.Models.User", "User")
+                    b.HasOne("ZomatoDemo.DomainModel.Application_Classes.UserAC", "User")
                         .WithMany()
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("ZomatoDemo.DomainModel.Models.UserFollow", b =>
                 {
-                    b.HasOne("ZomatoDemo.DomainModel.Models.User", "Followee")
+                    b.HasOne("ZomatoDemo.DomainModel.Application_Classes.UserAC", "Followee")
                         .WithMany()
-                        .HasForeignKey("FolloweeID");
+                        .HasForeignKey("FolloweeId");
 
-                    b.HasOne("ZomatoDemo.DomainModel.Models.User", "Follower")
+                    b.HasOne("ZomatoDemo.DomainModel.Application_Classes.UserAC", "Follower")
                         .WithMany()
-                        .HasForeignKey("FollowerID");
+                        .HasForeignKey("FollowerId");
                 });
 #pragma warning restore 612, 618
         }

@@ -30,6 +30,6 @@ C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\bin\Debug\netcoreapp2.1\Zom
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\Razor\Views\Account\Index.g.cshtml.cs
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\Razor\Views\Account\LogInView.g.cshtml.cs
-C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\Razor\Views\Account\SignInView.g.cshtml.cs
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo\obj\Debug\netcoreapp2.1\Razor\Views\Account\SignUpView.g.cshtml.cs

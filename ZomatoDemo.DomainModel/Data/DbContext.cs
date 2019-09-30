@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.DomainModel.Models;
 
 namespace ZomatoDemo.Web.Models
@@ -20,7 +21,9 @@ namespace ZomatoDemo.Web.Models
         public DbSet<Rating> Rating { get; set; }
         public DbSet<Restaurant> Restaurant { get; set; }
         public DbSet<Review> Review { get; set; }
-        public DbSet<User> User { get; set; }
+        //public DbSet<UserAC> User { get; set; }
         public DbSet<UserFollow> UserFollow { get; set; }
+
     }
+
 }

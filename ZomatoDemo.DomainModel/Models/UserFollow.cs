@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using ZomatoDemo.DomainModel.Application_Classes;
 
 namespace ZomatoDemo.DomainModel.Models
 {
@@ -8,7 +10,13 @@ namespace ZomatoDemo.DomainModel.Models
     {
         public int ID { get; set; }
 
-        public virtual User Followee { get; set; }
-        public virtual User Follower { get; set; }
+        public string FolloweeId { get; set; }
+        public string FollowerId { get; set; }
+
+        [ForeignKey("FolloweeId")]
+        public virtual UserAC Followee { get; set; }
+
+        [ForeignKey("FollowerId")]
+        public virtual UserAC Follower { get; set; }
     }
 }

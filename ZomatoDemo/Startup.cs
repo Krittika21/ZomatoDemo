@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.Web.Models;
 
 namespace ZomatoDemo
@@ -38,8 +35,15 @@ namespace ZomatoDemo
             services.AddDbContext<ZomatoDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>();
-//                .AddEntityFrameworkStores<ZomatoDbContext>;
+            services.AddIdentity<UserAC, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            })
+                .AddEntityFrameworkStores<ZomatoDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,7 +71,7 @@ namespace ZomatoDemo
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=LogInView}");
+                    template: "{controller=Account}/{action=SignUpView}");
             });
         }
     }

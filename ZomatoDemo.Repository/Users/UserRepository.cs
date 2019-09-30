@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.DomainModel.Models;
 using ZomatoDemo.Web.Models;
 
@@ -19,26 +20,26 @@ namespace ZomatoDemo.Repository.Users
         }
 
         //get
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<UserAC>> GetAllUsers()
         {
             await _dbContext.SaveChangesAsync();
             throw new NotImplementedException();
         }
-        public async Task<User> GetUser(int Id)
+        public async Task<UserAC> GetUser(int Id)
         {
             await _dbContext.SaveChangesAsync();
             throw new NotImplementedException();
         }
 
         //post
-        public async Task<IEnumerable<User>> AddAllUsers(List<User> user)
+        public async Task<IEnumerable<UserAC>> AddAllUsers(List<UserAC> user)
         {
             await _dbContext.SaveChangesAsync();
             throw new NotImplementedException();
         }
 
         //put
-        public async Task<User> EditUser([FromBody] List<User> user)
+        public async Task<UserAC> EditUser([FromBody] List<UserAC> user)
         {
             await _dbContext.SaveChangesAsync();
             throw new NotImplementedException();
