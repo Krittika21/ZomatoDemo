@@ -5,7 +5,7 @@ using ZomatoDemo.DomainModel.Models;
 
 namespace ZomatoDemo.Web.Models
 {
-    public class ZomatoDbContext : IdentityDbContext
+    public class ZomatoDbContext : IdentityDbContext<UserAC>
     {
         public ZomatoDbContext (DbContextOptions<ZomatoDbContext> options) : base(options)
         {

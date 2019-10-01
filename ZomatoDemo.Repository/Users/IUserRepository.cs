@@ -13,15 +13,12 @@ namespace ZomatoDemo.Repository.Users
     {
         //get
         Task<IEnumerable<UserAC>> GetAllUsers();
-        Task<UserAC> GetUser(int Id);
-
-        //post
-        Task<IEnumerable<UserAC>> AddAllUsers(List<UserAC> user);
+        Task<UserAC> GetUserAsync(string Id);
 
         //edit
-        Task<UserAC> EditUser([FromBody] List<UserAC> user);
+        Task<UserAC> EditUser(UserAC user);
 
         //delete
-        Task<bool> DeleteUser(int userId);
+        Task<bool> DeleteUser(string userId);
     }
 }
