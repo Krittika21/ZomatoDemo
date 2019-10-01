@@ -16,6 +16,19 @@ namespace ZomatoDemo.Core.Controllers
             _signManager = signManager;
         }
 
+        public IActionResult Index()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogInView", "Account");
+            }
+            
+        }
+
         // SIGNING UP NEW USER
         //[HttpGet]
         public IActionResult SignUpView()

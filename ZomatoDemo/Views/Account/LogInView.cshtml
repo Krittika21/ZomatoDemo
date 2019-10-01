@@ -3,31 +3,48 @@
     ViewData["Title"] = "LogInView";
 }
 
-<h2>Login</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Login" >
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+<div class="jumbotron" style="background-color: #0c7d75; margin-top:10%; text-align: center; box-shadow: 5px 5px 15px #000302">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6">
+                <div id="leftcontainer" >
+                    <div class="container" style="font-family: 'Lucida Calligraphy', Times, serif">
+                        <h1 style="color: ghostwhite; border-color: black; margin-top:150px"> ZOMATO </h1>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+            <div class="col-xs-6 col-sm-6" style="border-left: 1px solid #777">
+                <div id="rightcontainer" style="background-color: #09877f">
+                    <div class="container" style="height: 90%; width: 85%;">
+                        <h2>Login</h2>
+                        <hr />
+                        <form asp-action="Login">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password" class="control-label"></label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="RememberMe"></label>
+                                <input asp-for="RememberMe" />
+                                <span asp-validation-for="RememberMe"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="LogIn" class="btn btn-primary" />
+                                <hr />
+                                <button asp-action="SignUpView">New here?... Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div  class="form-group">
-                <label asp-for="RememberMe"></label>
-                <input asp-for="RememberMe" />
-                <span asp-validation-for="RememberMe"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 

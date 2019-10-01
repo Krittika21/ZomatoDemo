@@ -30,7 +30,13 @@ namespace ZomatoDemo
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver
+                = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+            });
+
+            
 
             services.AddDbContext<ZomatoDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext")));
@@ -44,6 +50,12 @@ namespace ZomatoDemo
                 options.Password.RequireLowercase = false;
             })
                 .AddEntityFrameworkStores<ZomatoDbContext>();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Index";
+                options.AccessDeniedPath = "/Account/Index";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,12 +78,13 @@ namespace ZomatoDemo
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseHttpsRedirection();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=SignUpView}");
+                    template: "{controller=Account}/{action=Index}");
             });
         }
     }
