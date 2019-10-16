@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.DomainModel.Models;
+using ZomatoDemo.Repository.UnitOfWork;
 using static ZomatoDemo.Repository.UnitOfWork.IUnitOfWorkRepository;
 
 
@@ -12,8 +13,8 @@ namespace ZomatoDemo.Core.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
-        public UserController(IUnitOfWork unitOfWork)
+        private readonly IUnitOfWorkRepository unitOfWork;
+        public UserController(IUnitOfWorkRepository unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }

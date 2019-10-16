@@ -7,14 +7,13 @@ using ZomatoDemo.Repository.Users;
 
 namespace ZomatoDemo.Repository.UnitOfWork
 {
-    public class IUnitOfWorkRepository
+    public interface IUnitOfWorkRepository
     {
-        public interface IUnitOfWork
-        {
+        
             IUserRepository User { get; }
             IRestaurantsRepository Restaurant { get; }
             Task<int> CompleteAsync();
             int Complete();
-        }
+        
     }
 }

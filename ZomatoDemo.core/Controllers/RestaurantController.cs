@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.DomainModel.Models;
+using ZomatoDemo.Repository.UnitOfWork;
 using static ZomatoDemo.Repository.UnitOfWork.IUnitOfWorkRepository;
 
 namespace ZomatoDemo.core.Controllers
@@ -13,17 +14,18 @@ namespace ZomatoDemo.core.Controllers
     [ApiController]
     public class RestaurantController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWorkRepository unitOfWork;
 
-        public RestaurantController(IUnitOfWork unitOfWork)
+        public RestaurantController(IUnitOfWorkRepository unitOfWork)
         {
+           
             this.unitOfWork = unitOfWork;
         }
         //Get:api/Restaurant
 
         [HttpGet]
         [Route("restaurant/{id}")]
-        public async Task<ActionResult> GetRestaurantLocationAsync(int restaurantId)
+        public async Task<ActionResult> GetRestaurantLocationAsync([FromRoute] int restaurantId)
         {
             return Ok(await unitOfWork.Restaurant.GetRestaurantLocation(restaurantId));
         }

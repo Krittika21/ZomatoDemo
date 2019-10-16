@@ -23,12 +23,22 @@ namespace ZomatoDemo.Repository.Restaurants
 
         //GET
         //get locations as per restaurant Id : user
-        public async Task<ICollection<Location>> GetRestaurantLocation(int restaurantId)
+        //public async Task<ICollection<AllLocations>> GetRestaurantLocation(int restaurantId)
+        //{
+        //    var locate = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).Select(l => l.Location).FirstAsync();
+        //    return locate;
+        //}
+        public async Task<ICollection<AllLocations>> GetRestaurantLocation(int restaurantId)
         {
-            var locate = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).Select(l => l.Location).FirstAsync();
-            return locate;
+            var locate = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).Include(l => l.Location).ToListAsync();
+            List<Location> locations = new List<Location>();
+            foreach (var place in locate)
+            {
+                ID = 
+            }
+            return ;
         }
-        
+
         //get restaurants as per location : user
         public async Task<ICollection<Restaurant>> GetRestaurantsForLocation(int locationID)
         {

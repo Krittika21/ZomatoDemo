@@ -15,14 +15,16 @@ namespace ZomatoDemo.Repository.UnitOfWork
     {
         private readonly ZomatoDbContext _dbContext;
         private readonly UserManager<UserAC> _userManager;
+        private IUserRepository _User;
+
+        private IRestaurantsRepository _Restaurant;
         public UnitOfWorkRepository(ZomatoDbContext dbContext, UserManager<UserAC> userManager)
         {
             this._dbContext = dbContext;
             this._userManager = userManager;
+            System.Diagnostics.Debug.Write("jhsg");
         }
-        private IUserRepository _User;
-
-        private IRestaurantsRepository _Restaurant;
+        
         public IUserRepository User
         {
             get
@@ -34,7 +36,7 @@ namespace ZomatoDemo.Repository.UnitOfWork
                 return _User;
             }
         }
-        public IRestaurantsRepository Product
+        public IRestaurantsRepository Restaurant
         {
             get
             {

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ZomatoDemo.DomainModel.Application_Classes;
+using ZomatoDemo.Repository.UnitOfWork;
 using ZomatoDemo.Web.Models;
 
 namespace ZomatoDemo
@@ -36,11 +37,11 @@ namespace ZomatoDemo
                 = new Newtonsoft.Json.Serialization.DefaultContractResolver();
             });
 
-            
+          
 
             services.AddDbContext<ZomatoDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext")));
-
+           
             services.AddIdentity<UserAC, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -56,6 +57,9 @@ namespace ZomatoDemo
                 options.LoginPath = "/Account/Index";
                 options.AccessDeniedPath = "/Account/Index";
             });
+
+            services.AddCors();
+            services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,6 +83,11 @@ namespace ZomatoDemo
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseHttpsRedirection();
+
+            app.UseCors(Options =>
+            Options.WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.UseMvc(routes =>
             {

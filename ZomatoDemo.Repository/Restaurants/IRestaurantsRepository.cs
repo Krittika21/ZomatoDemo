@@ -11,7 +11,7 @@ namespace ZomatoDemo.Repository.Restaurants
     public interface IRestaurantsRepository
     {
         //get
-        Task<ICollection<Location>> GetRestaurantLocation(int restaurantId);
+        Task<ICollection<AllLocations>> GetRestaurantLocation(int restaurantId);
         Task<ICollection<Restaurant>> GetRestaurantsForLocation(int locationID);
         Task<ICollection<Restaurant>> GetRestaurants();
         Task<Restaurant> GetUserRestaurants(int userId);
