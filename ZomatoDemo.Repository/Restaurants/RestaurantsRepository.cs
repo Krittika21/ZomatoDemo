@@ -23,48 +23,86 @@ namespace ZomatoDemo.Repository.Restaurants
 
         //GET
         //get locations as per restaurant Id : user
-        //public async Task<ICollection<AllLocations>> GetRestaurantLocation(int restaurantId)
-        //{
-        //    var locate = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).Select(l => l.Location).FirstAsync();
-        //    return locate;
-        //}
         public async Task<ICollection<AllLocations>> GetRestaurantLocation(int restaurantId)
         {
-            var locate = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).Include(l => l.Location).ToListAsync();
-            List<Location> locations = new List<Location>();
-            foreach (var place in locate)
+            var eatery = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).SelectMany(l => l.Location).ToListAsync();
+            var allLocations = new List<AllLocations>();
+            foreach (var place in eatery)
             {
-                ID = 
+                allLocations.Add(new AllLocations
+                {
+                    ID = place.ID,
+                    Locality = place.Locality,
+                    City = new AllCity
+                    {
+                        ID = place.City.ID,
+                        Name = place.City.CityName
+                    },
+                    Country = new AllCountry
+                    {
+                        ID = place.Country.ID,
+                        Name = place.Country.CountryName
+                    }
+                });
             }
-            return ;
+            return allLocations;
         }
 
-        //get restaurants as per location : user
-        public async Task<ICollection<Restaurant>> GetRestaurantsForLocation(int locationID)
+        //get restaurants as per location : user   for every location add restaurants
+        public async Task<ICollection<AllRestaurants>> GetRestaurantsForLocation(int locationID)
         {
             Location locations = await _dbContext.Location.FirstAsync(x => x.ID == locationID);
             var restaurant = await _dbContext.Restaurant.Where(r => r.Location.Contains(locations)).ToListAsync();
-            return restaurant;
+            var allRestaurants = new List<AllRestaurants>();
+            foreach (var place in restaurant)
+            {
+                allRestaurants.Add(new AllRestaurants
+                {
+                    ID = place.ID,
+                    RestaurantName = place.RestaurantName
+                });
+            }
+            return allRestaurants;
         }
 
         //get all restaurants : admin
-        public async Task<ICollection<Restaurant>> GetRestaurants()
+        public async Task<ICollection<AllRestaurants>> GetRestaurants()
         {
-            var allRestaurants = await _dbContext.Restaurant.ToListAsync();
+            var restaurants = await _dbContext.Restaurant.ToListAsync();
+            var allRestaurants = new List<AllRestaurants>();
+            foreach (var item in restaurants)
+            {
+                allRestaurants.Add(new AllRestaurants
+                {
+                    ID = item.ID,
+                    RestaurantName = item.RestaurantName
+                });
+            }
             return allRestaurants;
         }
 
         //get restaurants as per user Id : restaurant user
-        public async Task<Restaurant> GetUserRestaurants(int userId)
+        public async Task<AllRestaurants> GetUserRestaurants(int userId)
         {
             var items = await _dbContext.Restaurant.Where(r => r.ID == userId).Include(d => d.Dishes).FirstAsync();
-            return items;
+            var allRestaurants = new List<AllRestaurants>();
+            allRestaurants.Add(new AllRestaurants
+            {
+                ID = items.ID,
+                RestaurantName = items.RestaurantName
+            });
+            return allRestaurants;
         }
 
         //get dishes for cart : user
-        public async Task<ICollection<Dishes>> GetDishes(int restaurantId)
+        public async Task<ICollection<AllDishes>> GetDishes(int restaurantId)
         {
             var dish = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).Select(d => d.Dishes).SingleAsync();
+            var allDishes = new List<AllDishes>();
+            allDishes.Add(new AllDishes
+            {
+                ID = dis
+            })
             return dish;
         }
 
