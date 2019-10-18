@@ -91,19 +91,23 @@ namespace ZomatoDemo.Repository.Restaurants
                 ID = items.ID,
                 RestaurantName = items.RestaurantName
             });
-            return allRestaurants;
+            return allRestaurants.SingleOrDefault(r=>r.ID == items.ID);
         }
 
         //get dishes for cart : user
         public async Task<ICollection<AllDishes>> GetDishes(int restaurantId)
         {
-            var dish = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).Select(d => d.Dishes).SingleAsync();
+            var dish = await _dbContext.Dishes.Where(r => r.ID == restaurantId).ToListAsync();
             var allDishes = new List<AllDishes>();
-            allDishes.Add(new AllDishes
+            foreach (var eatery in dish)
             {
-                ID = dis
-            })
-            return dish;
+                allDishes.Add(new AllDishes
+                {
+                    ID = eatery.ID,
+                    DishesName = eatery.DishesName
+                });
+            }            
+            return allDishes;
         }
 
         //POST
