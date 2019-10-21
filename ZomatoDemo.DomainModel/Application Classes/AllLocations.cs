@@ -8,7 +8,7 @@ namespace ZomatoDemo.DomainModel.Application_Classes
     {
         public int ID { get; set; }
         public string Locality { get; set; }
-        public int RestaurantName { get; set; }
+        public string RestaurantName { get; set; }
 
         public AllCity City { get; set; }
         public AllCountry Country { get; set; }

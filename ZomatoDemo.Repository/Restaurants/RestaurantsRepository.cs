@@ -23,9 +23,13 @@ namespace ZomatoDemo.Repository.Restaurants
 
         //GET
         //get locations as per restaurant Id : user
-        public async Task<ICollection<AllLocations>> GetRestaurantLocation(int restaurantId)
+        public async Task<ICollection<AllLocations>> GetRestaurantLocation(int id)
         {
-            var eatery = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).SelectMany(l => l.Location).ToListAsync();
+            var eatery = await _dbContext.Restaurant.Include(l => l.Location).Where(r => r.ID == id).SelectMany(l => l.Location).ToListAsync();
+            var cityList = await _dbContext.City.ToListAsync();
+            var restaurantList = await _dbContext.Restaurant.ToListAsync();
+            var countryList = await _dbContext.Country.ToListAsync();
+
             var allLocations = new List<AllLocations>();
             foreach (var place in eatery)
             {
@@ -33,15 +37,16 @@ namespace ZomatoDemo.Repository.Restaurants
                 {
                     ID = place.ID,
                     Locality = place.Locality,
+                    RestaurantName = restaurantList.Where(r => r.ID == id).FirstOrDefault().RestaurantName,
                     City = new AllCity
                     {
-                        ID = place.City.ID,
-                        Name = place.City.CityName
+                        ID = place.CityID,
+                        Name = cityList.Where(c => c.ID == place.CityID).Select(c => c.CityName).FirstOrDefault()
                     },
                     Country = new AllCountry
                     {
-                        ID = place.Country.ID,
-                        Name = place.Country.CountryName
+                        ID = place.CountryID,
+                        Name = countryList.Where(c => c.ID == place.CountryID).Select(c => c.CountryName).FirstOrDefault()
                     }
                 });
             }

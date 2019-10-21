@@ -25,9 +25,9 @@ namespace ZomatoDemo.core.Controllers
 
         [HttpGet]
         [Route("restaurant/{id}")]
-        public async Task<ActionResult> GetRestaurantLocationAsync([FromRoute] int restaurantId)
+        public async Task<ActionResult> GetRestaurantLocationAsync([FromRoute] int id)
         {
-            return Ok(await unitOfWork.Restaurant.GetRestaurantLocation(restaurantId));
+            return Ok(await unitOfWork.Restaurant.GetRestaurantLocation(id));
         }
         [HttpGet]
         [Route("allrestaurants")]
@@ -38,14 +38,14 @@ namespace ZomatoDemo.core.Controllers
 
         [HttpGet]
         [Route("restaurant/{userId}")]
-        public async Task<ActionResult> GetUserRestaurantAsync(int userId)
+        public async Task<ActionResult> GetUserRestaurantAsync([FromRoute] int userId)
         {
             return Ok(await unitOfWork.Restaurant.GetUserRestaurants(userId));
         }
 
         [HttpGet]
         [Route("restaurant/{restaurantId}")]
-        public async Task<ActionResult> GetDishes(int restaurantId)
+        public async Task<ActionResult> GetDishes([FromRoute] int restaurantId)
         {
             return Ok(await unitOfWork.Restaurant.GetDishes(restaurantId));
         }
