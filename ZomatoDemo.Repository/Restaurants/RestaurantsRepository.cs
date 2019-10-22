@@ -99,10 +99,11 @@ namespace ZomatoDemo.Repository.Restaurants
             return allRestaurants.SingleOrDefault(r=>r.ID == items.ID);
         }
 
-        //get dishes for cart : user
+        //get dishes for restaurant : user
         public async Task<ICollection<AllDishes>> GetDishes(int restaurantId)
         {
-            var dish = await _dbContext.Dishes.Where(r => r.ID == restaurantId).ToListAsync();
+            // var dish = await _dbContext.Dishes.Where(r => r. == restaurantId).ToListAsync();
+            var dish = await _dbContext.Restaurant.Include(d => d.Dishes).Where(r => r.ID == restaurantId).Select(e => e.Dishes).SingleAsync();
             var allDishes = new List<AllDishes>();
             foreach (var eatery in dish)
             {

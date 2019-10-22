@@ -44,7 +44,7 @@ namespace ZomatoDemo.core.Controllers
         }
 
         [HttpGet]
-        [Route("restaurant/{restaurantId}")]
+        [Route("restaurant/dishes/{restaurantId}")]
         public async Task<ActionResult> GetDishes([FromRoute] int restaurantId)
         {
             return Ok(await unitOfWork.Restaurant.GetDishes(restaurantId));
