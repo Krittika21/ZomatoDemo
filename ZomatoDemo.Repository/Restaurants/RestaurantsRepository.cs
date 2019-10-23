@@ -29,6 +29,7 @@ namespace ZomatoDemo.Repository.Restaurants
             var cityList = await _dbContext.City.ToListAsync();
             var restaurantList = await _dbContext.Restaurant.ToListAsync();
             var countryList = await _dbContext.Country.ToListAsync();
+            var x = restaurantList.Where(d => d.ID == id).FirstOrDefault();
 
             var allLocations = new List<AllLocations>();
             foreach (var place in eatery)
@@ -37,7 +38,7 @@ namespace ZomatoDemo.Repository.Restaurants
                 {
                     ID = place.ID,
                     Locality = place.Locality,
-                    RestaurantName = restaurantList.Where(r => r.ID == id).FirstOrDefault().RestaurantName,
+                    RestaurantName = x.RestaurantName,
                     City = new AllCity
                     {
                         ID = place.CityID,
@@ -47,7 +48,12 @@ namespace ZomatoDemo.Repository.Restaurants
                     {
                         ID = place.CountryID,
                         Name = countryList.Where(c => c.ID == place.CountryID).Select(c => c.CountryName).FirstOrDefault()
-                    }
+                    },
+                    ContactNumber = x.ContactNumber,
+                    CuisineType = x.CuisineType,
+                    AverageCost = x.AverageCost,
+                    OpeningHours = x.OpeningHours,
+                    MoreInfo = x.MoreInfo
                 });
             }
             return allLocations;
@@ -80,7 +86,8 @@ namespace ZomatoDemo.Repository.Restaurants
                 allRestaurants.Add(new AllRestaurants
                 {
                     ID = item.ID,
-                    RestaurantName = item.RestaurantName
+                    RestaurantName = item.RestaurantName,
+                    Description = item.Description
                 });
             }
             return allRestaurants;
@@ -110,7 +117,8 @@ namespace ZomatoDemo.Repository.Restaurants
                 allDishes.Add(new AllDishes
                 {
                     ID = eatery.ID,
-                    DishesName = eatery.DishesName
+                    DishesName = eatery.DishesName,
+                    Costs = eatery.Costs
                 });
             }            
             return allDishes;

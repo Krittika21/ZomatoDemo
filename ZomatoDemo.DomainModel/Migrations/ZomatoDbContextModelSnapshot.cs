@@ -216,6 +216,8 @@ namespace ZomatoDemo.DomainModel.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("Costs");
+
                     b.Property<string>("DishesName");
 
                     b.Property<int?>("RestaurantID");
@@ -339,6 +341,18 @@ namespace ZomatoDemo.DomainModel.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AverageCost");
+
+                    b.Property<string>("ContactNumber");
+
+                    b.Property<string>("CuisineType");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("MoreInfo");
+
+                    b.Property<string>("OpeningHours");
 
                     b.Property<string>("RestaurantName");
 

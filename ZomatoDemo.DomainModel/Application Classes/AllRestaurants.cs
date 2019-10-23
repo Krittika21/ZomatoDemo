@@ -8,5 +8,6 @@ namespace ZomatoDemo.DomainModel.Application_Classes
     {
         public int ID { get; set; }
         public string RestaurantName { get; set; }
+        public string Description { get; set; }
     }
 }
