@@ -60,7 +60,7 @@ namespace ZomatoDemo.core.Controllers
 
         [HttpPost]
         [Route("allrestaurants")]
-        public async Task<ActionResult> PostAllRestaurantAsync(List<RestaurantAC> restaurants)
+        public async Task<ActionResult> PostAllRestaurantAsync(AllLocations restaurants)
         {
             return Ok(await unitOfWork.Restaurant.AddAllRestaurants(restaurants));
         }

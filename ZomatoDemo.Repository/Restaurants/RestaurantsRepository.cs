@@ -36,7 +36,7 @@ namespace ZomatoDemo.Repository.Restaurants
             {
                 allLocations.Add(new AllLocations
                 {
-                    ID = place.ID,
+                    ID = x.ID,
                     Locality = place.Locality,
                     RestaurantName = x.RestaurantName,
                     City = new AllCity
@@ -148,35 +148,69 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //post all restaurants
-        public async Task<IEnumerable<RestaurantAC>> AddAllRestaurants(List<RestaurantAC> restaurantAC)
+        public async Task<AllLocations> AddAllRestaurants(AllLocations x)
         {
-            List<Location> locate = new List<Location>();
-            List<Restaurant> restaurants = new List<Restaurant>();
 
-            foreach (var item in restaurantAC)
-            {
-                foreach (var elements in item.LocationID)
-                {
-                    locate.Add(await _dbContext.Location.FirstAsync(x => x.ID == elements));
-                }
-                List<Dishes> dish = new List<Dishes>();
-                foreach (var elements in item.DishesName)
-                {
-                    dish.Add(new Dishes
-                    {
-                        DishesName = elements
-                    });
-                }
-                restaurants.Add(new Restaurant
-                {
-                    RestaurantName = item.RestaurantName,
-                    Location = locate,
-                    Dishes = dish
-                });
-            }
-            _dbContext.Restaurant.AddRange(restaurants);
+            City city = new City();
+            city.CityName = x.City.Name;
+
+            var z = await _dbContext.City.AddAsync(city);
+
+            Country country = new Country();
+            country.CountryName = x.Country.Name;
+
+            var w = await _dbContext.Country.AddAsync(country);
+
+            Location location = new Location();
+            location.Locality = x.Locality;
+            location.CityID = city.ID;
+            location.CountryID = country.ID;
+
+            Restaurant restaurants = new Restaurant();
+            restaurants.RestaurantName = x.RestaurantName;
+            restaurants.Description = x.Description;
+            restaurants.ContactNumber = x.ContactNumber;
+            restaurants.CuisineType = x.CuisineType;
+            restaurants.AverageCost = x.AverageCost;
+            restaurants.OpeningHours = x.OpeningHours;
+            restaurants.MoreInfo = x.MoreInfo;
+
+            ICollection<Location> Location = new List<Location>();
+            Location.Add(location);
+            ICollection<Dishes> Dishes = new List<Dishes>();
+
+            restaurants.Location = Location;
+            restaurants.Dishes = Dishes;
+
+
+            await _dbContext.Restaurant.AddAsync(restaurants);
+
+            await _dbContext.Location.AddAsync(location);
+
+            //foreach (var item in restaurantAC)
+            //{
+            //    foreach (var elements in item.LocationID)
+            //    {
+            //        locate.Add(await _dbContext.Location.FirstAsync(x => x.ID == elements));
+            //    }
+            //    List<Dishes> dish = new List<Dishes>();
+            //    foreach (var elements in item.DishesName)
+            //    {
+            //        dish.Add(new Dishes
+            //        {
+            //            DishesName = elements
+            //        });
+            //    }
+            //    restaurants.Add(new Restaurant
+            //    {
+            //        RestaurantName = item.RestaurantName,
+            //        Location = locate,
+            //        Dishes = dish
+            //    });
+            //}
+            //_dbContext.Restaurant.AddRange(restaurants);
             await _dbContext.SaveChangesAsync();
-            return (restaurantAC);
+            return (x);
         }
 
         //post users and create order details
