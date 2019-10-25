@@ -4,9 +4,11 @@ using System.Text;
 
 namespace ZomatoDemo.DomainModel.Application_Classes
 {
-    public class AllLocations
+    public class AllDetails
     {
         public int ID { get; set; }
+        public int LocationID { get; set; }
+        public int RestaurantID { get; set; }
         public string Locality { get; set; }
         public string RestaurantName { get; set; } 
         public string Description { get; set; }

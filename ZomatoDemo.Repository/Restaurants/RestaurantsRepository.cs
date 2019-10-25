@@ -22,8 +22,8 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //GET
-        //get locations as per restaurant Id : user
-        public async Task<ICollection<AllLocations>> GetRestaurantLocation(int id)
+        //get all the details as per restaurant Id : user
+        public async Task<ICollection<AllDetails>> GetRestaurantLocation(int id)
         {
             var eatery = await _dbContext.Restaurant.Include(l => l.Location).Where(r => r.ID == id).SelectMany(l => l.Location).ToListAsync();
             var cityList = await _dbContext.City.ToListAsync();
@@ -31,12 +31,13 @@ namespace ZomatoDemo.Repository.Restaurants
             var countryList = await _dbContext.Country.ToListAsync();
             var x = restaurantList.Where(d => d.ID == id).FirstOrDefault();
 
-            var allLocations = new List<AllLocations>();
+            var allLocations = new List<AllDetails>();
             foreach (var place in eatery)
             {
-                allLocations.Add(new AllLocations
+                allLocations.Add(new AllDetails
                 {
                     ID = x.ID,
+                    LocationID = place.ID,
                     Locality = place.Locality,
                     RestaurantName = x.RestaurantName,
                     City = new AllCity
@@ -148,32 +149,32 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //post all restaurants
-        public async Task<AllLocations> AddAllRestaurants(AllLocations x)
+        public async Task<AllDetails> AddAllRestaurants(AllDetails details)
         {
 
             City city = new City();
-            city.CityName = x.City.Name;
+            city.CityName = details.City.Name;
 
             var z = await _dbContext.City.AddAsync(city);
 
             Country country = new Country();
-            country.CountryName = x.Country.Name;
+            country.CountryName = details.Country.Name;
 
             var w = await _dbContext.Country.AddAsync(country);
 
             Location location = new Location();
-            location.Locality = x.Locality;
+            location.Locality = details.Locality;
             location.CityID = city.ID;
             location.CountryID = country.ID;
 
             Restaurant restaurants = new Restaurant();
-            restaurants.RestaurantName = x.RestaurantName;
-            restaurants.Description = x.Description;
-            restaurants.ContactNumber = x.ContactNumber;
-            restaurants.CuisineType = x.CuisineType;
-            restaurants.AverageCost = x.AverageCost;
-            restaurants.OpeningHours = x.OpeningHours;
-            restaurants.MoreInfo = x.MoreInfo;
+            restaurants.RestaurantName = details.RestaurantName;
+            restaurants.Description = details.Description;
+            restaurants.ContactNumber = details.ContactNumber;
+            restaurants.CuisineType = details.CuisineType;
+            restaurants.AverageCost = details.AverageCost;
+            restaurants.OpeningHours = details.OpeningHours;
+            restaurants.MoreInfo = details.MoreInfo;
 
             ICollection<Location> Location = new List<Location>();
             Location.Add(location);
@@ -210,7 +211,7 @@ namespace ZomatoDemo.Repository.Restaurants
             //}
             //_dbContext.Restaurant.AddRange(restaurants);
             await _dbContext.SaveChangesAsync();
-            return (x);
+            return (details);
         }
 
         //post users and create order details
@@ -249,12 +250,63 @@ namespace ZomatoDemo.Repository.Restaurants
         }
         //update restaurant details(dishes/ location) : admin
 
+        public async Task<AllDetails> EditRestaurant(int id,AllDetails details)
+        {
+            City city = new City();
+            city.CityName = details.City.Name;
+            city.ID = details.City.ID;
+
+            // var z = await _dbContext.City.AddAsync(city);
+             _dbContext.Entry(city).State = EntityState.Modified;
+
+            Country country = new Country();
+            country.CountryName = details.Country.Name;
+            country.ID = details.Country.ID;
+
+            // var w = await _dbContext.Country.AddAsync(country);
+            _dbContext.Entry(country).State = EntityState.Modified;
+
+            Location location = new Location();
+            location.ID = details.LocationID;
+            location.Locality = details.Locality;
+            location.CityID = city.ID;
+            location.CountryID = country.ID;
+
+            Restaurant restaurants = new Restaurant();
+            restaurants.RestaurantName = details.RestaurantName;
+            restaurants.Description = details.Description;
+            restaurants.ContactNumber = details.ContactNumber;
+            restaurants.CuisineType = details.CuisineType;
+            restaurants.AverageCost = details.AverageCost;
+            restaurants.OpeningHours = details.OpeningHours;
+            restaurants.MoreInfo = details.MoreInfo;
+            restaurants.ID = id;
+
+            ICollection<Location> Location = new List<Location>();
+            Location.Add(location);
+            ICollection<Dishes> Dishes = new List<Dishes>();
+
+            restaurants.Location = Location;
+            restaurants.Dishes = Dishes;
+
+
+
+            //await _dbContext.Restaurant.AddAsync(restaurants);
+            //await _dbContext.Location.AddAsync(location);
+            _dbContext.Entry(restaurants).State = EntityState.Modified;
+            _dbContext.Entry(location).State = EntityState.Modified;
+
+
+            await _dbContext.SaveChangesAsync();
+            return details;
+        }
+
         //DELETE
         //delete all restaurants : admin
         public async Task<bool> DeleteRestaurant(int restaurantId)
         {
             var removed = false;
-            Restaurant restaurant = await _dbContext.Restaurant.FindAsync(restaurantId);
+            var restaurant = await _dbContext.Restaurant.FindAsync(restaurantId);
             if (restaurant != null)
             {
                 removed = true;

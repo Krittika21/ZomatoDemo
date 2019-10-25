@@ -11,7 +11,7 @@ namespace ZomatoDemo.Repository.Restaurants
     public interface IRestaurantsRepository
     {
         //get
-        Task<ICollection<AllLocations>> GetRestaurantLocation(int restaurantId);
+        Task<ICollection<AllDetails>> GetRestaurantLocation(int restaurantId);
         Task<ICollection<AllRestaurants>> GetRestaurantsForLocation(int locationID);
         Task<ICollection<AllRestaurants>> GetRestaurants();
         Task<AllRestaurants> GetUserRestaurants(int userId);
@@ -20,12 +20,13 @@ namespace ZomatoDemo.Repository.Restaurants
         //post
         Task<IEnumerable<LocationAC>> AddLocation([FromBody] List<LocationAC> locationAC);
         Task AddOrderDetails(OrderDetailsAC detailsAC);
-        Task<AllLocations> AddAllRestaurants(AllLocations x);
+        Task<AllDetails> AddAllRestaurants(AllDetails x);
 
         //edit
         Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac);
+        Task<AllDetails> EditRestaurant(int id, AllDetails details);
 
         //delete
-        Task<bool> DeleteRestaurant(int restaurantId);
+        Task<bool> DeleteRestaurant(int id);
     }
 }
