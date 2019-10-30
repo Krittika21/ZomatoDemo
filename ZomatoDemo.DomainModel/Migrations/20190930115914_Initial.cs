@@ -238,7 +238,7 @@ namespace ZomatoDemo.DomainModel.Migrations
                         column: x => x.RestaurantID,
                         principalTable: "Restaurant",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -260,19 +260,19 @@ namespace ZomatoDemo.DomainModel.Migrations
                         column: x => x.CityID,
                         principalTable: "City",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Location_Country_CountryID",
                         column: x => x.CountryID,
                         principalTable: "Country",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Location_Restaurant_RestaurantID",
                         column: x => x.RestaurantID,
                         principalTable: "Restaurant",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

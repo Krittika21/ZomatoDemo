@@ -110,7 +110,6 @@ namespace ZomatoDemo.Repository.Restaurants
         //get dishes for restaurant : user
         public async Task<ICollection<AllDishes>> GetDishes(int restaurantId)
         {
-            // var dish = await _dbContext.Dishes.Where(r => r. == restaurantId).ToListAsync();
             var dish = await _dbContext.Restaurant.Include(d => d.Dishes).Where(r => r.ID == restaurantId).Select(e => e.Dishes).SingleAsync();
             var allDishes = new List<AllDishes>();
             foreach (var eatery in dish)
@@ -188,28 +187,6 @@ namespace ZomatoDemo.Repository.Restaurants
 
             await _dbContext.Location.AddAsync(location);
 
-            //foreach (var item in restaurantAC)
-            //{
-            //    foreach (var elements in item.LocationID)
-            //    {
-            //        locate.Add(await _dbContext.Location.FirstAsync(x => x.ID == elements));
-            //    }
-            //    List<Dishes> dish = new List<Dishes>();
-            //    foreach (var elements in item.DishesName)
-            //    {
-            //        dish.Add(new Dishes
-            //        {
-            //            DishesName = elements
-            //        });
-            //    }
-            //    restaurants.Add(new Restaurant
-            //    {
-            //        RestaurantName = item.RestaurantName,
-            //        Location = locate,
-            //        Dishes = dish
-            //    });
-            //}
-            //_dbContext.Restaurant.AddRange(restaurants);
             await _dbContext.SaveChangesAsync();
             return (details);
         }
@@ -233,6 +210,20 @@ namespace ZomatoDemo.Repository.Restaurants
             await _dbContext.SaveChangesAsync();
         }
 
+        //post all dishes
+        public async Task<AllDishes> NewDish(int restaurantId, AllDishes dishes)
+        {
+            var menu = await _dbContext.Restaurant.Include(d => d.Dishes).Where(r => r.ID == restaurantId).FirstAsync();
+            Dishes dish = new Dishes();
+            dish.DishesName = dishes.DishesName;
+            dish.Costs = dishes.Costs;
+
+            menu.Dishes.Add(dish);
+
+            await _dbContext.SaveChangesAsync();
+            return (dishes);
+        }
+
         //PUT 
         // update cart dishes : user
         public async Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac)
@@ -246,24 +237,21 @@ namespace ZomatoDemo.Repository.Restaurants
                 await _dbContext.SaveChangesAsync();
             } 
             return removed;
-           // throw new NotImplementedException();
         }
-        //update restaurant details(dishes/ location) : admin
 
+        //update restaurant details(dishes/ location) : admin
         public async Task<AllDetails> EditRestaurant(int id,AllDetails details)
         {
             City city = new City();
             city.CityName = details.City.Name;
             city.ID = details.City.ID;
 
-            // var z = await _dbContext.City.AddAsync(city);
              _dbContext.Entry(city).State = EntityState.Modified;
 
             Country country = new Country();
             country.CountryName = details.Country.Name;
             country.ID = details.Country.ID;
 
-            // var w = await _dbContext.Country.AddAsync(country);
             _dbContext.Entry(country).State = EntityState.Modified;
 
             Location location = new Location();
@@ -289,10 +277,6 @@ namespace ZomatoDemo.Repository.Restaurants
             restaurants.Location = Location;
             restaurants.Dishes = Dishes;
 
-
-
-            //await _dbContext.Restaurant.AddAsync(restaurants);
-            //await _dbContext.Location.AddAsync(location);
             _dbContext.Entry(restaurants).State = EntityState.Modified;
             _dbContext.Entry(location).State = EntityState.Modified;
 
@@ -303,18 +287,27 @@ namespace ZomatoDemo.Repository.Restaurants
 
         //DELETE
         //delete all restaurants : admin
-        public async Task<bool> DeleteRestaurant(int restaurantId)
+        public async Task DeleteRestaurant(int restaurantId)
         {
-            var removed = false;
             var restaurant = await _dbContext.Restaurant.FindAsync(restaurantId);
             if (restaurant != null)
             {
-                removed = true;
                 _dbContext.Restaurant.Remove(restaurant);
             }
             await _dbContext.SaveChangesAsync();
-            return removed;
-            //throw new NotImplementedException();
+            return;
+        }
+
+        //delete dishes
+        public async Task DeleteDishes(int id)
+        {
+            var dish = await _dbContext.Dishes.FindAsync(id);
+            if (dish != null)
+            {
+                _dbContext.Dishes.Remove(dish);
+            }
+            await _dbContext.SaveChangesAsync();
+            return;
         }
     }
 }

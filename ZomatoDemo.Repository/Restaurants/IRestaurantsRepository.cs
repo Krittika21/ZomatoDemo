@@ -21,12 +21,14 @@ namespace ZomatoDemo.Repository.Restaurants
         Task<IEnumerable<LocationAC>> AddLocation([FromBody] List<LocationAC> locationAC);
         Task AddOrderDetails(OrderDetailsAC detailsAC);
         Task<AllDetails> AddAllRestaurants(AllDetails x);
+        Task<AllDishes> NewDish(int restaurantId, AllDishes dishes);
 
         //edit
         Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac);
         Task<AllDetails> EditRestaurant(int id, AllDetails details);
 
         //delete
-        Task<bool> DeleteRestaurant(int id);
+        Task DeleteRestaurant(int id);
+        Task DeleteDishes(int id);
     }
 }
