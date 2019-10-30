@@ -40,7 +40,9 @@ namespace ZomatoDemo
           
 
             services.AddDbContext<ZomatoDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext")));
+
+            options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext"), 
+            b => b.MigrationsAssembly("AngularASPNETCore2WebApiAuth")));
            
             services.AddIdentity<UserAC, IdentityRole>(options =>
             {
