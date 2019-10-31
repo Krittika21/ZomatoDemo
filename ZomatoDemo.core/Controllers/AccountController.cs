@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
-
 namespace ZomatoDemo.Core.Controllers
 {
+    [Route("api/[controller]")]
     public class AccountController : Controller
     {
         private readonly SignInManager<UserAC> _signManager;
