@@ -11,7 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
 using ZomatoDemo.DomainModel.Application_Classes;
-using ZomatoDemo.DomainModel.Models;
+using ZomatoDemo.DomainModel.Utility;
+using ZomatoDemo.Repository.Authentication;
 using ZomatoDemo.Repository.Helpers;
 using ZomatoDemo.Repository.UnitOfWork;
 using ZomatoDemo.Web.Models;
@@ -50,7 +51,7 @@ namespace ZomatoDemo
             services.AddDbContext<ZomatoDbContext>(options =>
 
             options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext"), 
-            b => b.MigrationsAssembly("AngularASPNETCore2WebApiAuth")));
+            b => b.MigrationsAssembly("ZomatoDemo.DomainModel")));
            
             services.AddIdentity<UserAC, IdentityRole>(options =>
             {
@@ -114,6 +115,7 @@ namespace ZomatoDemo
 
             services.AddCors();
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
+            services.AddScoped<IJwtFactory, JwtFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

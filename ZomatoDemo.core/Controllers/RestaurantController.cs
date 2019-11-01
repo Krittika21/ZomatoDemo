@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
-using ZomatoDemo.DomainModel.Models;
 using ZomatoDemo.Repository.UnitOfWork;
-using static ZomatoDemo.Repository.UnitOfWork.IUnitOfWorkRepository;
 
 namespace ZomatoDemo.core.Controllers
 {
+    // [Authorize(Policy = "Users")]
     [Route("api/[controller]")]
     [ApiController]
     public class RestaurantController : ControllerBase

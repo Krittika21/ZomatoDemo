@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using ZomatoDemo.DomainModel.Models;
+using ZomatoDemo.DomainModel.Utility;
 using ZomatoDemo.Repository.Helpers;
 
 namespace ZomatoDemo.Repository.Authentication

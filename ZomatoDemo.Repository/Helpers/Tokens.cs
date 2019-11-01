@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ZomatoDemo.DomainModel.Models;
+using ZomatoDemo.DomainModel.Utility;
 using ZomatoDemo.Repository.Authentication;
 
 namespace ZomatoDemo.Repository.Helpers

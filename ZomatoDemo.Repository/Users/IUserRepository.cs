@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
-using ZomatoDemo.DomainModel.Models;
 
 namespace ZomatoDemo.Repository.Users
 {
@@ -20,5 +16,9 @@ namespace ZomatoDemo.Repository.Users
 
         //delete
         Task<bool> DeleteUser(string userId);
+
+        //login
+        Task<ClaimsIdentity> GetClaimsIdentity(string email, string password);
+
     }
 }

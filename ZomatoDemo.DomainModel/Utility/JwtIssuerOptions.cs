@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace ZomatoDemo.DomainModel.Models
+namespace ZomatoDemo.DomainModel.Utility
 {
     public class JwtIssuerOptions
     {

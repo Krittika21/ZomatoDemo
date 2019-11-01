@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
-using ZomatoDemo.DomainModel.Models;
+using ZomatoDemo.Repository.Authentication;
 using ZomatoDemo.Web.Models;
 
 namespace ZomatoDemo.Repository.Users
@@ -16,6 +14,7 @@ namespace ZomatoDemo.Repository.Users
     {
         private readonly ZomatoDbContext _dbContext;
         private readonly UserManager<UserAC> _userManager;
+        private readonly IJwtFactory _jwtFactory;
 
         public UserRepository(ZomatoDbContext dbContext, UserManager<UserAC> userManager)
         {
@@ -56,5 +55,27 @@ namespace ZomatoDemo.Repository.Users
             await _dbContext.SaveChangesAsync();
             return true;
         }
+
+        //login
+        public async Task<ClaimsIdentity> GetClaimsIdentity(string email, string password)
+        {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                return await Task.FromResult<ClaimsIdentity>(null);
+
+            // get the user to verifty
+            var userToVerify = await _userManager.FindByEmailAsync(email);
+
+            if (userToVerify == null) return await Task.FromResult<ClaimsIdentity>(null);
+
+            // check the credentials
+            if (await _userManager.CheckPasswordAsync(userToVerify, password))
+            {
+                return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(email, userToVerify.Id));
+            }
+
+            // Credentials are invalid, or account doesn't exist
+            return await Task.FromResult<ClaimsIdentity>(null);
+        }
+
     }
 }

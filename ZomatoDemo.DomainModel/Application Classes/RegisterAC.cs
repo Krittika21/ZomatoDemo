@@ -9,7 +9,7 @@ namespace ZomatoDemo.DomainModel.Application_Classes
     {
         //[Required]
         //[MaxLength(256)]
-        //public string UserName { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         public string Email { get; set; }

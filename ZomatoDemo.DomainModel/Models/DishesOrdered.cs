@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ZomatoDemo.DomainModel.Models
+﻿namespace ZomatoDemo.DomainModel.Models
 {
     public class DishesOrdered
     {
