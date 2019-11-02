@@ -16,10 +16,11 @@ namespace ZomatoDemo.Repository.Users
         private readonly UserManager<UserAC> _userManager;
         private readonly IJwtFactory _jwtFactory;
 
-        public UserRepository(ZomatoDbContext dbContext, UserManager<UserAC> userManager)
+        public UserRepository(ZomatoDbContext dbContext, UserManager<UserAC> userManager, IJwtFactory jwtFactory)
         {
             this._dbContext = dbContext;
             this._userManager = userManager;
+            this._jwtFactory = jwtFactory;
         }
 
         //get
@@ -71,7 +72,7 @@ namespace ZomatoDemo.Repository.Users
             if (await _userManager.CheckPasswordAsync(userToVerify, password))
             {
                 return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(email, userToVerify.Id));
-            }
+            } 
 
             // Credentials are invalid, or account doesn't exist
             return await Task.FromResult<ClaimsIdentity>(null);

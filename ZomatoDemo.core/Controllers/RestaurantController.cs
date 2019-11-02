@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
@@ -22,6 +23,7 @@ namespace ZomatoDemo.core.Controllers
 
         [HttpGet]
         [Route("restaurant/{id}")]
+        [Authorize(Policy = "ApiUser")]
         public async Task<ActionResult> GetRestaurantLocationAsync([FromRoute] int id)
         {
             return Ok(await unitOfWork.Restaurant.GetRestaurantLocation(id));

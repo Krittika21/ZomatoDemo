@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.DomainModel.Models;
@@ -23,6 +22,7 @@ namespace ZomatoDemo.Repository.Restaurants
 
         //GET
         //get all the details as per restaurant Id : user
+        
         public async Task<ICollection<AllDetails>> GetRestaurantLocation(int id)
         {
             var eatery = await _dbContext.Restaurant.Include(l => l.Location).Where(r => r.ID == id).SelectMany(l => l.Location).ToListAsync();
@@ -61,6 +61,7 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //get restaurants as per location : user   for every location add restaurants
+        [Authorize(Policy = "ApiUser")]
         public async Task<ICollection<AllRestaurants>> GetRestaurantsForLocation(int locationID)
         {
             Location locations = await _dbContext.Location.FirstAsync(x => x.ID == locationID);
