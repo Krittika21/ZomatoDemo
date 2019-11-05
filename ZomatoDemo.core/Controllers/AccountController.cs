@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -9,6 +10,7 @@ using ZomatoDemo.DomainModel.Utility;
 using ZomatoDemo.Repository.Authentication;
 using ZomatoDemo.Repository.Helpers;
 using ZomatoDemo.Repository.UnitOfWork;
+using ZomatoDemo.Web.Models;
 
 namespace ZomatoDemo.Core.Controllers
 {
@@ -20,14 +22,18 @@ namespace ZomatoDemo.Core.Controllers
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
         private readonly IUnitOfWorkRepository unitOfWork;
+        private ZomatoDbContext _dbContext;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<UserAC> userManager, SignInManager<UserAC> signManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IUnitOfWorkRepository unitOfWork)
+        public AccountController(UserManager<UserAC> userManager, SignInManager<UserAC> signManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IUnitOfWorkRepository unitOfWork, ZomatoDbContext dbContext, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signManager = signManager;
             _jwtFactory = jwtFactory;
             _jwtOptions = jwtOptions.Value;
             this.unitOfWork = unitOfWork;
+            _dbContext = dbContext;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -64,11 +70,13 @@ namespace ZomatoDemo.Core.Controllers
                 };
 
                 var result = await _userManager.CreateAsync(user, registerAC.Password);
-
+                var useremail = await _userManager.FindByEmailAsync(user.Email);
+                //await _userManager.AddClaimAsync(usr, new Claim(ClaimTypes.Role, "user"));
+                var roles = await _userManager.AddToRoleAsync(useremail , "user");
                 if (result.Succeeded)
                 {
                     await _signManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Account");
+                    return Ok(true);
 
                 }
                 else
@@ -86,6 +94,61 @@ namespace ZomatoDemo.Core.Controllers
             //return View();
         }
 
+        [HttpPost]
+        [Route("signUpAdmin")]
+        public async Task<IActionResult> SignUpAdmin([FromBody] RegisterAC registerAC)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new UserAC
+                {
+                    Email = registerAC.Email,
+                    UserName = registerAC.UserName
+                };
+
+                var result = await _userManager.CreateAsync(user, registerAC.Password);
+                var usr = await _userManager.FindByEmailAsync(user.Email);
+                //await _userManager.AddClaimAsync(usr, new Claim(ClaimTypes.Role, "user"));
+                var roles = await _userManager.AddToRoleAsync(usr, "admin");
+                if (result.Succeeded)
+                {
+                    await _signManager.SignInAsync(user, false);
+                    return Ok(true);
+
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+
+                    }
+                    return new OkObjectResult("Invalid Credentials");
+                }
+            }
+            return new OkObjectResult("OKay");
+
+            //return View();
+        }
+
+        [HttpPost]
+        [Route("roles")]
+        public async Task<IActionResult> Roles([FromBody] IdentityRole role)
+        {
+            var x = await _roleManager.RoleExistsAsync(role.Name);
+            if (!x)
+            {
+                var roles = new IdentityRole();
+                roles.Name = role.Name;
+                await _roleManager.CreateAsync(roles);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         // POST api/Account/login
         [HttpPost("login")]
         public async Task<IActionResult> Post([FromBody]LoginAC loginAC)
@@ -96,13 +159,14 @@ namespace ZomatoDemo.Core.Controllers
             }
 
             var identity = await unitOfWork.User.GetClaimsIdentity(loginAC.Email, loginAC.Password);
-
+            var x = await _userManager.FindByEmailAsync(loginAC.Email);
+            var y = await _userManager.GetRolesAsync(x);
             if (identity == null)
             {
                 return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid email or password.", ModelState));
             }
 
-            var jwt = await Tokens.GenerateJwt(identity, _jwtFactory, loginAC.Email, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
+            var jwt = await Tokens.GenerateJwt(x, y, identity, _jwtFactory, loginAC.Email, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
             return new OkObjectResult(jwt);
         }
 
@@ -114,40 +178,5 @@ namespace ZomatoDemo.Core.Controllers
             await _signManager.SignOutAsync();
             return RedirectToAction("Index", "Account");
         }
-
-        ////SIGNING IN OR LOGGIN IN
-        //[HttpGet]
-        //[Route("logIn")]
-        //public IActionResult LogInView(string returnURL = "")
-        //{
-        //    var model = new LoginAC
-        //    {
-        //        ReturnUrl = returnURL
-        //    };
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[Route("logIn")]
-        //public async Task<IActionResult> LogIn(LoginAC loginAC)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var result = await _signManager.PasswordSignInAsync(loginAC.Email, loginAC.Password, loginAC.RememberMe, false);
-        //        if (result.Succeeded)
-        //        {
-        //            if (!string.IsNullOrEmpty(loginAC.ReturnUrl) && Url.IsLocalUrl(loginAC.ReturnUrl))
-        //            {
-        //                return Redirect(loginAC.ReturnUrl);
-        //            }
-        //            else
-        //            {
-        //                return RedirectToAction("Index", "Account");
-        //            }
-        //        }
-        //    }
-        //    ModelState.AddModelError("", "Invalid Login Attempt");
-        //    return View(loginAC);
-        //}
     }
 }

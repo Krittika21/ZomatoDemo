@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
@@ -14,9 +15,11 @@ namespace ZomatoDemo.Core.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUnitOfWorkRepository unitOfWork;
-        public UserController(IUnitOfWorkRepository unitOfWork)
+        private readonly UserManager<UserAC> _userManager;
+        public UserController(IUnitOfWorkRepository unitOfWork, UserManager<UserAC> userManager)
         {
             this.unitOfWork = unitOfWork;
+            _userManager = userManager;
         }
         //Get:api/Restaurant
        
@@ -25,6 +28,21 @@ namespace ZomatoDemo.Core.Controllers
         public async Task<ActionResult> GetAllUsers()
         {
             return Ok(await unitOfWork.User.GetAllUsers());
+        }
+
+        [HttpGet]
+        [Route("currentUser")]
+        public async Task<ActionResult> GetCurrentUser()
+        {
+            var loggedInUserName= User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(loggedInUserName);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            CurrentUser userAC = new CurrentUser();
+            userAC.UserId = user.Id;
+            userAC.UserName = user.Email;
+            userAC.email = user.Email;
+            userAC.Roles = userRoles;
+            return Ok(userAC);
         }
 
         [HttpGet]
