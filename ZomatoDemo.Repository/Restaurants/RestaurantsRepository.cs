@@ -225,9 +225,21 @@ namespace ZomatoDemo.Repository.Restaurants
             return (dishes);
         }
 
-        //PUT 
-        // update cart dishes : user
-        public async Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac)
+        //post reviews
+        public async Task<ReviewsAC> AddReviews(int restaurantId, ReviewsAC reviews)
+        {   
+            Review review = new Review();
+            review.LikesCount = reviews.LikesCount;
+            review.ReviewTexts = reviews.ReviewTexts;
+            review.Restaurant = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).FirstAsync();
+            review.User = await _dbContext.Users.Where(u => u.Id == reviews.userID).FirstAsync();
+            await _dbContext.Review.AddAsync(review);
+            await _dbContext.SaveChangesAsync();
+            return reviews;
+        }
+            //PUT 
+            // update cart dishes : user
+            public async Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac)
         {
             var removed = false;
             var edit = await _dbContext.OrderDetails.Where(x => x.ID == orderId).Include(d => d.DishesOrdered).FirstAsync(); 

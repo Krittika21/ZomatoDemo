@@ -23,7 +23,7 @@ namespace ZomatoDemo.core.Controllers
 
         [HttpGet]
         [Route("restaurant/{id}")]
-        [Authorize(Policy = "ApiUser")]
+        //[Authorize(Policy = "ApiUser")]
         public async Task<ActionResult> GetRestaurantLocationAsync([FromRoute] int id)
         {
             return Ok(await unitOfWork.Restaurant.GetRestaurantLocation(id));
@@ -79,6 +79,15 @@ namespace ZomatoDemo.core.Controllers
             await unitOfWork.Restaurant.NewDish(restaurantId, dishes);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("reviews/{restaurantId}")]
+        public async Task<ActionResult> AddReviews([FromRoute]int restaurantId, [FromBody]ReviewsAC reviews)
+        {
+            await unitOfWork.Restaurant.AddReviews(restaurantId, reviews);
+            return Ok();
+        }
+
         //put
         [HttpPut]
         [Route("restaurant/{id}")]
