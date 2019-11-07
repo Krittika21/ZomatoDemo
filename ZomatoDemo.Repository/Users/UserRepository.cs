@@ -41,7 +41,7 @@ namespace ZomatoDemo.Repository.Users
             var userEdit = await _dbContext.Users.Where(u => u.Id.Equals(user.Id)).FirstOrDefaultAsync();
 
             userEdit.FullName = user.FullName;
-            userEdit.DateOfBirth = user.DateOfBirth;
+            userEdit.PhoneNumber = user.PhoneNumber;
 
             _dbContext.Users.Update(userEdit);
             await _dbContext.SaveChangesAsync();

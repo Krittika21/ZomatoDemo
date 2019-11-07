@@ -66,12 +66,13 @@ namespace ZomatoDemo.Core.Controllers
                 var user = new UserAC
                 {
                     Email = registerAC.Email,
-                    UserName = registerAC.UserName
+                    UserName = registerAC.UserName,
+                    FullName = registerAC.FullName,
+                    PhoneNumber = registerAC.PhoneNumber
                 };
 
                 var result = await _userManager.CreateAsync(user, registerAC.Password);
                 var useremail = await _userManager.FindByEmailAsync(user.Email);
-                //await _userManager.AddClaimAsync(usr, new Claim(ClaimTypes.Role, "user"));
                 var roles = await _userManager.AddToRoleAsync(useremail , "user");
                 if (result.Succeeded)
                 {
@@ -159,14 +160,14 @@ namespace ZomatoDemo.Core.Controllers
             }
 
             var identity = await unitOfWork.User.GetClaimsIdentity(loginAC.Email, loginAC.Password);
-            var x = await _userManager.FindByEmailAsync(loginAC.Email);
-            var y = await _userManager.GetRolesAsync(x);
+            var userEmail = await _userManager.FindByEmailAsync(loginAC.Email);
+            var y = await _userManager.GetRolesAsync(userEmail);
             if (identity == null)
             {
                 return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid email or password.", ModelState));
             }
 
-            var jwt = await Tokens.GenerateJwt(x, y, identity, _jwtFactory, loginAC.Email, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
+            var jwt = await Tokens.GenerateJwt(userEmail, y, identity, _jwtFactory, loginAC.Email, _jwtOptions, new JsonSerializerSettings { Formatting = Formatting.Indented });
             return new OkObjectResult(jwt);
         }
 

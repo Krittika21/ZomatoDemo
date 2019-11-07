@@ -8,8 +8,7 @@ namespace ZomatoDemo.DomainModel.Application_Classes
 {
     public class UserAC : IdentityUser
     {
-        //public string UserName { get; set; }
         public string FullName { get; set; }
-        public string DateOfBirth { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

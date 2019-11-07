@@ -11,7 +11,8 @@ namespace ZomatoDemo.Repository.Helpers
 {
     public class Tokens
     {
-        public static async Task<string> GenerateJwt(UserAC user, IList<string> s, ClaimsIdentity identity, IJwtFactory jwtFactory, string userName, JwtIssuerOptions jwtOptions, JsonSerializerSettings serializerSettings)
+        public static async Task<string> GenerateJwt(UserAC user, IList<string> userRole, ClaimsIdentity identity, IJwtFactory jwtFactory, 
+                                                    string userName, JwtIssuerOptions jwtOptions, JsonSerializerSettings serializerSettings)
         {
             var response = new
             {
@@ -19,7 +20,7 @@ namespace ZomatoDemo.Repository.Helpers
                 auth_token = await jwtFactory.GenerateEncodedToken(userName, identity),
                 expires_in = (int)jwtOptions.ValidFor.TotalSeconds,
                 userName = user.FullName,
-                role= s
+                role= userRole
 
             };
 
