@@ -20,5 +20,7 @@ namespace ZomatoDemo.DomainModel.Application_Classes
 
         public AllCity City { get; set; }
         public AllCountry Country { get; set; }
+        public ICollection<ReviewsAC> AllReviews { get; set; }
+
     }
 }

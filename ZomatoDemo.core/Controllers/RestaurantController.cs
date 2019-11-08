@@ -88,11 +88,13 @@ namespace ZomatoDemo.core.Controllers
             return Ok();
         }
 
-        //public Task<ActionResult> Likes(int userId)
-        //{
-        //   // ReviewsAC reviewLikes = await _dbContext
-        //    return Ok();
-        //}
+        [HttpPost]
+        [Route("reviewsLikes/{restaurantId}")]
+        public async Task<IActionResult> Likes(ReviewsAC review)
+        {
+            var x = await unitOfWork.Restaurant.Likes(review.ReviewId, review.userID);
+            return Ok(x);
+        }
 
         //put
         [HttpPut]

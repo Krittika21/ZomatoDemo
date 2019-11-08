@@ -23,13 +23,27 @@ namespace ZomatoDemo.Repository.Restaurants
         //GET
         //get all the details as per restaurant Id : user
         
-        public async Task<ICollection<AllDetails>> GetRestaurantLocation(int id)
+        public async Task<AllDetails> GetRestaurantLocation(int id)
         {
             var eatery = await _dbContext.Restaurant.Include(l => l.Location).Where(r => r.ID == id).SelectMany(l => l.Location).ToListAsync();
             var cityList = await _dbContext.City.ToListAsync();
             var restaurantList = await _dbContext.Restaurant.ToListAsync();
             var countryList = await _dbContext.Country.ToListAsync();
             var x = restaurantList.Where(d => d.ID == id).FirstOrDefault();
+            var reviewUser = await _dbContext.Review.Where(r => r.Restaurant.ID == id).Include(u => u.User).ToListAsync();
+            ICollection<ReviewsAC> z = new List<ReviewsAC>();
+            foreach (var y in reviewUser)
+            {
+                var review = new ReviewsAC()
+                {
+                    userID = y.User.Id,
+                    UserName = y.User.FullName,
+                    ReviewId = y.ID,
+                    LikesCount = y.LikesCount,
+                    ReviewTexts = y.ReviewTexts
+                };
+                z.Add(review);
+            }
 
             var allLocations = new List<AllDetails>();
             foreach (var place in eatery)
@@ -54,10 +68,13 @@ namespace ZomatoDemo.Repository.Restaurants
                     CuisineType = x.CuisineType,
                     AverageCost = x.AverageCost,
                     OpeningHours = x.OpeningHours,
-                    MoreInfo = x.MoreInfo
+                    MoreInfo = x.MoreInfo,
+                    AllReviews = z
+                    
+
                 });
             }
-            return allLocations;
+            return allLocations[0];
         }
 
         //get restaurants as per location : user   for every location add restaurants
@@ -124,6 +141,8 @@ namespace ZomatoDemo.Repository.Restaurants
             }            
             return allDishes;
         }
+
+
 
         //POST
         //post all locations
@@ -238,11 +257,28 @@ namespace ZomatoDemo.Repository.Restaurants
             return reviews;
         }
 
-        //public async Task<ActionResult> Likes(string userId)
-        //{
-        //    ReviewsAC reviewLikes = await _dbContext.Review.Where(u => u.User.Id == userId).ToList();
-        //    return Ok();
-        //}
+        //post for likes
+        public async Task<ReviewsAC> Likes(int reviewId, string userId)
+        {
+            var review = await _dbContext.Review.Where(k => k.ID == reviewId).Include(k => k.User).FirstOrDefaultAsync();
+            var user = await _dbContext.Users.Where(k => k.Id == userId).FirstOrDefaultAsync();
+            var likes = new Likes();
+            likes.Reviews = review;
+            likes.Users = user;
+            review.LikesCount += 1;
+            await _dbContext.Likes.AddAsync(likes);
+
+            ReviewsAC reviews = new ReviewsAC();
+            reviews.ReviewId = review.ID;
+            reviews.LikesCount = review.LikesCount;
+            reviews.ReviewTexts = review.ReviewTexts;
+            reviews.userID = review.User.Id;
+            reviews.UserName = review.User.FullName;
+            await _dbContext.SaveChangesAsync();
+            return reviews;
+        }
+
+        
 
         //PUT 
         // update cart dishes : user

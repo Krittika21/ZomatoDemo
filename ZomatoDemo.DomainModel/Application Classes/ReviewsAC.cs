@@ -9,7 +9,7 @@ namespace ZomatoDemo.DomainModel.Application_Classes
         public string userID { get; set; }
         public string UserName { get; set; }
         public int LikesCount { get; set; }
-        public string ReviewId { get; set; }
+        public int ReviewId { get; set; }
         public string ReviewTexts { get; set; }
     }
 }
