@@ -96,6 +96,14 @@ namespace ZomatoDemo.core.Controllers
             return Ok(x);
         }
 
+        [HttpPost]
+        [Route("comment/{restaurantId}")]
+        public async Task<IActionResult> CommentSection([FromRoute] int restaurantId, CommentAC commentac)
+        {
+            var c = await unitOfWork.Restaurant.CommentSection(restaurantId, commentac);
+            return Ok(c);
+        }
+
         //put
         [HttpPut]
         [Route("restaurant/{id}")]

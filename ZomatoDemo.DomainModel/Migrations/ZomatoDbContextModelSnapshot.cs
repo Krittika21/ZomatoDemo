@@ -139,8 +139,6 @@ namespace ZomatoDemo.DomainModel.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("DateOfBirth");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -195,6 +193,27 @@ namespace ZomatoDemo.DomainModel.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("City");
+                });
+
+            modelBuilder.Entity("ZomatoDemo.DomainModel.Models.Comment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CommentMessage");
+
+                    b.Property<int>("ReviewID");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ReviewID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("ZomatoDemo.DomainModel.Models.Country", b =>
@@ -446,6 +465,18 @@ namespace ZomatoDemo.DomainModel.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ZomatoDemo.DomainModel.Models.Comment", b =>
+                {
+                    b.HasOne("ZomatoDemo.DomainModel.Models.Review", "Review")
+                        .WithMany()
+                        .HasForeignKey("ReviewID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ZomatoDemo.DomainModel.Application_Classes.UserAC", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("ZomatoDemo.DomainModel.Models.Dishes", b =>

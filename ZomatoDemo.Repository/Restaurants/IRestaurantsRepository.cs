@@ -24,6 +24,7 @@ namespace ZomatoDemo.Repository.Restaurants
         Task<AllDishes> NewDish(int restaurantId, AllDishes dishes);
         Task<ReviewsAC> AddReviews(int restaurantId, ReviewsAC reviews);
         Task<ReviewsAC> Likes(int reviewId, string userId);
+        Task<CommentAC> CommentSection(int restaurantId, CommentAC commentac);
 
         //edit
         Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac);

@@ -13,6 +13,7 @@ namespace ZomatoDemo.Web.Models
 
         public DbSet<City> City { get; set; }
         public DbSet<Country> Country { get; set; }
+        public DbSet<Comment> Comment { get; set; }
         public DbSet<Dishes> Dishes { get; set; }
         public DbSet<DishesOrdered> DishesOrdered { get; set; }
         public DbSet<Likes> Likes { get; set; }

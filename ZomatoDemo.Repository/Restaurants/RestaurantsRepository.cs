@@ -241,7 +241,7 @@ namespace ZomatoDemo.Repository.Restaurants
             menu.Dishes.Add(dish);
 
             await _dbContext.SaveChangesAsync();
-            return (dishes);
+            return dishes;
         }
 
         //post reviews
@@ -278,7 +278,20 @@ namespace ZomatoDemo.Repository.Restaurants
             return reviews;
         }
 
-        
+        //post comments
+        public async Task<CommentAC> CommentSection(int restaurantId, CommentAC commentac)
+        {
+            var x = await _dbContext.Comment.Where(c => c.ID == restaurantId).ToListAsync();
+            foreach (var item in x)
+            {
+                commentac.ReviewID = item.ReviewID;
+                commentac.UserID = item.UserID;
+                commentac.CommentMessage = item.CommentMessage;
+            }
+            await _dbContext.SaveChangesAsync();
+            return commentac;
+        }
+
 
         //PUT 
         // update cart dishes : user
