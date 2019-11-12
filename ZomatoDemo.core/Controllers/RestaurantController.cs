@@ -49,6 +49,15 @@ namespace ZomatoDemo.core.Controllers
             return Ok(await unitOfWork.Restaurant.GetDishes(restaurantId));
         }
 
+        //[HttpGet]
+        //[Route("restaurant/comment/{restaurantId}")]
+        //public async Task<ActionResult> Comments([FromRoute] int reviewId)
+        //{
+        //    var x = await unitOfWork.Restaurant.Comments(reviewId);
+        //    return Ok(x);
+        //}
+
+
         //post
         [HttpPost]
         [Route("location")]

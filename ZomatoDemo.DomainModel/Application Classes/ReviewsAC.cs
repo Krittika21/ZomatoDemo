@@ -11,5 +11,6 @@ namespace ZomatoDemo.DomainModel.Application_Classes
         public int LikesCount { get; set; }
         public int ReviewId { get; set; }
         public string ReviewTexts { get; set; }
+        public List<CommentAC> commentACs { get; set; }
     }
 }

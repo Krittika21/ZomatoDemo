@@ -34,13 +34,29 @@ namespace ZomatoDemo.Repository.Restaurants
             ICollection<ReviewsAC> z = new List<ReviewsAC>();
             foreach (var y in reviewUser)
             {
+                var w = await _dbContext.Comment.Where(k => k.ReviewID == y.ID).Include(u => u.User).ToListAsync();
+                var allComments = new List<CommentAC>();
+                foreach (var item in w)
+                {
+                    allComments.Add(new CommentAC
+                    {
+                        ID = item.ID,
+                        ReviewID = item.ReviewID,
+                        UserID = item.UserID,
+                        CommentMessage = item.CommentMessage,
+                        FullName = item.User.FullName
+                    });
+                }
+                
+
                 var review = new ReviewsAC()
                 {
                     userID = y.User.Id,
                     UserName = y.User.FullName,
                     ReviewId = y.ID,
                     LikesCount = y.LikesCount,
-                    ReviewTexts = y.ReviewTexts
+                    ReviewTexts = y.ReviewTexts,
+                    commentACs = allComments
                 };
                 z.Add(review);
             }
@@ -70,11 +86,9 @@ namespace ZomatoDemo.Repository.Restaurants
                     OpeningHours = x.OpeningHours,
                     MoreInfo = x.MoreInfo,
                     AllReviews = z
-                    
-
                 });
             }
-            return allLocations[0];
+            return allLocations.FirstOrDefault();
         }
 
         //get restaurants as per location : user   for every location add restaurants
@@ -141,6 +155,21 @@ namespace ZomatoDemo.Repository.Restaurants
             }            
             return allDishes;
         }
+        
+        //get all the comments
+        //public async Task<ICollection<CommentAC>> Comments(int reviewId)
+        //{
+        //    var x = await _dbContext.Comment.Where(r => r.Review.ID == reviewId).SingleAsync();
+        //    var allComments = new List<CommentAC>();
+        //    allComments.Add(new CommentAC
+        //    {
+        //        ID = x.ID,
+        //        ReviewID = x.ReviewID,
+        //        UserID = x.UserID,
+        //        CommentMessage = x.CommentMessage
+        //    });
+        //    return allComments;
+        //}
 
 
 
@@ -281,14 +310,18 @@ namespace ZomatoDemo.Repository.Restaurants
         //post comments
         public async Task<CommentAC> CommentSection(int restaurantId, CommentAC commentac)
         {
-            var x = await _dbContext.Comment.Where(c => c.ID == restaurantId).ToListAsync();
-            foreach (var item in x)
-            {
-                commentac.ReviewID = item.ReviewID;
-                commentac.UserID = item.UserID;
-                commentac.CommentMessage = item.CommentMessage;
-            }
+            Comment comment = new Comment();
+            var x = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).FirstAsync();
+            var y = await _dbContext.Review.Where(r => r.ID == commentac.ReviewID).FirstAsync();
+            comment.Review = y;
+            comment.Review.Restaurant.ID = x.ID;
+            comment.ReviewID = commentac.ReviewID;
+            comment.UserID = commentac.UserID;
+            comment.CommentMessage = commentac.CommentMessage;
+            
+            await _dbContext.Comment.AddAsync(comment);
             await _dbContext.SaveChangesAsync();
+            commentac.ID = comment.ID;
             return commentac;
         }
 
