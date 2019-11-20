@@ -28,7 +28,7 @@ namespace ZomatoDemo.Repository.Restaurants
         Task<CommentAC> CommentSection(int restaurantId, CommentAC commentac);
 
         //edit
-        Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac);
+        //Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac);
         Task<AllDetails> EditRestaurant(int id, AllDetails details);
 
         //delete

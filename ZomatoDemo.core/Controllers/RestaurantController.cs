@@ -114,13 +114,13 @@ namespace ZomatoDemo.core.Controllers
         }
 
         //put
-        [HttpPut]
-        [Route("restaurant/{id}")]
-        public async Task<ActionResult> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac)
-        {
-            await unitOfWork.Restaurant.EditCart(orderId, orderDetailsac);
-            return Ok();
-        }
+        //[HttpPut]
+        //[Route("restaurant/{id}")]
+        //public async Task<ActionResult> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac)
+        //{
+        //    await unitOfWork.Restaurant.EditCart(orderId, orderDetailsac);
+        //    return Ok();
+        //}
 
         [HttpPut]
         [Route("editrestaurant/{id}")]
