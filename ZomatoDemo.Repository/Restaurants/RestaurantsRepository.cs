@@ -385,10 +385,24 @@ namespace ZomatoDemo.Repository.Restaurants
         //delete all restaurants : admin
         public async Task DeleteRestaurant(int restaurantId)
         {
-            var restaurant = await _dbContext.Restaurant.FindAsync(restaurantId);
-            if (restaurant != null)
+            var delRestaurant = await _dbContext.Restaurant.Include(k => k.Dishes).Where(r => r.ID == restaurantId).SingleOrDefaultAsync();
+            var delOrderDetails = await _dbContext.OrderDetails.Include(r => r.Restaurant).Include(l => l.DishesOrdered).Where(k => k.Restaurant.ID == restaurantId).ToListAsync();
+            var delLike = await _dbContext.Likes.Include(r => r.Reviews).Where(r => r.Reviews.Restaurant.ID == restaurantId).ToListAsync();
+            var delComments = await _dbContext.Comment.Include(t => t.Review).Where(r => r.Review.Restaurant.ID == restaurantId).ToListAsync();
+            var reviews = await _dbContext.Review.Include(r => r.Restaurant).Where(k => k.Restaurant.ID == restaurantId).ToListAsync();
+
+            _dbContext.Review.RemoveRange(reviews);
+            foreach (var item in delOrderDetails)
             {
-                _dbContext.Restaurant.Remove(restaurant);
+                _dbContext.DishesOrdered.RemoveRange(item.DishesOrdered);
+            }
+            _dbContext.Comment.RemoveRange(delComments);
+            _dbContext.Likes.RemoveRange(delLike);
+            _dbContext.OrderDetails.RemoveRange(delOrderDetails);
+            _dbContext.Dishes.RemoveRange(delRestaurant.Dishes);
+            if (delRestaurant != null)
+            {
+                _dbContext.Restaurant.Remove(delRestaurant);
             }
             await _dbContext.SaveChangesAsync();
             return;
@@ -398,10 +412,29 @@ namespace ZomatoDemo.Repository.Restaurants
         public async Task DeleteDishes(int id)
         {
             var dish = await _dbContext.Dishes.FindAsync(id);
+            var delDishesOrdered = await _dbContext.DishesOrdered.Include(d => d.Dishes).Where(r => r.Dishes.ID == id).ToListAsync();
+            // var delOrderDetails = await _dbContext.OrderDetails.Where(k => k.DishesOrdered == delDishesOrdered).FirstAsync();
+
+            var orderDetails = await _dbContext.OrderDetails.Include(k => k.DishesOrdered).ToListAsync();
+
+            var delOrderDetails = new List<OrderDetails>();
+
             if (dish != null)
             {
                 _dbContext.Dishes.Remove(dish);
             }
+            if (delDishesOrdered != null)
+            {
+                _dbContext.DishesOrdered.RemoveRange(delDishesOrdered);
+            }
+
+            foreach (var item in delDishesOrdered)
+            {
+                var x = orderDetails.Where(k => k.DishesOrdered.Contains(item)).FirstOrDefault();
+                delOrderDetails.Add(x);
+                
+            }
+            _dbContext.OrderDetails.RemoveRange(delOrderDetails);
             await _dbContext.SaveChangesAsync();
             return;
         }
