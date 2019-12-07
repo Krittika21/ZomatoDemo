@@ -4624,6 +4624,7 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "2.1.1",
           "Microsoft.AspNetCore.Cors": "2.1.1",
           "Microsoft.AspNetCore.Identity": "2.1.1",
+          "Microsoft.AspNetCore.SignalR": "1.0.1",
           "Microsoft.EntityFrameworkCore": "2.1.1",
           "ZomatoDemo.Repository": "1.0.0"
         },
@@ -4642,6 +4643,7 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "2.1.1",
           "Microsoft.AspNetCore.Cors": "2.1.1",
           "Microsoft.AspNetCore.Identity": "2.1.1",
+          "Microsoft.AspNetCore.SignalR": "1.0.1",
           "Microsoft.EntityFrameworkCore": "2.1.1"
         },
         "compile": {
@@ -4658,6 +4660,7 @@
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "2.1.1",
           "Microsoft.AspNetCore.Cors": "2.1.1",
+          "Microsoft.AspNetCore.SignalR": "1.0.1",
           "Microsoft.EntityFrameworkCore": "2.1.1",
           "ZomatoDemo.DomainModel": "1.0.0"
         },
@@ -12285,6 +12288,7 @@
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 2.1.1",
       "Microsoft.AspNetCore.Cors >= 2.1.1",
       "Microsoft.AspNetCore.Identity >= 2.1.1",
+      "Microsoft.AspNetCore.SignalR >= 1.0.1",
       "Microsoft.EntityFrameworkCore >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1",
@@ -12361,6 +12365,10 @@
           "Microsoft.AspNetCore.Identity": {
             "target": "Package",
             "version": "[2.1.1, )"
+          },
+          "Microsoft.AspNetCore.SignalR": {
+            "target": "Package",
+            "version": "[1.0.1, )"
           },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",

@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using ZomatoDemo.Core.Hubs;
 using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.DomainModel.Utility;
 using ZomatoDemo.Repository.Authentication;
@@ -38,6 +39,7 @@ namespace ZomatoDemo
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options =>
             {
@@ -47,10 +49,10 @@ namespace ZomatoDemo
 
           
 
-            services.AddDbContext<ZomatoDbContext>(options =>
+                services.AddDbContext<ZomatoDbContext>(options =>
 
-            options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext"), 
-            b => b.MigrationsAssembly("ZomatoDemo.DomainModel")));
+                options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext"), 
+                b => b.MigrationsAssembly("ZomatoDemo.DomainModel")));
            
             services.AddIdentity<UserAC, IdentityRole>(options =>
             {
@@ -116,6 +118,7 @@ namespace ZomatoDemo
             services.AddCors();
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
             services.AddScoped<IJwtFactory, JwtFactory>();
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -136,9 +139,16 @@ namespace ZomatoDemo
             app.UseHttpsRedirection();
 
             app.UseCors(Options =>
-            Options.WithOrigins("http://localhost:4200")
+            Options
+            .WithOrigins("http://localhost:4200")
             .AllowAnyMethod()
+            .AllowCredentials()
             .AllowAnyHeader());
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<NotifyHub>("/notify");
+            });
 
             app.UseMvc(routes =>
             {

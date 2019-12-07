@@ -1,4 +1,6 @@
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.deps.json
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.runtimeconfig.json
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.runtimeconfig.dev.json
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.dll
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.pdb
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\obj\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.csproj.CoreCompileInputs.cache
@@ -6,6 +8,3 @@ C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\obj\Debug\netco
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\obj\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.AssemblyInfo.cs
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\obj\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.dll
 C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\obj\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.pdb
-C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.runtimeconfig.json
-C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.runtimeconfig.dev.json
-C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.DomainModel\obj\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.csprojAssemblyReference.cache
