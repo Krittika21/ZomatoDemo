@@ -11,27 +11,11 @@ namespace ZomatoDemo.Core.Controllers
     [ApiController]
     public class MessageController : Controller
     {
-        private readonly IHubContext<NotifyHub, ITypedHubClient> _hubContext;
+        //private readonly IHubContext<NotifyHub, ITypedHubClient> _hubContext;
 
-        public MessageController(IHubContext<NotifyHub, ITypedHubClient> hubContext)
+        public MessageController()
         {
-            _hubContext = hubContext;
-        }
 
-        [HttpPost]
-        public string Post([FromBody]Message msg)
-        {
-            string retMessage;
-            try
-            {
-                _hubContext.Clients.All.BroadcastMessage(msg.Type, msg.Payload);
-                retMessage = "Success";
-            }
-            catch (Exception e)
-            {
-                retMessage = e.ToString();
-            }
-            return retMessage;
         }
     }
 }
