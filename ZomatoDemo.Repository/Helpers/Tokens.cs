@@ -11,7 +11,7 @@ namespace ZomatoDemo.Repository.Helpers
 {
     public class Tokens
     {
-        public static async Task<string> GenerateJwt(UserAC user, IList<string> userRole, ClaimsIdentity identity, IJwtFactory jwtFactory, 
+        public static async Task<string> GenerateJwt(User user, IList<string> userRole, ClaimsIdentity identity, IJwtFactory jwtFactory, 
                                                     string userName, JwtIssuerOptions jwtOptions, JsonSerializerSettings serializerSettings)
         {
             var response = new

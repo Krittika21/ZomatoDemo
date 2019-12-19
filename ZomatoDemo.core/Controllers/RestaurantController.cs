@@ -77,24 +77,24 @@ namespace ZomatoDemo.core.Controllers
         [Route("orderdetails")]
         public async Task<ActionResult> AddOrderDetails(OrderDetailsAC orderDetails)
         {
-            await unitOfWork.Restaurant.AddOrderDetails(orderDetails);
-            return Ok();
+            var o = await unitOfWork.Restaurant.AddOrderDetails(orderDetails);
+            return Ok(o);
         }
 
         [HttpPost]
         [Route("newdish/{restaurantId}")]
         public async Task<ActionResult> NewḌish([FromRoute] int restaurantId, AllDishes dishes)
         {
-            await unitOfWork.Restaurant.NewDish(restaurantId, dishes);
-            return Ok();
+            var d = await unitOfWork.Restaurant.NewDish(restaurantId, dishes);
+            return Ok(d);
         }
 
         [HttpPost]
         [Route("reviews/{restaurantId}")]
         public async Task<ActionResult> AddReviews([FromRoute]int restaurantId, [FromBody]ReviewsAC reviews)
         {
-            await unitOfWork.Restaurant.AddReviews(restaurantId, reviews);
-            return Ok();
+            var r = await unitOfWork.Restaurant.AddReviews(restaurantId, reviews);
+            return Ok(r);
         }
 
         [HttpPost]

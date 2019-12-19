@@ -12,6 +12,6 @@ namespace ZomatoDemo.DomainModel.Models
         public string ReviewTexts { get; set; }
 
         public virtual Restaurant Restaurant { get; set; }
-        public virtual UserAC User { get; set; }
+        public virtual User User { get; set; }
     }
 }

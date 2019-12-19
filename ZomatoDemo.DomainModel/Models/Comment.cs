@@ -16,6 +16,6 @@ namespace ZomatoDemo.DomainModel.Models
         [ForeignKey("ReviewID")]
         public virtual Review Review { get; set; }
         [ForeignKey("UserID")]
-        public virtual UserAC User { get; set; }
+        public virtual User User { get; set; }
     }
 }

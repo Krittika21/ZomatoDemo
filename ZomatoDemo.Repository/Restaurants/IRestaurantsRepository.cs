@@ -20,7 +20,7 @@ namespace ZomatoDemo.Repository.Restaurants
 
         //post
         Task<IEnumerable<LocationAC>> AddLocation([FromBody] List<LocationAC> locationAC);
-        Task AddOrderDetails(OrderDetailsAC detailsAC);
+        Task<OrderDetailsAC> AddOrderDetails(OrderDetailsAC detailsAC);
         Task<AllDetails> AddAllRestaurants(AllDetails x);
         Task<AllDishes> NewDish(int restaurantId, AllDishes dishes);
         Task<ReviewsAC> AddReviews(int restaurantId, ReviewsAC reviews);

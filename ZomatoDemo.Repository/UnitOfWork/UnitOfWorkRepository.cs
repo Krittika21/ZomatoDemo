@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,17 +16,19 @@ namespace ZomatoDemo.Repository.UnitOfWork
     public class UnitOfWorkRepository : IUnitOfWorkRepository
     {
         private readonly ZomatoDbContext _dbContext;
-        private readonly UserManager<UserAC> _userManager;
+        private readonly UserManager<User> _userManager;
         private IUserRepository _User;
         private readonly IJwtFactory _jwtFactory;
+        private readonly IMapper _mapper;
 
         private IRestaurantsRepository _Restaurant;
-        public UnitOfWorkRepository(ZomatoDbContext dbContext, UserManager<UserAC> userManager, IJwtFactory jwtFactory)
+        public UnitOfWorkRepository(ZomatoDbContext dbContext, UserManager<User> userManager, IJwtFactory jwtFactory, IMapper mapper)
         {
-            this._dbContext = dbContext;
-            this._userManager = userManager;
+            _dbContext = dbContext;
+            _userManager = userManager;
             System.Diagnostics.Debug.Write("jhsg");
-            this._jwtFactory = jwtFactory;
+            _jwtFactory = jwtFactory;
+            _mapper = mapper;
         }
         
         public IUserRepository User
@@ -45,7 +48,7 @@ namespace ZomatoDemo.Repository.UnitOfWork
             {
                 if (_Restaurant == null)
                 {
-                    _Restaurant = new RestaurantsRepository(_dbContext);
+                    _Restaurant = new RestaurantsRepository(_dbContext, _mapper);
                 }
                 return _Restaurant;
             }

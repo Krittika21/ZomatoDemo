@@ -11,7 +11,7 @@ namespace ZomatoDemo.DomainModel.Models
         public DateTime DateTime { get; set; }
 
         public virtual Restaurant Restaurant { get; set; }
-        public virtual UserAC User { get; set; }
+        public virtual User User { get; set; }
         public virtual ICollection<DishesOrdered> DishesOrdered { get; set; }
     }
 }

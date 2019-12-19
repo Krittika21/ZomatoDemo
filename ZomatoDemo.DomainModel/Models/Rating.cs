@@ -11,6 +11,6 @@ namespace ZomatoDemo.DomainModel.Models
         public decimal AverageRating { get; set; }
 
         public virtual Restaurant Restaurant { get; set; }
-        public virtual UserAC User { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -7,6 +7,6 @@ namespace ZomatoDemo.DomainModel.Application_Classes
     public class AllCity
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string CityName { get; set; }
     }
 }

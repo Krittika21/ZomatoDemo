@@ -17,15 +17,15 @@ namespace ZomatoDemo.Core.Controllers
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        private readonly SignInManager<UserAC> _signManager;
-        private readonly UserManager<UserAC> _userManager;
+        private readonly SignInManager<User> _signManager;
+        private readonly UserManager<User> _userManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
         private readonly IUnitOfWorkRepository unitOfWork;
         private ZomatoDbContext _dbContext;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<UserAC> userManager, SignInManager<UserAC> signManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IUnitOfWorkRepository unitOfWork, ZomatoDbContext dbContext, RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, IUnitOfWorkRepository unitOfWork, ZomatoDbContext dbContext, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signManager = signManager;
@@ -63,7 +63,7 @@ namespace ZomatoDemo.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new UserAC
+                var user = new User
                 {
                     Email = registerAC.Email,
                     UserName = registerAC.UserName,
@@ -101,7 +101,7 @@ namespace ZomatoDemo.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new UserAC
+                var user = new User
                 {
                     Email = registerAC.Email,
                     UserName = registerAC.UserName

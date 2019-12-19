@@ -13,10 +13,10 @@ namespace ZomatoDemo.Repository.Users
     public class UserRepository: IUserRepository
     {
         private readonly ZomatoDbContext _dbContext;
-        private readonly UserManager<UserAC> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly IJwtFactory _jwtFactory;
 
-        public UserRepository(ZomatoDbContext dbContext, UserManager<UserAC> userManager, IJwtFactory jwtFactory)
+        public UserRepository(ZomatoDbContext dbContext, UserManager<User> userManager, IJwtFactory jwtFactory)
         {
             this._dbContext = dbContext;
             this._userManager = userManager;
@@ -24,19 +24,19 @@ namespace ZomatoDemo.Repository.Users
         }
 
         //get
-        public async Task<IEnumerable<UserAC>> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsers()
         {
             var allusers = await _userManager.Users.ToListAsync();
             return allusers;
         }
-        public async Task<UserAC> GetUserAsync(string Id)
+        public async Task<User> GetUserAsync(string Id)
         {
             var idUser = await _userManager.Users.Where(u => u.Id == Id).FirstAsync();
              return idUser;
         }
 
         //put
-        public async Task<UserAC> EditUser(UserAC user)
+        public async Task<User> EditUser(User user)
         {
             var userEdit = await _dbContext.Users.Where(u => u.Id.Equals(user.Id)).FirstOrDefaultAsync();
 

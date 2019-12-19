@@ -15,8 +15,8 @@ namespace ZomatoDemo.Core.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUnitOfWorkRepository unitOfWork;
-        private readonly UserManager<UserAC> _userManager;
-        public UserController(IUnitOfWorkRepository unitOfWork, UserManager<UserAC> userManager)
+        private readonly UserManager<User> _userManager;
+        public UserController(IUnitOfWorkRepository unitOfWork, UserManager<User> userManager)
         {
             this.unitOfWork = unitOfWork;
             _userManager = userManager;
@@ -55,7 +55,7 @@ namespace ZomatoDemo.Core.Controllers
         //put
         [HttpPut]
         [Route("user/{id}")]
-        public async Task<ActionResult> UpdateUser(UserAC user)
+        public async Task<ActionResult> UpdateUser(User user)
         {
             return Ok(await unitOfWork.User.EditUser(user));
         }

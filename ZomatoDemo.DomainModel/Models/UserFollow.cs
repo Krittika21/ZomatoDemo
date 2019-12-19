@@ -14,9 +14,9 @@ namespace ZomatoDemo.DomainModel.Models
         public string FollowerId { get; set; }
 
         [ForeignKey("FolloweeId")]
-        public virtual UserAC Followee { get; set; }
+        public virtual User Followee { get; set; }
 
         [ForeignKey("FollowerId")]
-        public virtual UserAC Follower { get; set; }
+        public virtual User Follower { get; set; }
     }
 }

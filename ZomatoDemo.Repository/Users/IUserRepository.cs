@@ -8,11 +8,11 @@ namespace ZomatoDemo.Repository.Users
     public interface IUserRepository
     {
         //get
-        Task<IEnumerable<UserAC>> GetAllUsers();
-        Task<UserAC> GetUserAsync(string Id);
+        Task<IEnumerable<User>> GetAllUsers();
+        Task<User> GetUserAsync(string Id);
 
         //edit
-        Task<UserAC> EditUser(UserAC user);
+        Task<User> EditUser(User user);
 
         //delete
         Task<bool> DeleteUser(string userId);

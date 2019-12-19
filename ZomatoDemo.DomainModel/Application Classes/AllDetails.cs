@@ -6,7 +6,7 @@ namespace ZomatoDemo.DomainModel.Application_Classes
 {
     public class AllDetails
     {
-        public int ID { get; set; }
+        //public int ID { get; set; }
         public int LocationID { get; set; }
         public int RestaurantID { get; set; }
         public string Locality { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -14,81 +15,54 @@ namespace ZomatoDemo.Repository.Restaurants
     {
 
         private ZomatoDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public RestaurantsRepository(ZomatoDbContext dbContext)
+        public RestaurantsRepository(ZomatoDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         //GET
         //get all the details as per restaurant Id : user
-        
+
         public async Task<AllDetails> GetRestaurantLocation(int id)
         {
-            var eatery = await _dbContext.Restaurant.Include(l => l.Location).Where(r => r.ID == id).SelectMany(l => l.Location).ToListAsync();
-            var cityList = await _dbContext.City.ToListAsync();
-            var restaurantList = await _dbContext.Restaurant.ToListAsync();
-            var countryList = await _dbContext.Country.ToListAsync();
-            var x = restaurantList.Where(d => d.ID == id).FirstOrDefault();
+            var details = new AllDetails();
+            var eatery = await _dbContext.Restaurant.Include(l => l.Location).Where(r => r.ID == id).SelectMany(l => l.Location).FirstAsync();
+            var restaurant = await _dbContext.Restaurant.Include(l => l.Location).Where(r => r.ID == id).FirstOrDefaultAsync();
+            var country = await _dbContext.Country.Where(c => c.ID == restaurant.Location.FirstOrDefault().CountryID).FirstAsync();
+            var city = await _dbContext.City.Where(c => c.ID == restaurant.Location.FirstOrDefault().CityID).FirstAsync();
+
+            details.LocationID = eatery.ID;
+            restaurant.ID = id;
+            var allCity = new AllCity();
+            var allCountry = new AllCountry();
+            var reviewsX = new List<ReviewsAC>();
             var reviewUser = await _dbContext.Review.Where(r => r.Restaurant.ID == id).Include(u => u.User).ToListAsync();
-            ICollection<ReviewsAC> z = new List<ReviewsAC>();
-            foreach (var y in reviewUser)
-            {
-                var w = await _dbContext.Comment.Where(k => k.ReviewID == y.ID).Include(u => u.User).ToListAsync();
-                var allComments = new List<CommentAC>();
-                foreach (var item in w)
-                {
-                    allComments.Add(new CommentAC
-                    {
-                        ID = item.ID,
-                        ReviewID = item.ReviewID,
-                        UserID = item.UserID,
-                        CommentMessage = item.CommentMessage,
-                        FullName = item.User.FullName
-                    });
-                }
-                
 
-                var review = new ReviewsAC()
-                {
-                    userID = y.User.Id,
-                    UserName = y.User.FullName,
-                    ReviewId = y.ID,
-                    LikesCount = y.LikesCount,
-                    ReviewTexts = y.ReviewTexts,
-                    commentACs = allComments
-                };
-                z.Add(review);
-            }
+            _mapper.Map(eatery, details);
+            _mapper.Map(city, allCity);
+            details.City = allCity;
+            _mapper.Map(country, allCountry);
+            details.Country = allCountry;
+            _mapper.Map(restaurant, details);
+            _mapper.Map(country, details.Country);
+            _mapper.Map(reviewUser, reviewsX);
 
-            var allLocations = new List<AllDetails>();
-            foreach (var place in eatery)
+            var comments = await _dbContext.Comment.ToListAsync();
+            var xx = new List<CommentAC>();
+            var y = new List<CommentAC>();
+            _mapper.Map(comments, y);
+            foreach (var item in reviewsX)
             {
-                allLocations.Add(new AllDetails
-                {
-                    ID = x.ID,
-                    LocationID = place.ID,
-                    Locality = place.Locality,
-                    RestaurantName = x.RestaurantName,
-                    City = new AllCity
-                    {
-                        ID = place.CityID,
-                        Name = cityList.Where(c => c.ID == place.CityID).Select(c => c.CityName).FirstOrDefault()
-                    },
-                    Country = new AllCountry
-                    {
-                        ID = place.CountryID,
-                        Name = countryList.Where(c => c.ID == place.CountryID).Select(c => c.CountryName).FirstOrDefault()
-                    },
-                    ContactNumber = x.ContactNumber,
-                    CuisineType = x.CuisineType,
-                    AverageCost = x.AverageCost,
-                    OpeningHours = x.OpeningHours,
-                    MoreInfo = x.MoreInfo,
-                    AllReviews = z
-                });
+                var cmnts = comments.Where(k => k.ReviewID == item.ReviewId).ToList();
+                _mapper.Map(cmnts, xx);
+                item.commentACs = xx;
             }
-            return allLocations.FirstOrDefault();
+            details.AllReviews = reviewsX;
+
+            return details;
         }
 
         //get restaurants as per location : user   for every location add restaurants
@@ -98,14 +72,7 @@ namespace ZomatoDemo.Repository.Restaurants
             Location locations = await _dbContext.Location.FirstAsync(x => x.ID == locationID);
             var restaurant = await _dbContext.Restaurant.Where(r => r.Location.Contains(locations)).ToListAsync();
             var allRestaurants = new List<AllRestaurants>();
-            foreach (var place in restaurant)
-            {
-                allRestaurants.Add(new AllRestaurants
-                {
-                    ID = place.ID,
-                    RestaurantName = place.RestaurantName
-                });
-            }
+            _mapper.Map(restaurant, allRestaurants);
             return allRestaurants;
         }
 
@@ -114,15 +81,7 @@ namespace ZomatoDemo.Repository.Restaurants
         {
             var restaurants = await _dbContext.Restaurant.ToListAsync();
             var allRestaurants = new List<AllRestaurants>();
-            foreach (var item in restaurants)
-            {
-                allRestaurants.Add(new AllRestaurants
-                {
-                    ID = item.ID,
-                    RestaurantName = item.RestaurantName,
-                    Description = item.Description
-                });
-            }
+            _mapper.Map(restaurants, allRestaurants);
             return allRestaurants;
         }
 
@@ -131,12 +90,8 @@ namespace ZomatoDemo.Repository.Restaurants
         {
             var items = await _dbContext.Restaurant.Where(r => r.ID == userId).Include(d => d.Dishes).FirstAsync();
             var allRestaurants = new List<AllRestaurants>();
-            allRestaurants.Add(new AllRestaurants
-            {
-                ID = items.ID,
-                RestaurantName = items.RestaurantName
-            });
-            return allRestaurants.SingleOrDefault(r=>r.ID == items.ID);
+            _mapper.Map(items, allRestaurants);
+            return allRestaurants.SingleOrDefault(r => r.ID == items.ID);
         }
 
         //get dishes for restaurant : user
@@ -144,15 +99,7 @@ namespace ZomatoDemo.Repository.Restaurants
         {
             var dish = await _dbContext.Restaurant.Include(d => d.Dishes).Where(r => r.ID == restaurantId).Select(e => e.Dishes).SingleAsync();
             var allDishes = new List<AllDishes>();
-            foreach (var eatery in dish)
-            {
-                allDishes.Add(new AllDishes
-                {
-                    ID = eatery.ID,
-                    DishesName = eatery.DishesName,
-                    Costs = eatery.Costs
-                });
-            }            
+            _mapper.Map(dish, allDishes);
             return allDishes;
         }
 
@@ -185,28 +132,20 @@ namespace ZomatoDemo.Repository.Restaurants
         {
 
             City city = new City();
-            city.CityName = details.City.Name;
+            _mapper.Map(details.City, city);
 
             var z = await _dbContext.City.AddAsync(city);
 
             Country country = new Country();
-            country.CountryName = details.Country.Name;
+            _mapper.Map(details.Country, country);
 
             var w = await _dbContext.Country.AddAsync(country);
 
             Location location = new Location();
-            location.Locality = details.Locality;
-            location.CityID = city.ID;
-            location.CountryID = country.ID;
+            _mapper.Map(details, location);
 
             Restaurant restaurants = new Restaurant();
-            restaurants.RestaurantName = details.RestaurantName;
-            restaurants.Description = details.Description;
-            restaurants.ContactNumber = details.ContactNumber;
-            restaurants.CuisineType = details.CuisineType;
-            restaurants.AverageCost = details.AverageCost;
-            restaurants.OpeningHours = details.OpeningHours;
-            restaurants.MoreInfo = details.MoreInfo;
+            _mapper.Map(details, restaurants);
 
             ICollection<Location> Location = new List<Location>();
             Location.Add(location);
@@ -225,10 +164,10 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //post users and create order details
-        public async Task AddOrderDetails(OrderDetailsAC detailsAC)
+        public async Task<OrderDetailsAC> AddOrderDetails(OrderDetailsAC detailsAC)
         {
             Restaurant restaurants = await _dbContext.Restaurant.FirstAsync(x => x.ID == detailsAC.RestaurantID);
-            UserAC user = await _dbContext.Users.Where(u => u.Id == detailsAC.UserID).FirstAsync();
+            User user = await _dbContext.Users.Where(u => u.Id == detailsAC.UserID).FirstAsync();
             ICollection<DishesOrdered> orderedDishes = detailsAC.DishesOrdered;
             var listOfDishes = _dbContext.Dishes;
             foreach (var item in orderedDishes)
@@ -236,20 +175,19 @@ namespace ZomatoDemo.Repository.Restaurants
                 item.Dishes = await listOfDishes.Where(k => k.ID == item.Dishes.ID).FirstAsync();
             }
             OrderDetails orders = new OrderDetails();
-            //List<DishesOrdered> dishes = new List<DishesOrdered>();
+            _mapper.Map(detailsAC, user);
+            _mapper.Map(detailsAC, restaurants);            
 
-            //foreach (var item in orderedDishes)
-            //{
-            //    dishes.Add(new DishesOrdered {
-            //        //ID = item.ID,
-            //        Dishes = item
-            //    });
-            //}
             orders.User = user;
             orders.Restaurant = restaurants;
-            orders.DishesOrdered = orderedDishes;
             _dbContext.OrderDetails.Add(orders);
+            //await _dbContext.AddAsync(user);
+            //await _dbContext.AddAsync(restaurants);
+            await _dbContext.AddRangeAsync(orderedDishes);
+
             await _dbContext.SaveChangesAsync();
+            detailsAC.DishesOrdered = orderedDishes;
+            return detailsAC;
         }
 
         //post all dishes
@@ -257,26 +195,23 @@ namespace ZomatoDemo.Repository.Restaurants
         {
             var menu = await _dbContext.Restaurant.Include(d => d.Dishes).Where(r => r.ID == restaurantId).FirstAsync();
             Dishes dish = new Dishes();
-            dish.DishesName = dishes.DishesName;
-            dish.Costs = dishes.Costs;
-
+            _mapper.Map(dishes, dish);
+            await _dbContext.Dishes.AddAsync(dish);
             menu.Dishes.Add(dish);
-
             await _dbContext.SaveChangesAsync();
-            return dishes;
+            return _mapper.Map(dish, dishes);
         }
 
         //post reviews
         public async Task<ReviewsAC> AddReviews(int restaurantId, ReviewsAC reviews)
-        {   
+        {
             Review review = new Review();
-            review.LikesCount = reviews.LikesCount;
-            review.ReviewTexts = reviews.ReviewTexts;
+            _mapper.Map(reviews, review);
             review.Restaurant = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).FirstAsync();
             review.User = await _dbContext.Users.Where(u => u.Id == reviews.userID).FirstAsync();
             await _dbContext.Review.AddAsync(review);
             await _dbContext.SaveChangesAsync();
-            return reviews;
+            return _mapper.Map(review, reviews);
         }
 
         //post for likes
@@ -291,11 +226,8 @@ namespace ZomatoDemo.Repository.Restaurants
             await _dbContext.Likes.AddAsync(likes);
 
             ReviewsAC reviews = new ReviewsAC();
-            reviews.ReviewId = review.ID;
-            reviews.LikesCount = review.LikesCount;
-            reviews.ReviewTexts = review.ReviewTexts;
-            reviews.userID = review.User.Id;
-            reviews.UserName = review.User.FullName;
+            _mapper.Map(reviews, review);
+
             await _dbContext.SaveChangesAsync();
             return reviews;
         }
@@ -306,12 +238,10 @@ namespace ZomatoDemo.Repository.Restaurants
             Comment comment = new Comment();
             var x = await _dbContext.Restaurant.Where(r => r.ID == restaurantId).FirstAsync();
             var y = await _dbContext.Review.Where(r => r.ID == commentac.ReviewID).FirstAsync();
-            comment.Review = y;
-            comment.Review.Restaurant.ID = x.ID;
-            comment.ReviewID = commentac.ReviewID;
-            comment.UserID = commentac.UserID;
-            comment.CommentMessage = commentac.CommentMessage;
-            
+           // _mapper.Map(y, comment);
+           // _mapper.Map(x, comment);
+            _mapper.Map(commentac, comment);
+
             await _dbContext.Comment.AddAsync(comment);
             await _dbContext.SaveChangesAsync();
             commentac.ID = comment.ID;
@@ -319,51 +249,25 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //________________________________________________________________________________________________________________________________
-        //PUT 
-        // update cart dishes : user
-        //public async Task<bool> EditCart(int orderId, [FromBody] OrderDetailsAC orderDetailsac)
-        //{
-        //    var removed = false;
-        //    var edit = await _dbContext.OrderDetails.Where(x => x.ID == orderId).Include(d => d.DishesOrdered).FirstAsync(); 
-        //    if (edit.DishesOrdered != null)
-        //    {
-        //        removed = true;
-        //        edit.DishesOrdered.Remove(edit.DishesOrdered.First(x => x.ID == orderDetailsac.DishesOrdered.First().ID));
-        //        await _dbContext.SaveChangesAsync();
-        //    } 
-        //    return removed;
-        //}
 
         //update restaurant details(dishes/ location) : admin
-        public async Task<AllDetails> EditRestaurant(int id,AllDetails details)
+        public async Task<AllDetails> EditRestaurant(int id, AllDetails details)
         {
             City city = new City();
-            city.CityName = details.City.Name;
-            city.ID = details.City.ID;
-
-             _dbContext.Entry(city).State = EntityState.Modified;
+            _mapper.Map(details.City, city);
+            _dbContext.Entry(city).State = EntityState.Modified;
 
             Country country = new Country();
-            country.CountryName = details.Country.Name;
-            country.ID = details.Country.ID;
-
+            _mapper.Map(details.Country, country);
             _dbContext.Entry(country).State = EntityState.Modified;
 
             Location location = new Location();
-            location.ID = details.LocationID;
-            location.Locality = details.Locality;
-            location.CityID = city.ID;
-            location.CountryID = country.ID;
+            _mapper.Map(details, location);
 
             Restaurant restaurants = new Restaurant();
-            restaurants.RestaurantName = details.RestaurantName;
-            restaurants.Description = details.Description;
-            restaurants.ContactNumber = details.ContactNumber;
-            restaurants.CuisineType = details.CuisineType;
-            restaurants.AverageCost = details.AverageCost;
-            restaurants.OpeningHours = details.OpeningHours;
-            restaurants.MoreInfo = details.MoreInfo;
+            _mapper.Map(details, restaurants);
             restaurants.ID = id;
+            
 
             ICollection<Location> Location = new List<Location>();
             Location.Add(location);
@@ -432,7 +336,7 @@ namespace ZomatoDemo.Repository.Restaurants
             {
                 var x = orderDetails.Where(k => k.DishesOrdered.Contains(item)).FirstOrDefault();
                 delOrderDetails.Add(x);
-                
+
             }
             _dbContext.OrderDetails.RemoveRange(delOrderDetails);
             await _dbContext.SaveChangesAsync();

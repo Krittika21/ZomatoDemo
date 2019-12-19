@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,7 @@ using System;
 using System.Text;
 using ZomatoDemo.Core.Hubs;
 using ZomatoDemo.DomainModel.Application_Classes;
+using ZomatoDemo.DomainModel.Models;
 using ZomatoDemo.DomainModel.Utility;
 using ZomatoDemo.Repository.Authentication;
 using ZomatoDemo.Repository.Helpers;
@@ -54,7 +56,7 @@ namespace ZomatoDemo
                 options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext"), 
                 b => b.MigrationsAssembly("ZomatoDemo.DomainModel")));
            
-            services.AddIdentity<UserAC, IdentityRole>(options =>
+            services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 4;
@@ -115,6 +117,52 @@ namespace ZomatoDemo
                 options.AddPolicy("ApiUser", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
             });
 
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<City, AllCity>().ReverseMap();
+                cfg.CreateMap<Country, AllCountry>().ReverseMap();
+                //AllDetails
+                cfg.CreateMap<Restaurant, AllDetails>().ForMember(destination => destination.RestaurantID,
+               opts => opts.MapFrom(source => source.ID)).ReverseMap();
+
+                cfg.CreateMap<Location, AllDetails>().ForMember(destination => destination.LocationID,
+                    acts => acts.MapFrom(source => source.ID)).ReverseMap();
+
+                cfg.CreateMap<City, AllDetails>().ReverseMap();
+                cfg.CreateMap<Country, AllDetails>().ReverseMap();
+                cfg.CreateMap<Review, AllDetails>().ReverseMap();
+
+                cfg.CreateMap<Dishes, AllDishes>().ReverseMap();
+                cfg.CreateMap<Restaurant, AllRestaurants>();
+                //CommentAC
+                cfg.CreateMap<Comment, CommentAC>().ReverseMap();
+                cfg.CreateMap<User, CommentAC>();
+
+                cfg.CreateMap<User, CurrentUser>();
+                cfg.CreateMap<Location,LocationAC>();
+                cfg.CreateMap<User, LoginAC>();
+                cfg.CreateMap<OrderDetails, OrderDetailsAC>().ReverseMap();
+                //RestaurantAC
+                cfg.CreateMap<User, RegisterAC>();
+                cfg.CreateMap<Restaurant, RestaurantAC>();
+                cfg.CreateMap<Dishes, RestaurantAC>();
+                cfg.CreateMap<Location, RestaurantAC>();
+
+                cfg.CreateMap<OrderDetailsAC, User>().ReverseMap();
+                cfg.CreateMap<OrderDetailsAC, Restaurant>().ReverseMap();
+                cfg.CreateMap<OrderDetailsAC, DishesOrdered>().ReverseMap();
+
+                cfg.CreateMap<Review, ReviewsAC>().ForMember(destination => destination.ReviewId,
+               opts => opts.MapFrom(source => source.ID)).ReverseMap();
+
+                cfg.CreateMap<ReviewsAC, User>().ForMember(destination => destination.UserName,
+               opts => opts.MapFrom(source => source.UserName)).ForMember(destination => destination.Id,
+               opts => opts.MapFrom(source => source.userID));
+            });
+
+            IMapper mapper = config.CreateMapper();
+
+            services.AddSingleton(mapper);
             services.AddCors();
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
             services.AddScoped<IJwtFactory, JwtFactory>();
