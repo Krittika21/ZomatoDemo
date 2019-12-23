@@ -1,0 +1,12 @@
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\bin\Debug\netcoreapp2.1\ZomatoDemo.Util.deps.json
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\bin\Debug\netcoreapp2.1\ZomatoDemo.Util.dll
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\bin\Debug\netcoreapp2.1\ZomatoDemo.Util.pdb
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.dll
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\bin\Debug\netcoreapp2.1\ZomatoDemo.DomainModel.pdb
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\obj\Debug\netcoreapp2.1\ZomatoDemo.Util.csprojAssemblyReference.cache
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\obj\Debug\netcoreapp2.1\ZomatoDemo.Util.csproj.CoreCompileInputs.cache
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\obj\Debug\netcoreapp2.1\ZomatoDemo.Util.AssemblyInfoInputs.cache
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\obj\Debug\netcoreapp2.1\ZomatoDemo.Util.AssemblyInfo.cs
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\obj\Debug\netcoreapp2.1\ZomatoDemo.Util.csproj.CopyComplete
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\obj\Debug\netcoreapp2.1\ZomatoDemo.Util.dll
+C:\Users\krittika\source\repos\ZomatoDemo\ZomatoDemo.Util\obj\Debug\netcoreapp2.1\ZomatoDemo.Util.pdb

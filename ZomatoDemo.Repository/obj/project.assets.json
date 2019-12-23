@@ -4378,6 +4378,19 @@
         "runtime": {
           "bin/placeholder/ZomatoDemo.DomainModel.dll": {}
         }
+      },
+      "ZomatoDemo.Util/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "ZomatoDemo.DomainModel": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ZomatoDemo.Util.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ZomatoDemo.Util.dll": {}
+        }
       }
     }
   },
@@ -11571,6 +11584,11 @@
       "type": "project",
       "path": "../ZomatoDemo.DomainModel/ZomatoDemo.DomainModel.csproj",
       "msbuildProject": "../ZomatoDemo.DomainModel/ZomatoDemo.DomainModel.csproj"
+    },
+    "ZomatoDemo.Util/1.0.0": {
+      "type": "project",
+      "path": "../ZomatoDemo.Util/ZomatoDemo.Util.csproj",
+      "msbuildProject": "../ZomatoDemo.Util/ZomatoDemo.Util.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -11582,7 +11600,8 @@
       "Microsoft.AspNetCore.SignalR >= 1.0.1",
       "Microsoft.EntityFrameworkCore >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
-      "ZomatoDemo.DomainModel >= 1.0.0"
+      "ZomatoDemo.DomainModel >= 1.0.0",
+      "ZomatoDemo.Util >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -11617,6 +11636,9 @@
           "projectReferences": {
             "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.DomainModel\\ZomatoDemo.DomainModel.csproj": {
               "projectPath": "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.DomainModel\\ZomatoDemo.DomainModel.csproj"
+            },
+            "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.Util\\ZomatoDemo.Util.csproj": {
+              "projectPath": "C:\\Users\\krittika\\source\\repos\\ZomatoDemo\\ZomatoDemo.Util\\ZomatoDemo.Util.csproj"
             }
           }
         }

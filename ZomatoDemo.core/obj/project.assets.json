@@ -4389,13 +4389,27 @@
           "Microsoft.AspNetCore.Cors": "2.1.1",
           "Microsoft.AspNetCore.SignalR": "1.0.1",
           "Microsoft.EntityFrameworkCore": "2.1.1",
-          "ZomatoDemo.DomainModel": "1.0.0"
+          "ZomatoDemo.DomainModel": "1.0.0",
+          "ZomatoDemo.Util": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ZomatoDemo.Repository.dll": {}
         },
         "runtime": {
           "bin/placeholder/ZomatoDemo.Repository.dll": {}
+        }
+      },
+      "ZomatoDemo.Util/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "ZomatoDemo.DomainModel": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ZomatoDemo.Util.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ZomatoDemo.Util.dll": {}
         }
       }
     }
@@ -11595,6 +11609,11 @@
       "type": "project",
       "path": "../ZomatoDemo.Repository/ZomatoDemo.Repository.csproj",
       "msbuildProject": "../ZomatoDemo.Repository/ZomatoDemo.Repository.csproj"
+    },
+    "ZomatoDemo.Util/1.0.0": {
+      "type": "project",
+      "path": "../ZomatoDemo.Util/ZomatoDemo.Util.csproj",
+      "msbuildProject": "../ZomatoDemo.Util/ZomatoDemo.Util.csproj"
     }
   },
   "projectFileDependencyGroups": {

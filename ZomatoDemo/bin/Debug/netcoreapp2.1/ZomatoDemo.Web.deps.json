@@ -35,7 +35,8 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.1",
           "ZomatoDemo.Core": "1.0.0",
           "ZomatoDemo.DomainModel": "1.0.0",
-          "ZomatoDemo.Repository": "1.0.0"
+          "ZomatoDemo.Repository": "1.0.0",
+          "ZomatoDemo.Util": "1.0.0"
         },
         "runtime": {
           "ZomatoDemo.Web.dll": {}
@@ -594,13 +595,25 @@
           "Microsoft.AspNetCore.Cors": "2.1.1",
           "Microsoft.AspNetCore.SignalR": "1.0.1",
           "Microsoft.EntityFrameworkCore": "2.1.1",
-          "ZomatoDemo.DomainModel": "1.0.0"
+          "ZomatoDemo.DomainModel": "1.0.0",
+          "ZomatoDemo.Util": "1.0.0"
         },
         "runtime": {
           "ZomatoDemo.Repository.dll": {}
         },
         "compile": {
           "ZomatoDemo.Repository.dll": {}
+        }
+      },
+      "ZomatoDemo.Util/1.0.0": {
+        "dependencies": {
+          "ZomatoDemo.DomainModel": "1.0.0"
+        },
+        "runtime": {
+          "ZomatoDemo.Util.dll": {}
+        },
+        "compile": {
+          "ZomatoDemo.Util.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3754,6 +3767,11 @@
       "sha512": ""
     },
     "ZomatoDemo.Repository/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ZomatoDemo.Util/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

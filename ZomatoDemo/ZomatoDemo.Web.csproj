@@ -23,6 +23,7 @@
     <ProjectReference Include="..\ZomatoDemo.core\ZomatoDemo.Core.csproj" />
     <ProjectReference Include="..\ZomatoDemo.DomainModel\ZomatoDemo.DomainModel.csproj" />
     <ProjectReference Include="..\ZomatoDemo.Repository\ZomatoDemo.Repository.csproj" />
+    <ProjectReference Include="..\ZomatoDemo.Util\ZomatoDemo.Util.csproj" />
   </ItemGroup>
 
 </Project>

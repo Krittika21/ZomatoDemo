@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ZomatoDemo.DomainModel\ZomatoDemo.DomainModel.csproj" />
+    <ProjectReference Include="..\ZomatoDemo.Util\ZomatoDemo.Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>
