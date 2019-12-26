@@ -20,13 +20,12 @@ namespace ZomatoDemo.Repository.UnitOfWork
         private IUserRepository _User;
         private readonly IJwtFactory _jwtFactory;
         private readonly IMapper _mapper;
-
         private IRestaurantsRepository _Restaurant;
+
         public UnitOfWorkRepository(ZomatoDbContext dbContext, UserManager<User> userManager, IJwtFactory jwtFactory, IMapper mapper)
         {
             _dbContext = dbContext;
             _userManager = userManager;
-            System.Diagnostics.Debug.Write("jhsg");
             _jwtFactory = jwtFactory;
             _mapper = mapper;
         }
