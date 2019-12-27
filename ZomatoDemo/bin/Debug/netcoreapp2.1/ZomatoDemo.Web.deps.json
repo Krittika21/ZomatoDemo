@@ -30,7 +30,6 @@
           "Microsoft.AspNetCore.Cors": "2.1.1",
           "Microsoft.AspNetCore.Identity": "2.1.1",
           "Microsoft.AspNetCore.SignalR": "1.0.1",
-          "Microsoft.EntityFrameworkCore": "2.1.1",
           "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.1",
           "ZomatoDemo.Core": "1.0.0",
@@ -560,7 +559,6 @@
           "Microsoft.AspNetCore.Cors": "2.1.1",
           "Microsoft.AspNetCore.Identity": "2.1.1",
           "Microsoft.AspNetCore.SignalR": "1.0.1",
-          "Microsoft.EntityFrameworkCore": "2.1.1",
           "ZomatoDemo.Repository": "1.0.0"
         },
         "runtime": {
@@ -577,8 +575,7 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "2.1.1",
           "Microsoft.AspNetCore.Cors": "2.1.1",
           "Microsoft.AspNetCore.Identity": "2.1.1",
-          "Microsoft.AspNetCore.SignalR": "1.0.1",
-          "Microsoft.EntityFrameworkCore": "2.1.1"
+          "Microsoft.AspNetCore.SignalR": "1.0.1"
         },
         "runtime": {
           "ZomatoDemo.DomainModel.dll": {}
@@ -594,7 +591,6 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "2.1.1",
           "Microsoft.AspNetCore.Cors": "2.1.1",
           "Microsoft.AspNetCore.SignalR": "1.0.1",
-          "Microsoft.EntityFrameworkCore": "2.1.1",
           "ZomatoDemo.DomainModel": "1.0.0",
           "ZomatoDemo.Util": "1.0.0"
         },

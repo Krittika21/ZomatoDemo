@@ -10,7 +10,7 @@ namespace ZomatoDemo.Repository.Test
         [Fact]
         public void Test1()
         {
-            var repository = new Mock<IDataRepository>();
+            //var repository = new Mock<IDataRepository>();
 
         }
     }
