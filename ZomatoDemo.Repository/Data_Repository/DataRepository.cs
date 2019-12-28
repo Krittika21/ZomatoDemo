@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace ZomatoDemo.Repository.Data_Repository
     public class DataRepository : IDataRepository
     {
         private ZomatoDbContext _dbContext;
+       // private readonly UserManager<User> _userManager;
         public DataRepository(ZomatoDbContext _context)
         {
             _dbContext = _context;
@@ -60,13 +62,13 @@ namespace ZomatoDemo.Repository.Data_Repository
         {
             return CreateDbSet<T>().AsQueryable();
         }
-        public Task<T> FirstAsync<T>(Expression<Func<T, bool>> predicate) where T : class
+        public async Task<T> FirstAsync<T>(Expression<Func<T, bool>> predicate) where T : class
         {
-            return CreateDbSet<T>().Where(predicate).FirstAsync();
+            return await CreateDbSet<T>().Where(predicate).FirstAsync();
         }
-        public Task<T> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> predicate) where T : class
+        public async Task<T> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> predicate) where T : class
         {
-            return CreateDbSet<T>().Where(predicate).FirstOrDefaultAsync();
+            return await CreateDbSet<T>().Where(predicate).FirstOrDefaultAsync();
         }
         public T FirstOrDefault<T>(Expression<Func<T, bool>> predicate) where T : class
         {
@@ -76,14 +78,39 @@ namespace ZomatoDemo.Repository.Data_Repository
         {
             return CreateDbSet<T>().Where(predicate).SingleAsync();
         }
-        public IEnumerable<T> AddRangeAsync<T>(IEnumerable<T>) where T : class
+        public async Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class
         {
-            
+            await CreateDbSet<T>().AddRangeAsync(entities);
         }
-        public Task<T> AddAsync<T>(Expression<Func<T, bool>> predicate) where T : class
+        public async Task<EntityEntry<T>> AddAsync<T>(T entity) where T : class
         {
-            return CreateDbSet<T>().Where(predicate).AddAsync();
+            return await CreateDbSet<T>().AddAsync(entity);
+        }
+        public async Task SaveChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+        public EntityState Entry<T>(T entity) where T : class
+        {
+            return  _dbContext.Entry(entity).State = EntityState.Modified;
         }
         
-    }
+        public void Remove<T>(T entity) where T : class
+        {
+            CreateDbSet<T>().Remove(entity);
+        }
+        public void RemoveRange<T>(IEnumerable<T> entities) where T : class
+        {
+            CreateDbSet<T>().RemoveRange(entities);
+        }
+        public async Task<T> FindAsyncById<T>(int id) where T : class
+        {
+            return await CreateDbSet<T>().FindAsync(id);
+        }
+
+        //Entry
+        //RemoveAsync
+        //RemoveRangeAsync
+        //FindAsync
+    }//public async Task<T> AddAsync<T>(T entity) where T: class
 }

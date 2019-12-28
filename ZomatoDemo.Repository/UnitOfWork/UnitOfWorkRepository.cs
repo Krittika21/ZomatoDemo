@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
 using ZomatoDemo.Repository.Authentication;
+using ZomatoDemo.Repository.Data_Repository;
 using ZomatoDemo.Repository.Restaurants;
 using ZomatoDemo.Repository.Users;
 using ZomatoDemo.Web.Models;
@@ -21,13 +22,15 @@ namespace ZomatoDemo.Repository.UnitOfWork
         private readonly IJwtFactory _jwtFactory;
         private readonly IMapper _mapper;
         private IRestaurantsRepository _Restaurant;
+        private IDataRepository _dataRepository;
 
-        public UnitOfWorkRepository(ZomatoDbContext dbContext, UserManager<User> userManager, IJwtFactory jwtFactory, IMapper mapper)
+        public UnitOfWorkRepository(ZomatoDbContext dbContext, UserManager<User> userManager, IJwtFactory jwtFactory, IMapper mapper, IDataRepository dataRepository)
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _jwtFactory = jwtFactory;
             _mapper = mapper;
+            _dataRepository = dataRepository;
         }
         
         public IUserRepository User
@@ -47,7 +50,7 @@ namespace ZomatoDemo.Repository.UnitOfWork
             {
                 if (_Restaurant == null)
                 {
-                    _Restaurant = new RestaurantsRepository(_dbContext, _mapper);
+                    _Restaurant = new RestaurantsRepository(_dbContext, _mapper, _dataRepository);
                 }
                 return _Restaurant;
             }

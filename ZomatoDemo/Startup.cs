@@ -17,6 +17,7 @@ using ZomatoDemo.DomainModel.Models;
 using ZomatoDemo.DomainModel.UserProfile;
 using ZomatoDemo.DomainModel.Utility;
 using ZomatoDemo.Repository.Authentication;
+using ZomatoDemo.Repository.Data_Repository;
 using ZomatoDemo.Repository.Helpers;
 using ZomatoDemo.Repository.UnitOfWork;
 using ZomatoDemo.Web.Models;
@@ -126,6 +127,7 @@ namespace ZomatoDemo
             services.AddSingleton(config);
             services.AddCors();
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
+            services.AddScoped<IDataRepository, DataRepository>();
             services.AddScoped<IJwtFactory, JwtFactory>();
             services.AddSignalR();
         }
