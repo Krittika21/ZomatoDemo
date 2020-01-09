@@ -5,22 +5,26 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
+using ZomatoDemo.DomainModel.Models;
 using ZomatoDemo.Repository.Authentication;
+using ZomatoDemo.Repository.Data_Repository;
 using ZomatoDemo.Web.Models;
 
 namespace ZomatoDemo.Repository.Users
 {
     public class UserRepository: IUserRepository
     {
-        private readonly ZomatoDbContext _dbContext;
+        //private readonly ZomatoDbContext _dbContext;
         private readonly UserManager<User> _userManager;
         private readonly IJwtFactory _jwtFactory;
+        private readonly IDataRepository _dataRepository;
 
-        public UserRepository(ZomatoDbContext dbContext, UserManager<User> userManager, IJwtFactory jwtFactory)
+        public UserRepository(UserManager<User> userManager, IJwtFactory jwtFactory, IDataRepository dataRepository)
         {
-            this._dbContext = dbContext;
-            this._userManager = userManager;
-            this._jwtFactory = jwtFactory;
+            _userManager = userManager;
+            _jwtFactory = jwtFactory;
+            _dataRepository = dataRepository;
+            //_dbContext = zomatoDbContext;
         }
 
         //get
@@ -38,22 +42,22 @@ namespace ZomatoDemo.Repository.Users
         //put
         public async Task<User> EditUser(User user)
         {
-            var userEdit = await _dbContext.Users.Where(u => u.Id.Equals(user.Id)).FirstOrDefaultAsync();
+            var userEdit = await _dataRepository.Where<User>(u => u.Id.Equals(user.Id)).FirstOrDefaultAsync();
 
             userEdit.FullName = user.FullName;
             userEdit.PhoneNumber = user.PhoneNumber;
 
-            _dbContext.Users.Update(userEdit);
-            await _dbContext.SaveChangesAsync();
+            _dataRepository.Update<User>(userEdit);
+            await _dataRepository.SaveChangesAsync();
             return user;
         }
 
         //delete
         public async Task<bool> DeleteUser(string userId)
         {
-            var userDel = await _dbContext.Users.Where(u => u.Id.Equals(userId)).FirstOrDefaultAsync();
-            _dbContext.Users.Remove(userDel);
-            await _dbContext.SaveChangesAsync();
+            var userDel = await _dataRepository.Where<User>(u => u.Id.Equals(userId)).FirstOrDefaultAsync();
+            _dataRepository.Remove<User>(userDel);
+            await _dataRepository.SaveChangesAsync();
             return true;
         }
 

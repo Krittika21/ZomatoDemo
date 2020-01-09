@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ZomatoDemo.DomainModel.Application_Classes
+namespace ZomatoDemo.DomainModel.Models
 {
     public class User : IdentityUser
     {

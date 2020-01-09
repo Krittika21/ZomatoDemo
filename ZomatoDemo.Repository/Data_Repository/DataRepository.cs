@@ -16,16 +16,10 @@ namespace ZomatoDemo.Repository.Data_Repository
     public class DataRepository : IDataRepository
     {
         private ZomatoDbContext _dbContext;
-       // private readonly UserManager<User> _userManager;
         public DataRepository(ZomatoDbContext _context)
         {
             _dbContext = _context;
         }
-
-        //public IEnumerable<T> GetAll()
-        //{
-        //    return table.ToList();
-        //}
 
         public Task<T> GetById<T>(object id) where T : class
         {
@@ -37,12 +31,6 @@ namespace ZomatoDemo.Repository.Data_Repository
             _dbContext.SaveChanges();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
         public IQueryable<T> Where<T>(Expression<Func<T, bool>> predicate) where T : class
         {
             return CreateDbSet<T>().Where(predicate);
@@ -53,11 +41,6 @@ namespace ZomatoDemo.Repository.Data_Repository
             return _dbContext.Set<T>();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
         public IQueryable<T> GetAll<T>() where T : class
         {
             return CreateDbSet<T>().AsQueryable();
@@ -92,9 +75,9 @@ namespace ZomatoDemo.Repository.Data_Repository
         }
         public EntityState Entry<T>(T entity) where T : class
         {
-            return  _dbContext.Entry(entity).State = EntityState.Modified;
+            return _dbContext.Entry(entity).State = EntityState.Modified;
         }
-        
+
         public void Remove<T>(T entity) where T : class
         {
             CreateDbSet<T>().Remove(entity);
@@ -108,9 +91,9 @@ namespace ZomatoDemo.Repository.Data_Repository
             return await CreateDbSet<T>().FindAsync(id);
         }
 
-        //Entry
-        //RemoveAsync
-        //RemoveRangeAsync
-        //FindAsync
-    }//public async Task<T> AddAsync<T>(T entity) where T: class
+        public void Update<T>(T entity) where T : class
+        {
+            CreateDbSet<T>().Update(entity);
+        }
+    }
 }

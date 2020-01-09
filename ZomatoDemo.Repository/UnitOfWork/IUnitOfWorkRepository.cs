@@ -12,8 +12,8 @@ namespace ZomatoDemo.Repository.UnitOfWork
         
             IUserRepository User { get; }
             IRestaurantsRepository Restaurant { get; }
-            Task<int> CompleteAsync();
-            int Complete();
+            //Task<int> CompleteAsync();
+            //int Complete();
         
     }
 }

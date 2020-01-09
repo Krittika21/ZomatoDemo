@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
+using ZomatoDemo.DomainModel.Models;
 using ZomatoDemo.DomainModel.Utility;
 using ZomatoDemo.Repository.Authentication;
 using ZomatoDemo.Repository.Helpers;

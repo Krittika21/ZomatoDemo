@@ -36,28 +36,26 @@ namespace ZomatoDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //1
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-            services.AddAutoMapper(typeof(Startup)); 
-
+            //2
+            services.AddAutoMapper(typeof(Startup));
+            //3
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver
                 = new Newtonsoft.Json.Serialization.DefaultContractResolver();
             });
-
-          
-
-                services.AddDbContext<ZomatoDbContext>(options =>
-
-                options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext"), 
+            //4
+            services.AddDbContext<ZomatoDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ZomatoDbContext"),
                 b => b.MigrationsAssembly("ZomatoDemo.DomainModel")));
-           
+            //5
             services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -65,9 +63,8 @@ namespace ZomatoDemo
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
-            })
-                .AddEntityFrameworkStores<ZomatoDbContext>();
-
+            }).AddEntityFrameworkStores<ZomatoDbContext>();
+            //6
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/Index";
@@ -77,7 +74,7 @@ namespace ZomatoDemo
             // Get options from app settings
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
-            // Configure JwtIssuerOptions
+            //7. Configure JwtIssuerOptions
             services.Configure<JwtIssuerOptions>(options =>
             {
                 options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
@@ -100,20 +97,20 @@ namespace ZomatoDemo
                 ValidateLifetime = true,
                 ClockSkew = TimeSpan.Zero
             };
-
+            //8
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(configureOptions =>
-            {
-                configureOptions.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
-                configureOptions.TokenValidationParameters = tokenValidationParameters;
-                configureOptions.SaveToken = true;
+                {
+                    configureOptions.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+                    configureOptions.TokenValidationParameters = tokenValidationParameters;
+                    configureOptions.SaveToken = true;
 
-            });
+                });
 
-            // api user claim policy
+            //9. api user claim policy
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ApiUser", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
@@ -123,12 +120,17 @@ namespace ZomatoDemo
             {
                 cfg.AddProfile<Profiles>();
             }).CreateMapper();
-
+            //10
             services.AddSingleton(config);
+            //11
             services.AddCors();
+            //12
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
+            //13
             services.AddScoped<IDataRepository, DataRepository>();
+            //14
             services.AddScoped<IJwtFactory, JwtFactory>();
+            //15
             services.AddSignalR();
         }
 

@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ZomatoDemo.DomainModel.Application_Classes;
+using ZomatoDemo.DomainModel.Models;
 
 namespace ZomatoDemo.Repository.Users
 {

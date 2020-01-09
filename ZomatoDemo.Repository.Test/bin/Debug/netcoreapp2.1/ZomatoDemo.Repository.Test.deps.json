@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "6c5de822fba5a4c973d4fb5959b2c6499cea60aa"
+    "signature": "504e1f6b8d443fa8bc674e798f9cc8ff2d5cc886"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,6 +9,7 @@
       "ZomatoDemo.Repository.Test/1.0.0": {
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "15.8.0",
+          "MockQueryable.Moq": "1.0.1",
           "Moq": "4.13.1",
           "ZomatoDemo.Repository": "1.0.0",
           "xunit": "2.3.1",
@@ -2515,6 +2516,29 @@
           "runtime/win/lib/_._": {
             "rid": "win",
             "assetType": "runtime"
+          }
+        }
+      },
+      "MockQueryable.Core/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "2.1.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/MockQueryable.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "MockQueryable.Moq/1.0.1": {
+        "dependencies": {
+          "MockQueryable.Core": "1.0.0",
+          "Moq": "4.13.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/MockQueryable.Moq.dll": {
+            "assemblyVersion": "1.0.0.1",
+            "fileVersion": "1.0.0.1"
           }
         }
       },
@@ -5082,6 +5106,20 @@
       "sha512": "sha512-vduxuHEqRgRrTE8wYG8Wxj/+6wwzddOmZzjKZx6rFMc/91aUBxI5etAFYxesoNaIja5NpgSTcnk6cN8BeYXf9A==",
       "path": "microsoft.win32.registry/4.5.0",
       "hashPath": "microsoft.win32.registry.4.5.0.nupkg.sha512"
+    },
+    "MockQueryable.Core/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EPicVtCRLC6o2IMbQJ20XKKj2XrmoIS5nnusC072moaD3nY+WuJd+4kOuWHFxSGOlhBgj1YN6/Gt1coQG07RHw==",
+      "path": "mockqueryable.core/1.0.0",
+      "hashPath": "mockqueryable.core.1.0.0.nupkg.sha512"
+    },
+    "MockQueryable.Moq/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jOv9amkP565G4i5w3SYHCAfmQrRikMxz0063bBV2SinI4uwrH5xWE+kSPV5Li5Fq911stovxNHi+DHnQZmPn3A==",
+      "path": "mockqueryable.moq/1.0.1",
+      "hashPath": "mockqueryable.moq.1.0.1.nupkg.sha512"
     },
     "Moq/4.13.1": {
       "type": "package",

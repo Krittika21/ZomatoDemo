@@ -15,13 +15,12 @@ namespace ZomatoDemo.Repository.Restaurants
     public class RestaurantsRepository : IRestaurantsRepository
     {
 
-        private ZomatoDbContext _dbContext;
+        //private ZomatoDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IDataRepository _dataRepository;
  
-        public RestaurantsRepository(ZomatoDbContext dbContext, IMapper mapper, IDataRepository dataRepository)
+        public RestaurantsRepository(IMapper mapper, IDataRepository dataRepository)
         {
-            _dbContext = dbContext;
             _mapper = mapper;
             _dataRepository = dataRepository;
         }
@@ -138,27 +137,17 @@ namespace ZomatoDemo.Repository.Restaurants
             _mapper.Map(details.City, city);
             await _dataRepository.AddAsync<City>(city);
 
-
-
-            //var z = await _dbContext.City.AddAsync(); _dataRepository.GetAll<City>().AddAsync(city);
-
             Country country = new Country();
             _mapper.Map(details.Country, country);
             await _dataRepository.AddAsync<Country>(country);
-
-
-            //var w = await _dataRepository.GetAll<Country>().AddAsync(country);
 
             Location location = new Location();
             _mapper.Map(details, location);
             await _dataRepository.AddAsync<Location>(location);
 
-
-
             Restaurant restaurant = new Restaurant();
             _mapper.Map(details, restaurant);
             await _dataRepository.AddAsync<Restaurant>(restaurant);
-
 
             ICollection<Location> Locations = new List<Location>();
             Locations.Add(location);
@@ -168,9 +157,6 @@ namespace ZomatoDemo.Repository.Restaurants
             restaurant.Dishes = Dishes;
 
             await _dataRepository.AddAsync<Location>(location);
-
-
-
             await _dataRepository.SaveChangesAsync();
             return (details);
         }
@@ -179,9 +165,9 @@ namespace ZomatoDemo.Repository.Restaurants
         public async Task<OrderDetailsAC> AddOrderDetails(OrderDetailsAC detailsAC)
         {
             Restaurant restaurants = await _dataRepository.FirstAsync<Restaurant>(x => x.ID == detailsAC.RestaurantID);
-            User user = await _dbContext.Users.Where(u => u.Id == detailsAC.UserID).FirstAsync();
+            User user = await _dataRepository.Where<User>(u => u.Id == detailsAC.UserID).FirstAsync();
             ICollection<DishesOrdered> orderedDishes = detailsAC.DishesOrdered;
-            var listOfDishes = _dbContext.Dishes;
+            var listOfDishes = _dataRepository.GetAll<Dishes>();
             foreach (var item in orderedDishes)
             {
                 item.Dishes = await listOfDishes.Where(k => k.ID == item.Dishes.ID).FirstAsync();
@@ -212,7 +198,7 @@ namespace ZomatoDemo.Repository.Restaurants
             await _dataRepository.AddAsync<Dishes>(dish);
             menu.Dishes.Add(dish);
             await _dataRepository.SaveChangesAsync();
-            return _mapper.Map(dish, dishes);
+            return dishes;
         }
 
         //post reviews
@@ -221,7 +207,7 @@ namespace ZomatoDemo.Repository.Restaurants
             Review review = new Review();
             _mapper.Map(reviews, review);
             review.Restaurant = await _dataRepository.Where<Restaurant>(r => r.ID == restaurantId).FirstAsync();
-            review.User = await _dbContext.Users.Where(u => u.Id == reviews.userID).FirstAsync();
+            review.User = await _dataRepository.Where<User>(u => u.Id == reviews.userID).FirstAsync();
             await _dataRepository.AddAsync<Review>(review);
             await _dataRepository.SaveChangesAsync();
             return _mapper.Map(review, reviews);
@@ -249,7 +235,8 @@ namespace ZomatoDemo.Repository.Restaurants
         public async Task<CommentAC> CommentSection(int restaurantId, CommentAC commentac)
         {
             Comment comment = new Comment();
-            var x = await _dataRepository.Where<Restaurant>(r => r.ID == restaurantId).FirstAsync();
+            var x = _dataRepository.Where<Restaurant>(r => r.ID == restaurantId);//FirstAsync();
+            var z = await x.FirstAsync();
             var y = await _dataRepository.Where<Review>(r => r.ID == commentac.ReviewID).FirstAsync();
            // _mapper.Map(y, comment);
            // _mapper.Map(x, comment);
@@ -308,7 +295,7 @@ namespace ZomatoDemo.Repository.Restaurants
             var delComments = await _dataRepository.Where<Comment>(r => r.Review.Restaurant.ID == restaurantId).Include(t => t.Review).ToListAsync();
             var reviews = await _dataRepository.Where<Review>(k => k.Restaurant.ID == restaurantId).Include(r => r.Restaurant).ToListAsync();
 
-            _dbContext.Review.RemoveRange(reviews);
+            _dataRepository.RemoveRange<Review>(reviews);
             foreach (var item in delOrderDetails)
             {
                 _dataRepository.RemoveRange<DishesOrdered>(item.DishesOrdered);
@@ -319,7 +306,7 @@ namespace ZomatoDemo.Repository.Restaurants
             _dataRepository.RemoveRange<Dishes>(delRestaurant.Dishes);
             if (delRestaurant != null)
             {
-                _dbContext.Restaurant.Remove(delRestaurant);
+                _dataRepository.Remove<Restaurant>(delRestaurant);
             }
             await _dataRepository.SaveChangesAsync();
             return;
