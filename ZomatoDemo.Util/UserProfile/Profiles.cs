@@ -17,7 +17,7 @@ namespace ZomatoDemo.DomainModel.UserProfile
             CreateMap<Location, AllDetails>().ForMember(destination => destination.LocationID,
             acts => acts.MapFrom(source => source.ID)).ReverseMap();
 
-            CreateMap<City, AllDetails>().ReverseMap();
+            //CreateMap<City, AllDetails>().ReverseMap();
             CreateMap<Country, AllDetails>().ReverseMap();
             CreateMap<Review, AllDetails>().ReverseMap();
 
