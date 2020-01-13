@@ -1,18 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using ZomatoDemo.DomainModel.Models;
 using ZomatoDemo.Repository.Authentication;
 using ZomatoDemo.Repository.Data_Repository;
 using ZomatoDemo.Repository.UnitOfWork;
-using ZomatoDemo.Web.Models;
+using ZomatoDemo.Repository.Users;
 
 namespace ZomatoDemo.Repository.Test
 {
@@ -44,6 +41,7 @@ namespace ZomatoDemo.Repository.Test
             jwtMock = new Mock<IJwtFactory>();
             _mapper = new Mock<IMapper>();
 
+            //services.AddScoped<UserRepository, IUserRepository>();
             services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
             services.AddScoped(obj => dataRepository.Object);
             services.AddScoped(obj => jwtMock.Object);

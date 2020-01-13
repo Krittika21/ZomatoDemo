@@ -88,9 +88,10 @@ namespace ZomatoDemo.Repository.Restaurants
         }
 
         //get restaurants as per user Id : restaurant user
-        public async Task<AllRestaurants> GetUserRestaurants(int userId)
+        public async Task<AllRestaurants> GetUserRestaurants(int Id)
         {
-            var items = await _dataRepository.Where<Restaurant>(r => r.ID == userId).Include(d => d.Dishes).FirstAsync();
+            var items = await _dataRepository.Where<Restaurant>(r => r.ID == Id).Include(d => d.Dishes).FirstAsync();
+            
             var allRestaurants = new List<AllRestaurants>();
             _mapper.Map(items, allRestaurants);
             return allRestaurants.SingleOrDefault(r => r.ID == items.ID);

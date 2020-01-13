@@ -24,7 +24,6 @@ namespace ZomatoDemo.Repository.Users
             _userManager = userManager;
             _jwtFactory = jwtFactory;
             _dataRepository = dataRepository;
-            //_dbContext = zomatoDbContext;
         }
 
         //get
