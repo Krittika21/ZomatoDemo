@@ -1,17 +1,21 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "504e1f6b8d443fa8bc674e798f9cc8ff2d5cc886"
+    "signature": "17f1ba464cf55022fc53559f4bc77cc875367ddd"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.1": {
       "ZomatoDemo.Repository.Test/1.0.0": {
         "dependencies": {
+          "Microsoft.CodeCoverage": "16.4.0",
           "Microsoft.NET.Test.Sdk": "15.8.0",
           "MockQueryable.Moq": "1.0.1",
           "Moq": "4.13.1",
+          "ReportGenerator": "4.0.0-alpha4",
           "ZomatoDemo.Repository": "1.0.0",
+          "coverlet.msbuild": "2.8.0",
+          "dotnet-reportgenerator-cli": "4.0.5-rc2",
           "xunit": "2.3.1",
           "xunit.runner.visualstudio": "2.3.1"
         },
@@ -59,6 +63,43 @@
           "lib/netstandard1.5/Castle.Core.dll": {
             "assemblyVersion": "4.0.0.0",
             "fileVersion": "4.4.0.0"
+          }
+        }
+      },
+      "coverlet.msbuild/2.8.0": {},
+      "dotnet-reportgenerator-cli/4.0.5-rc2": {
+        "dependencies": {
+          "McMaster.NETCore.Plugins": "0.1.1",
+          "Microsoft.Build.Utilities.Core": "15.8.166",
+          "Microsoft.Extensions.Configuration": "2.1.1",
+          "Microsoft.Extensions.Configuration.Binder": "2.1.1",
+          "Microsoft.Extensions.Configuration.CommandLine": "2.1.1",
+          "Microsoft.Extensions.Configuration.Json": "2.1.1",
+          "SixLabors.ImageSharp.Drawing": "1.0.0-beta0004"
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/ReportGenerator.Core.dll": {
+            "assemblyVersion": "4.0.5.0",
+            "fileVersion": "4.0.5.0"
+          },
+          "lib/netcoreapp2.0/ReportGenerator.DotnetCorePluginLoader.dll": {
+            "assemblyVersion": "4.0.5.0",
+            "fileVersion": "4.0.5.0"
+          },
+          "lib/netcoreapp2.0/dotnet-reportgenerator.dll": {
+            "assemblyVersion": "4.0.5.0",
+            "fileVersion": "4.0.5.0"
+          }
+        }
+      },
+      "McMaster.NETCore.Plugins/0.1.1": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyModel": "2.1.0"
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/McMaster.NETCore.Plugins.dll": {
+            "assemblyVersion": "0.1.1.0",
+            "fileVersion": "0.1.1.22"
           }
         }
       },
@@ -1446,6 +1487,33 @@
           }
         }
       },
+      "Microsoft.Build.Framework/15.8.166": {
+        "dependencies": {
+          "System.Runtime.Serialization.Primitives": "4.3.0",
+          "System.Threading.Thread": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Build.Framework.dll": {
+            "assemblyVersion": "15.1.0.0",
+            "fileVersion": "15.8.166.59604"
+          }
+        }
+      },
+      "Microsoft.Build.Utilities.Core/15.8.166": {
+        "dependencies": {
+          "Microsoft.Build.Framework": "15.8.166",
+          "Microsoft.Win32.Registry": "4.5.0",
+          "System.Collections.Immutable": "1.5.0",
+          "System.Runtime.InteropServices.RuntimeInformation": "4.3.0",
+          "System.Text.Encoding.CodePages": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Build.Utilities.Core.dll": {
+            "assemblyVersion": "15.1.0.0",
+            "fileVersion": "15.8.166.59604"
+          }
+        }
+      },
       "Microsoft.CodeAnalysis.Analyzers/1.1.0": {},
       "Microsoft.CodeAnalysis.Common/2.8.0": {
         "dependencies": {
@@ -1520,11 +1588,11 @@
           }
         }
       },
-      "Microsoft.CodeCoverage/15.8.0": {
+      "Microsoft.CodeCoverage/16.4.0": {
         "runtime": {
           "lib/netcoreapp1.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll": {
             "assemblyVersion": "15.0.0.0",
-            "fileVersion": "15.0.27718.3008"
+            "fileVersion": "16.0.28223.3002"
           }
         }
       },
@@ -2239,7 +2307,7 @@
       },
       "Microsoft.NET.Test.Sdk/15.8.0": {
         "dependencies": {
-          "Microsoft.CodeCoverage": "15.8.0",
+          "Microsoft.CodeCoverage": "16.4.0",
           "Microsoft.TestPlatform.TestHost": "15.8.0"
         }
       },
@@ -2594,6 +2662,7 @@
           }
         }
       },
+      "ReportGenerator/4.0.0-alpha4": {},
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "runtimeTargets": {
           "runtime/debian.8-x64/native/_._": {
@@ -2735,6 +2804,78 @@
             "rid": "win-x86",
             "assetType": "native",
             "fileVersion": "4.6.25512.1"
+          }
+        }
+      },
+      "SixLabors.Core/1.0.0-beta0005": {
+        "runtime": {
+          "lib/netcoreapp2.0/SixLabors.Core.dll": {
+            "assemblyVersion": "0.1.0.0",
+            "fileVersion": "0.1.0.0"
+          }
+        }
+      },
+      "SixLabors.Fonts/1.0.0-beta0005": {
+        "dependencies": {
+          "SixLabors.Core": "1.0.0-beta0005",
+          "System.Collections.Immutable": "1.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SixLabors.Fonts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SixLabors.ImageSharp/1.0.0-beta0004": {
+        "dependencies": {
+          "SixLabors.Core": "1.0.0-beta0005",
+          "System.Buffers": "4.5.0",
+          "System.Memory": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SixLabors.ImageSharp.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SixLabors.ImageSharp.Drawing/1.0.0-beta0004": {
+        "dependencies": {
+          "SixLabors.Core": "1.0.0-beta0005",
+          "SixLabors.ImageSharp": "1.0.0-beta0004",
+          "SixLabors.Shapes.Text": "1.0.0-beta0005"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SixLabors.ImageSharp.Drawing.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SixLabors.Shapes/1.0.0-beta0005": {
+        "dependencies": {
+          "SixLabors.Core": "1.0.0-beta0005",
+          "System.Buffers": "4.5.0",
+          "System.Memory": "4.5.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SixLabors.Shapes.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "SixLabors.Shapes.Text/1.0.0-beta0005": {
+        "dependencies": {
+          "SixLabors.Fonts": "1.0.0-beta0005",
+          "SixLabors.Shapes": "1.0.0-beta0005"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SixLabors.Shapes.Text.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -3959,6 +4100,27 @@
       "path": "castle.core/4.4.0",
       "hashPath": "castle.core.4.4.0.nupkg.sha512"
     },
+    "coverlet.msbuild/2.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MrUUtfiJZqQfH+CgBcn9ZEXmhBQRE/vOqHcrwbgGoY/73vL6dF8nAvk5shALSLKYgRkR7grn3oRkC2/RYX5rlg==",
+      "path": "coverlet.msbuild/2.8.0",
+      "hashPath": "coverlet.msbuild.2.8.0.nupkg.sha512"
+    },
+    "dotnet-reportgenerator-cli/4.0.5-rc2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TnNbZIAI+uptBs3fFCZDl+cvwevwftYxv+Jvuyy+dGFg1OYfWnaLlhEJiEfQgrKnPS8RhyaDJtr9j3le5Z6BaA==",
+      "path": "dotnet-reportgenerator-cli/4.0.5-rc2",
+      "hashPath": "dotnet-reportgenerator-cli.4.0.5-rc2.nupkg.sha512"
+    },
+    "McMaster.NETCore.Plugins/0.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DfE1hqvoOGjwjGm+Z2DsLIkWMLlwhbKKtaHaye/uBzbNRUGyH0uQfnMv979Jl37IenOMtUzb55Un693KORJL5A==",
+      "path": "mcmaster.netcore.plugins/0.1.1",
+      "hashPath": "mcmaster.netcore.plugins.0.1.1.nupkg.sha512"
+    },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
       "type": "package",
       "serviceable": true,
@@ -4617,6 +4779,20 @@
       "path": "microsoft.aspnetcore.webutilities/2.1.1",
       "hashPath": "microsoft.aspnetcore.webutilities.2.1.1.nupkg.sha512"
     },
+    "Microsoft.Build.Framework/15.8.166": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-s1f8Q1zfY1pJ8nNKyXg8Stf2qzV2RvTWCUkBjzit9HA00ZvMyvD+FGrqSD4pPUeOdZAoWlPia8Ijm2gYHFfpPw==",
+      "path": "microsoft.build.framework/15.8.166",
+      "hashPath": "microsoft.build.framework.15.8.166.nupkg.sha512"
+    },
+    "Microsoft.Build.Utilities.Core/15.8.166": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-io5DAg34BfsTHBEvvZEqrbnoXlfKbtF4trkEYxPjkrBJWl1atN8O/cVOSON1PRfiID7BN32H1SU0VJdw7hQrPg==",
+      "path": "microsoft.build.utilities.core/15.8.166",
+      "hashPath": "microsoft.build.utilities.core.15.8.166.nupkg.sha512"
+    },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
       "type": "package",
       "serviceable": true,
@@ -4645,12 +4821,12 @@
       "path": "microsoft.codeanalysis.razor/2.1.1",
       "hashPath": "microsoft.codeanalysis.razor.2.1.1.nupkg.sha512"
     },
-    "Microsoft.CodeCoverage/15.8.0": {
+    "Microsoft.CodeCoverage/16.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-NhfNp80eWq5ms7fMrjuRqpwhL1H56IVzXF9d+OIDcEfQ92m1DyE0c+ufUE1ogB09+sYLd58IO4eJ8jyn7AifbA==",
-      "path": "microsoft.codecoverage/15.8.0",
-      "hashPath": "microsoft.codecoverage.15.8.0.nupkg.sha512"
+      "sha512": "sha512-ka6NSnP6OQQuVt6T1hSrF/pROo45QkiXvEkySdVuzYvc9JCcvMPb9ZqA2RdsyxsZWp8UWHHpvFLXp2XhcMHQtQ==",
+      "path": "microsoft.codecoverage/16.4.0",
+      "hashPath": "microsoft.codecoverage.16.4.0.nupkg.sha512"
     },
     "Microsoft.CSharp/4.5.0": {
       "type": "package",
@@ -5149,6 +5325,13 @@
       "path": "remotion.linq/2.2.0",
       "hashPath": "remotion.linq.2.2.0.nupkg.sha512"
     },
+    "ReportGenerator/4.0.0-alpha4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-m6ZMZkZ6YuXiXNzKiIh5BS9t/q9bi1dVFNEwICeoRTX5j+wGTOir2uKtLzXYGwcLx4dt7uApxVGw/i4kOz128w==",
+      "path": "reportgenerator/4.0.0-alpha4",
+      "hashPath": "reportgenerator.4.0.0-alpha4.nupkg.sha512"
+    },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -5288,6 +5471,48 @@
       "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
+    },
+    "SixLabors.Core/1.0.0-beta0005": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/ArednP48VQ4k1BiY1KODiiunbkjDszpfMa/4VNwVim4LkVH5rULngFVnY7YHQVboNP0eiqan0OChzw/2LfjAg==",
+      "path": "sixlabors.core/1.0.0-beta0005",
+      "hashPath": "sixlabors.core.1.0.0-beta0005.nupkg.sha512"
+    },
+    "SixLabors.Fonts/1.0.0-beta0005": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bxM/Pi2j07ZA9WQueZoqQLdpTi/VXjyp+adkScXrGbLdeebgGOrZM3bm9udHRjoAAFGRXWBeW8BtG78H3qOdFg==",
+      "path": "sixlabors.fonts/1.0.0-beta0005",
+      "hashPath": "sixlabors.fonts.1.0.0-beta0005.nupkg.sha512"
+    },
+    "SixLabors.ImageSharp/1.0.0-beta0004": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c0xmoxTxaUpoXy9oEMbdc+vhhbbPFOFXjNA+OKmySUQHEvQYwhNKvoLBKdFNOzYZN95VSmEJYLFiYyGE2NwSNA==",
+      "path": "sixlabors.imagesharp/1.0.0-beta0004",
+      "hashPath": "sixlabors.imagesharp.1.0.0-beta0004.nupkg.sha512"
+    },
+    "SixLabors.ImageSharp.Drawing/1.0.0-beta0004": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-72IrgB3QcVsxdbQMLUS1lIbYpBP0uuYOhfCI4D9rjoye1hIxdKfR1q6TRMVnYCrzTwQLov+MN29ElOmrnJdc9g==",
+      "path": "sixlabors.imagesharp.drawing/1.0.0-beta0004",
+      "hashPath": "sixlabors.imagesharp.drawing.1.0.0-beta0004.nupkg.sha512"
+    },
+    "SixLabors.Shapes/1.0.0-beta0005": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AmKfgOnMf8w4eTCW7VHqUz/QaMExFn4HJsW7o/lfnWwI3r/rCaTEVUi0rhHmrYiEsKZ0bGJSneELjFYFflU9iA==",
+      "path": "sixlabors.shapes/1.0.0-beta0005",
+      "hashPath": "sixlabors.shapes.1.0.0-beta0005.nupkg.sha512"
+    },
+    "SixLabors.Shapes.Text/1.0.0-beta0005": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Kb089Qm3KcxUr0LQcR/do3jSv0h5Mc6eaKWCN4AxXp3j6s8R8Zj2Kpjf3a85+Uhexsmqn0Yl3Xevn0vEAZk7Zw==",
+      "path": "sixlabors.shapes.text/1.0.0-beta0005",
+      "hashPath": "sixlabors.shapes.text.1.0.0-beta0005.nupkg.sha512"
     },
     "System.AppContext/4.3.0": {
       "type": "package",

@@ -36,12 +36,12 @@ namespace ZomatoDemo.core.Controllers
             return Ok(await unitOfWork.Restaurant.GetAllRestaurants());
         }
 
-        [HttpGet]
-        [Route("restaurant/{userId}")]
-        public async Task<ActionResult> GetUserRestaurantAsync([FromRoute] int Id)
-        {
-            return Ok(await unitOfWork.Restaurant.GetUserRestaurants(Id));
-        }
+        //[HttpGet]
+        //[Route("restaurant/{userId}")]
+        //public async Task<ActionResult> GetUserRestaurantAsync([FromRoute] int Id)
+        //{
+        //    return Ok(await unitOfWork.Restaurant.GetUserRestaurants(Id));
+        //}
 
         [HttpGet]
         [Route("restaurant/dishes/{restaurantId}")]

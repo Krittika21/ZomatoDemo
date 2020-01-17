@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Moq;
 using System;
 using ZomatoDemo.DomainModel.Models;
+using ZomatoDemo.DomainModel.UserProfile;
 using ZomatoDemo.Repository.Authentication;
 using ZomatoDemo.Repository.Data_Repository;
 using ZomatoDemo.Repository.UnitOfWork;
@@ -18,7 +19,7 @@ namespace ZomatoDemo.Repository.Test
         public Mock<IDataRepository> dataRepository;
         public Mock<IJwtFactory> jwtMock;
         public ServiceProvider serviceProvider;
-        private readonly Mock<IMapper> _mapper;
+        public Mock<IMapper> _mapper;
         private Mock<UserManager<User>> userManager;
 
         public Bootstrap()
@@ -46,7 +47,14 @@ namespace ZomatoDemo.Repository.Test
             services.AddScoped(obj => dataRepository.Object);
             services.AddScoped(obj => jwtMock.Object);
             services.AddScoped(obj => userManager.Object);
-            services.AddScoped(obj => _mapper.Object);
+            //services.AddScoped(obj => _mapper.Object);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<Profiles>();
+            }).CreateMapper();
+
+            services.AddSingleton(config);
 
             serviceProvider = services.BuildServiceProvider();
         }

@@ -46,17 +46,17 @@ namespace ZomatoDemo.Repository.Test.UserRepositoryTest
             User user = new User
             {
                 Id = "dcbe1262-4be8-493a-8821-f4d52778d878",
-                FullName = "Nina Dobrev",
-                PhoneNumber = "9815686492"
+                FullName = "Nina John Dobrev",
+                PhoneNumber = "765764232"
             };
 
             _dataRepository.Setup(s => s.Where(It.IsAny<Expression<Func<User, bool>>>())).Returns(users.AsQueryable().BuildMock().Object);
-            _dataRepository.Setup(s => s.Update(It.IsAny<Expression<Func<User, bool>>>()));
-            _dataRepository.Setup(s => s.SaveChangesAsync());
+            _dataRepository.Setup(s => s.Update(It.IsAny<User>()));
+            //_dataRepository.Setup(s => s.SaveChangesAsync());
 
             await _unitOfWorkRepository.User.EditUser(user);
 
-            _dataRepository.Verify(v => v.Update(It.IsAny<Expression<Func<User, bool>>>()));
+            _dataRepository.Verify(v => v.Update(It.IsAny<User>()));
             _dataRepository.Verify(v => v.SaveChangesAsync());
         }
 
@@ -80,12 +80,12 @@ namespace ZomatoDemo.Repository.Test.UserRepositoryTest
                 }
             };
             _dataRepository.Setup(s => s.Where(It.IsAny<Expression<Func<User, bool>>>())).Returns(users.AsQueryable().BuildMock().Object);
-            _dataRepository.Setup(s => s.Remove(It.IsAny<IEnumerable<User>>()));
-            _dataRepository.Setup(s => s.SaveChangesAsync());
+            //_dataRepository.Setup(s => s.Remove(It.IsAny<IEnumerable<User>>()));
+           // _dataRepository.Setup(s => s.SaveChangesAsync());
             
             await _unitOfWorkRepository.User.DeleteUser(userId);
 
-            _dataRepository.Verify(v => v.Remove(It.IsAny<IEnumerable<User>>()));
+            _dataRepository.Verify(v => v.Remove(It.IsAny<User>()), times: Times.Once);
             _dataRepository.Verify(v => v.SaveChangesAsync());
         }
     }
